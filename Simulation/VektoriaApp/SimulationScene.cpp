@@ -36,8 +36,13 @@ void SimulationScene::reset()
 {
 }
 
+void SimulationScene::spawn()
+{
+}
+
 void SimulationScene::activate()
 {
+
 }
 
 Vektoria::CCamera& SimulationScene::getCamera()

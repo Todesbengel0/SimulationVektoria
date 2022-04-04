@@ -2,7 +2,8 @@
 #include "Game.h"
 
 #include "Examples/FallingCubeScene.h"
-#include "Examples/CaveScene.h"
+#include "Scenes/CaveScene.h"
+#include "Scenes/FirstScene.h"
 #include "Examples/EmptyScene.h"
 
 // singleton
@@ -99,6 +100,7 @@ void CGame::initScenes()
 	// ADD NEW SCENES HERE
 	// ...
 	addScene(new CaveScene);
+	addScene(new FirstScene);
 }
 
 void CGame::addScene(SimulationScene* scene)

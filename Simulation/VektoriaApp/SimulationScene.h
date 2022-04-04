@@ -17,6 +17,10 @@ public:
 	/** Reset the scene to its initial state. */
 	virtual void reset();
 
+	/** Spawn placements in scene */
+	virtual void spawn();
+
+	/** Calls this method at the start */
 	virtual void activate();
 
 	Vektoria::CCamera& getCamera();
