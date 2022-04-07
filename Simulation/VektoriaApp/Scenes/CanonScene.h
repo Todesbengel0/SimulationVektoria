@@ -7,7 +7,17 @@
 struct PlacementParticle {
 	Vektoria::CPlacement* placement;
 	Vektoria::CGeo* geo;
+	Vektoria::CMaterial* material;
 	ParticleDan* particle;
+};
+
+struct Canon {
+	Vektoria::CPlacement* placement;
+	Vektoria::CMaterial* material;
+	Vektoria::CGeo* geo;
+	float zRotation;
+	float xRotation;
+	float height;
 };
 
 class CanonScene : public CaveScene
@@ -23,9 +33,6 @@ public:
 protected:
 	std::vector<PlacementParticle*> m_ppBalls;
 	glm::vec3 m_downForce;
-	Vektoria::CPlacement* m_pCanon;
-	Vektoria::CMaterial* m_mCanon;
-	Vektoria::CGeo* m_gCanon;
-	float m_canonHeight;
+	Canon m_canon;
 };
 

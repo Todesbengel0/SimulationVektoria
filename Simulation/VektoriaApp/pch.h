@@ -27,6 +27,7 @@
 #include <vector>
 #include <memory>
 #include <algorithm>
+#include <limits>
 
 // Vektoria
 #ifdef _WIN64

@@ -1,6 +1,11 @@
 #pragma once
 #include "SimulationScene.h"
 
+struct VektoriaObject {
+	Vektoria::CPlacement* placement;
+	Vektoria::CGeo* geo;
+	Vektoria::CMaterial* material;
+};
 
 class CaveScene : public SimulationScene
 {
@@ -14,16 +19,10 @@ public:
 protected:
 	Vektoria::CPlacement* m_pCave;
 
-	Vektoria::CPlacement* m_pFloor;
-	Vektoria::CGeo* m_gFloor;
-	Vektoria::CMaterial* m_mFloor;
-	Vektoria::CPlacement* m_pLeftWall;
-	Vektoria::CGeo* m_gLeftWall;
-	Vektoria::CMaterial* m_mLeftWall;
-	Vektoria::CPlacement* m_pRightWall;
-	Vektoria::CGeo* m_gRightWall;
-	Vektoria::CMaterial* m_mRightWall;
-	Vektoria::CPlacement* m_pBackWall;
-	Vektoria::CGeo* m_gBackWall;
-	Vektoria::CMaterial* m_mBackWall;
+	VektoriaObject m_floor;
+	VektoriaObject m_leftWall;
+	VektoriaObject m_rightWall;
+	VektoriaObject m_backWall;
+	VektoriaObject m_frontWall;
+	VektoriaObject m_ceiling;
 };

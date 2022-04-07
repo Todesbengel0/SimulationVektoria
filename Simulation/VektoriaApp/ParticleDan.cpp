@@ -1,6 +1,5 @@
+#include "pch.h"
 #include "ParticleDan.h"
-#include <stdio.h>
-#include <limits>
 
 ParticleDan::ParticleDan(glm::vec3 position, float damping, float inverseMass)
 {

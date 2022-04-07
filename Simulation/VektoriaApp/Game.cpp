@@ -2,7 +2,7 @@
 #include "Game.h"
 
 #include "Examples/FallingCubeScene.h"
-#include "Scenes/CaveScene.h"
+#include "Scenes/CanonScene.h"
 #include "Scenes/FirstScene.h"
 #include "Examples/EmptyScene.h"
 
@@ -39,7 +39,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), Ve
 	m_zv.AddBackground(&m_zb);
 
 	// Init devices
-	m_zf.AddDeviceKeyboard(&m_zdk);
+	m_zf.AddDeviceKeyboard(&m_keyboard);
 	m_zf.AddDeviceMouse(&m_zdm);
 
 	// Init scenes
@@ -55,7 +55,7 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	if (m_activeScene)
 	{
 		m_activeScene->update(fTimeDelta);
-		if (m_activeScene->getWASDCam()) m_zdk.PlaceWASD(m_activeScene->getCameraPlacement(), fTimeDelta);
+		if (m_activeScene->getWASDCam()) m_keyboard.PlaceWASD(m_activeScene->getCameraPlacement(), fTimeDelta);
 	}
 	handleUserInput();
 
@@ -84,7 +84,7 @@ Vektoria::CRoot& CGame::getRoot()
 
 Vektoria::CDeviceKeyboard& CGame::getKeyboard()
 {
-	return m_zdk;
+	return m_keyboard;
 }
 
 Vektoria::CDeviceMouse& CGame::getMouse()
@@ -99,8 +99,8 @@ void CGame::initScenes()
 
 	// ADD NEW SCENES HERE
 	// ...
-	addScene(new CaveScene);
 	addScene(new FirstScene);
+	addScene(new CanonScene);
 }
 
 void CGame::addScene(SimulationScene* scene)
@@ -139,18 +139,23 @@ void CGame::changeScene(SimulationScene* scene)
 
 void CGame::handleUserInput()
 {
-	if (m_zdk.KeyDown(DIK_1))
+	if (m_keyboard.KeyDown(DIK_1))
 	{
 		prevScene();
 	}
-	else if (m_zdk.KeyDown(DIK_2))
+	else if (m_keyboard.KeyDown(DIK_2))
 	{
 		nextScene();
 	}
 
-	if (m_zdk.KeyDown(DIK_T))
+	if (m_keyboard.KeyDown(DIK_T))
 	{
 		m_activeScene->reset();
+	}
+
+	if (m_keyboard.KeyDown(DIK_B) /*|| m_keyboard.KeyDown(WM_LBUTTONDOWN)*/)
+	{
+		m_activeScene->spawn();
 	}
 }
 

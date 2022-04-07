@@ -50,7 +50,7 @@ private:
 	Vektoria::CBackground m_zb;
 
 	/* Input */
-	Vektoria::CDeviceKeyboard m_zdk;
+	Vektoria::CDeviceKeyboard m_keyboard;
 	Vektoria::CDeviceMouse m_zdm;
 
 	/* Scenes */

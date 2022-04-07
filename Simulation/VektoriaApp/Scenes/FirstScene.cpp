@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "FirstScene.h"
 #include "Vektoria/Placement.h"
 #include "Vektoria/GeoSphere.h"
@@ -10,21 +11,23 @@ FirstScene::FirstScene()
 	m_pSphere1 = new Vektoria::CPlacement();
 	m_pSphere1->SwitchOff();
 	m_pCave->AddPlacement(m_pSphere1);
-	m_pSphere1->TranslateX(4.0f);
+	m_pSphere1->TranslateX(10.0f);
 	m_pSphere1->TranslateYDelta(15.0f);
 	m_pSphere1->TranslateZDelta(-5.0f);
 
 	m_pSphere2 = new Vektoria::CPlacement();
 	m_pSphere2->SwitchOff();
 	m_pCave->AddPlacement(m_pSphere2);
-	m_pSphere2->TranslateX(16.0f);
+	m_pSphere2->TranslateX(20.0f);
 	m_pSphere2->TranslateYDelta(15.0f);
 	m_pSphere2->TranslateZDelta(-5.0f);
 
 	m_mSphere1 = new Vektoria::CMaterial();
 	m_mSphere1->LoadPreset((char*)"PhongGrey");
+	regMaterial(m_mSphere1);
 	m_mSphere2 = new Vektoria::CMaterial();
 	m_mSphere2->LoadPreset((char*)"Sun");
+	regMaterial(m_mSphere2);
 
 	auto sphereGeo1 = new Vektoria::CGeoSphere();
 	sphereGeo1->Init(0.5f, m_mSphere1);

@@ -19,6 +19,9 @@
     <Filter Include="PhysicInterfaces">
       <UniqueIdentifier>{bb5b1075-ce76-448f-a71f-ddbf5b8b2fbe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Examples">
+      <UniqueIdentifier>{216b9462-fbe1-4230-a9ae-4f73a169778d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -39,9 +42,6 @@
     <ClInclude Include="Examples\FallingCubeScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Examples\EmptyScene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicInterfaces\Converter.h">
       <Filter>PhysicInterfaces</Filter>
     </ClInclude>
@@ -60,11 +60,23 @@
     <ClInclude Include="PhysicInterfaces\RigidBodyPlacementWorld.h">
       <Filter>PhysicInterfaces</Filter>
     </ClInclude>
-    <ClInclude Include="DefaultScene.h">
+    <ClInclude Include="ParticleDan.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\CanonScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Examples\CaveScene.h">
+    <ClInclude Include="Scenes\CaveScene.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\FirstScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultScene.h">
+      <Filter>Examples</Filter>
+    </ClInclude>
+    <ClInclude Include="Examples\EmptyScene.h">
+      <Filter>Examples</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -79,9 +91,6 @@
     </ClCompile>
     <ClCompile Include="SimulationScene.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Examples\EmptyScene.cpp">
-      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Examples\FallingCubeScene.cpp">
       <Filter>Scenes</Filter>
@@ -101,11 +110,23 @@
     <ClCompile Include="PhysicInterfaces\RigidBodyPlacementWorld.cpp">
       <Filter>PhysicInterfaces</Filter>
     </ClCompile>
-    <ClCompile Include="DefaultScene.cpp">
+    <ClCompile Include="ParticleDan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\CanonScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Examples\CaveScene.cpp">
+    <ClCompile Include="Scenes\CaveScene.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\FirstScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultScene.cpp">
+      <Filter>Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="Examples\EmptyScene.cpp">
+      <Filter>Examples</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

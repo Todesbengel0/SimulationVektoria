@@ -41,8 +41,8 @@ protected:
 	void regMaterial(Vektoria::CMaterial* pzm);
 
 	// necessary Vektoria scene components
-	Vektoria::CCamera m_zc;
-	Vektoria::CPlacement m_zpCamera;
+	Vektoria::CCamera m_camera;
+	Vektoria::CPlacement m_cameraPlacement;
 
 	PhysicsEngineWrapper m_physicsEngine;
 
