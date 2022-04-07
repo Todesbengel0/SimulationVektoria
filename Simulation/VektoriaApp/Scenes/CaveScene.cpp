@@ -20,7 +20,7 @@ CaveScene::CaveScene()
 	auto floorGeo = new Vektoria::CGeoWall();
 	m_floor.material = new Vektoria::CMaterial();
 	m_floor.material->LoadPreset((char*)"WoodPlanksBankirai");
-	floorGeo->Init(CaveWidth, CaveDepth, WallThickness, m_floor.material);
+	floorGeo->Init(CaveWidth, CaveDepth, WallThickness, m_floor.material, false, false, true, false, true, false);
 	m_floor.placement->AddGeo(floorGeo);
 	m_floor.geo = floorGeo;
 
@@ -30,7 +30,7 @@ CaveScene::CaveScene()
 	auto leftWallGeo = new Vektoria::CGeoWall();
 	m_leftWall.material = new Vektoria::CMaterial();
 	m_leftWall.material->LoadPreset((char*)"WallOldAuerbach");
-	leftWallGeo->Init(CaveDepth, CaveHeight, WallThickness, m_leftWall.material);
+	leftWallGeo->Init(CaveDepth, CaveHeight, WallThickness, m_leftWall.material, true, false, false, false, true, false);
 	m_leftWall.placement->AddGeo(leftWallGeo);
 	m_leftWall.geo = leftWallGeo;
 
@@ -41,7 +41,7 @@ CaveScene::CaveScene()
 	auto rightWallGeo = new Vektoria::CGeoWall();
 	m_rightWall.material = new Vektoria::CMaterial();
 	m_rightWall.material->LoadPreset((char*)"BricksClinkerColored");
-	rightWallGeo->Init(CaveDepth, CaveHeight, WallThickness, m_rightWall.material);
+	rightWallGeo->Init(CaveDepth, CaveHeight, WallThickness, m_rightWall.material, true, false, false, false, false, true);
 	m_rightWall.placement->AddGeo(rightWallGeo);
 	m_rightWall.geo = rightWallGeo;
 
@@ -51,7 +51,7 @@ CaveScene::CaveScene()
 	auto backWallGeo = new Vektoria::CGeoWall();
 	m_backWall.material = new Vektoria::CMaterial();
 	m_backWall.material->LoadPreset((char*)"WallFachwerk");
-	backWallGeo->Init(CaveWidth, CaveHeight, WallThickness, m_backWall.material);
+	backWallGeo->Init(CaveWidth, CaveHeight, WallThickness, m_backWall.material, false, false, false, false, true, false);
 	m_backWall.placement->AddGeo(backWallGeo);
 	m_backWall.geo = backWallGeo;
 
@@ -74,7 +74,7 @@ CaveScene::CaveScene()
 	m_ceiling.material = new Vektoria::CMaterial();
 	m_ceiling.material->LoadPreset((char*)"TilesMarbleWhite");
 
-	ceilingGeo->Init(CaveWidth, CaveDepth, WallThickness, m_ceiling.material);
+	ceilingGeo->Init(CaveWidth, CaveDepth, WallThickness, m_ceiling.material, false, false, true, false, false, true);
 	m_ceiling.placement->AddGeo(ceilingGeo);
 	m_ceiling.geo = ceilingGeo;
 }
