@@ -125,11 +125,7 @@ void CGame::changeScene(SimulationScene* scene)
 
 	if (scene)
 	{
-		// first time init Viewport full, otherwise just change camera
-		if (m_zv.GetCamera())
-			m_zv.SetCamera(&scene->getCamera());
-		else
-			m_zv.InitFull(&scene->getCamera());
+		m_zv.InitFull(&scene->getCamera());
 
 		scene->activate();
 		
