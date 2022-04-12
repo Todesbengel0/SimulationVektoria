@@ -101,12 +101,6 @@ void FirstScene::reset()
 void FirstScene::spawn()
 {
 	m_pSphere1->SwitchOn();
-	m_pSphere1->TranslateX(4.0f);
-	m_pSphere1->TranslateYDelta(15.0f);
-	m_pSphere1->TranslateZDelta(-5.0f);
 	m_pSphere2->SwitchOn();
-	m_pSphere2->TranslateX(16.0f);
-	m_pSphere2->TranslateYDelta(15.0f);
-	m_pSphere2->TranslateZDelta(-5.0f);
 	//reset();
 }

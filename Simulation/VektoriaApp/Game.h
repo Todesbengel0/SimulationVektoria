@@ -51,7 +51,7 @@ private:
 
 	/* Input */
 	Vektoria::CDeviceKeyboard m_keyboard;
-	Vektoria::CDeviceMouse m_zdm;
+	Vektoria::CDeviceMouse m_mouse;
 
 	/* Scenes */
 	SimulationScene* m_activeScene;

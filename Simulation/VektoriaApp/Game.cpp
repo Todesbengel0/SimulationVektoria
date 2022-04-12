@@ -40,7 +40,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), Ve
 
 	// Init devices
 	m_zf.AddDeviceKeyboard(&m_keyboard);
-	m_zf.AddDeviceMouse(&m_zdm);
+	m_zf.AddDeviceMouse(&m_mouse);
 
 	// Init scenes
 	initScenes();
@@ -89,7 +89,7 @@ Vektoria::CDeviceKeyboard& CGame::getKeyboard()
 
 Vektoria::CDeviceMouse& CGame::getMouse()
 {
-	return m_zdm;
+	return m_mouse;
 }
 
 void CGame::initScenes()
@@ -149,7 +149,7 @@ void CGame::handleUserInput()
 		m_activeScene->reset();
 	}
 
-	if (m_keyboard.KeyDown(DIK_B) /*|| m_keyboard.KeyDown(WM_LBUTTONDOWN)*/)
+	if (m_keyboard.KeyDown(DIK_B) || m_mouse.ButtonPressedLeft())
 	{
 		m_activeScene->spawn();
 	}
