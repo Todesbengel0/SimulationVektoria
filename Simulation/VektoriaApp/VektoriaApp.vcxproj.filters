@@ -22,6 +22,9 @@
     <Filter Include="Examples">
       <UniqueIdentifier>{216b9462-fbe1-4230-a9ae-4f73a169778d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="TodesPhysicInterfaces">
+      <UniqueIdentifier>{68481797-8850-4679-8800-652a57e6b785}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -78,6 +81,12 @@
     <ClInclude Include="Examples\EmptyScene.h">
       <Filter>Examples</Filter>
     </ClInclude>
+    <ClInclude Include="PlacementParticle.h">
+      <Filter>TodesPhysicInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="TodesConverter.h">
+      <Filter>TodesPhysicInterfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -127,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="Examples\EmptyScene.cpp">
       <Filter>Examples</Filter>
+    </ClCompile>
+    <ClCompile Include="PlacementParticle.cpp">
+      <Filter>TodesPhysicInterfaces</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

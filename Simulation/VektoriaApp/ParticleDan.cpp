@@ -70,7 +70,7 @@ void ParticleDan::integrate(float duration)
 
 	m_velocity += resultingAcceleration * duration;
 
-	m_velocity *= pow(m_damping, duration);
+	m_velocity *= powf(m_damping, duration);
 
 	clearAccumulator();
 }

@@ -105,11 +105,13 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\TodesEngine\TodesEngine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Rumble3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TodesEngine.lib;Rumble3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\TodesEngine\Build\$(PlatformShortName)\$(Configuration);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -122,11 +124,13 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\TodesEngine\TodesEngine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Rumble3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TodesEngine.lib;Rumble3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\TodesEngine\Build\$(PlatformShortName)\$(Configuration);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -140,13 +144,15 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\TodesEngine\TodesEngine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Rumble3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TodesEngine.lib;Rumble3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\TodesEngine\Build\$(PlatformShortName)\$(Configuration);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -160,13 +166,15 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\TodesEngine\TodesEngine</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>Rumble3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TodesEngine.lib;Rumble3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\TodesEngine\Build\$(PlatformShortName)\$(Configuration);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -182,12 +190,14 @@
     <ClInclude Include="PhysicInterfaces\PhysicsEngineWrapper.h" />
     <ClInclude Include="PhysicInterfaces\RigidBodyPlacement.h" />
     <ClInclude Include="PhysicInterfaces\RigidBodyPlacementWorld.h" />
+    <ClInclude Include="PlacementParticle.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scenes\CanonScene.h" />
     <ClInclude Include="Scenes\CaveScene.h" />
     <ClInclude Include="Scenes\FirstScene.h" />
     <ClInclude Include="SimulationScene.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TodesConverter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultScene.cpp" />
@@ -206,6 +216,7 @@
     <ClCompile Include="PhysicInterfaces\PhysicsEngineWrapper.cpp" />
     <ClCompile Include="PhysicInterfaces\RigidBodyPlacement.cpp" />
     <ClCompile Include="PhysicInterfaces\RigidBodyPlacementWorld.cpp" />
+    <ClCompile Include="PlacementParticle.cpp" />
     <ClCompile Include="Scenes\CanonScene.cpp" />
     <ClCompile Include="Scenes\CaveScene.cpp" />
     <ClCompile Include="Scenes\FirstScene.cpp" />
