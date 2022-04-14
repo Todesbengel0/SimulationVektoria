@@ -1,7 +1,9 @@
 #pragma once
 
-class Particle;
-
+namespace Todes
+{
+	class Particle;
+}
 
 class PlacementParticle
 {
@@ -9,9 +11,9 @@ public:
 	explicit PlacementParticle(Vektoria::CPlacement* placement,
 								Vektoria::CGeo* geo,
 								Vektoria::CMaterial* material,
-								Particle* particle);
+								Todes::Particle* particle);
 	explicit PlacementParticle(Vektoria::CPlacement* placement,
-								Particle* particle);
+								Todes::Particle* particle);
 	explicit PlacementParticle();
 	~PlacementParticle();
 
@@ -21,9 +23,9 @@ public:
 
 public:
 	/** Set the current particle. */
-	void setParticle(Particle* particle);
+	void setParticle(Todes::Particle* particle);
 	/** Get the current particle. */
-	Particle* getParticle() const;
+	Todes::Particle* getParticle() const;
 
 	/** Set the current placement. */
 	void setPlacement(Vektoria::CPlacement* placement);
@@ -44,6 +46,6 @@ private:
 	Vektoria::CPlacement* m_placement;
 	Vektoria::CGeo* m_geo;
 	Vektoria::CMaterial* m_material;
-	Particle* m_particle;
+	Todes::Particle* m_particle;
 };
 

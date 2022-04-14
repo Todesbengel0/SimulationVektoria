@@ -18,6 +18,10 @@
 #include <windows.h>
 
 // Own Engine
+namespace Todes
+{
+	class Vector3D;
+}
 #include "Vector3D.h"
 
 // C Libs

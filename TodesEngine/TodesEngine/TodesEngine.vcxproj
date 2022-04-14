@@ -155,11 +155,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DefaultParticleEngineCI.h" />
+    <ClInclude Include="IComputationInterface.h" />
+    <ClInclude Include="IParticleForceGenerator.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleEngineCI.h" />
+    <ClInclude Include="ParticleForceRegistry.h" />
+    <ClInclude Include="ParticleWorld.h" />
+    <ClInclude Include="PhysicsEngineModule.h" />
     <ClInclude Include="Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DefaultParticleEngineCI.cpp" />
+    <ClCompile Include="IComputationInterface.cpp" />
+    <ClCompile Include="IParticleForceGenerator.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleEngineCI.cpp" />
+    <ClCompile Include="ParticleForceRegistry.cpp" />
+    <ClCompile Include="ParticleWorld.cpp" />
+    <ClCompile Include="PhysicsEngineModule.cpp" />
     <ClCompile Include="Vector3D.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

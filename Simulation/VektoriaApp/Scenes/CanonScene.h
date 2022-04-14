@@ -24,7 +24,7 @@ public:
 
 protected:
 	std::vector<PlacementParticle*> m_ppBalls;
-	Vector3D m_downForce;
+	Todes::Vector3D m_downForce;
 	Canon m_canon;
 };
 

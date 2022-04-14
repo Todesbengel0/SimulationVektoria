@@ -87,6 +87,9 @@
     <ClInclude Include="TodesConverter.h">
       <Filter>TodesPhysicInterfaces</Filter>
     </ClInclude>
+    <ClInclude Include="PlacementParticleWorld.h">
+      <Filter>TodesPhysicInterfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -138,6 +141,9 @@
       <Filter>Examples</Filter>
     </ClCompile>
     <ClCompile Include="PlacementParticle.cpp">
+      <Filter>TodesPhysicInterfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="PlacementParticleWorld.cpp">
       <Filter>TodesPhysicInterfaces</Filter>
     </ClCompile>
   </ItemGroup>

@@ -3,14 +3,14 @@
 #include "TodesConverter.h"
 #include "Particle.h"
 
-PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, Vektoria::CGeo* geo, Vektoria::CMaterial* material, Particle* particle)
+PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, Vektoria::CGeo* geo, Vektoria::CMaterial* material, Todes::Particle* particle)
 	: m_placement(placement),
 	m_geo(geo),
 	m_material(material),
 	m_particle(particle)
 { }
 
-PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, Particle* particle)
+PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, Todes::Particle* particle)
 	: m_placement(placement),
 	m_geo(nullptr),
 	m_material(nullptr),
@@ -35,12 +35,12 @@ void PlacementParticle::update() const
 	m_placement->Translate(pos);
 }
 
-void PlacementParticle::setParticle(Particle* particle)
+void PlacementParticle::setParticle(Todes::Particle* particle)
 {
 	m_particle = particle;
 }
 
-Particle* PlacementParticle::getParticle() const
+Todes::Particle* PlacementParticle::getParticle() const
 {
 	return m_particle;
 }

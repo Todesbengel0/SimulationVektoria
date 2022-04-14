@@ -15,12 +15,12 @@ public:
 private:
 	Vektoria::CPlacement* m_pSphere1;
 	Vektoria::CPlacement* m_pSphere2;
-	Particle* m_particle1;
-	Particle* m_particle2;
+	Todes::Particle* m_particle1;
+	Todes::Particle* m_particle2;
 	Vektoria::CMaterial* m_mSphere1;
 	Vektoria::CMaterial* m_mSphere2;
 	Vektoria::CGeo* m_gSphere1;
 	Vektoria::CGeo* m_gSphere2;
 
-	Vector3D m_downForce;
+	Todes::Vector3D m_downForce;
 };

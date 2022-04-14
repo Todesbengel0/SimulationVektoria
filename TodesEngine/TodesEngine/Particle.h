@@ -1,36 +1,38 @@
 #pragma once
 #include "Vector3D.h"
 
-class Particle
+namespace Todes
 {
-public:
-	Particle();
-	Particle(const Vector3D& position, const float& damping, const float& inverseMass);
+	class Particle
+	{
+	public:
+		Particle();
+		Particle(const Vector3D& position, const float& damping, const float& inverseMass);
 
-public:
-	void setMass(const float& mass);
-	void setInverseMass(const float& inverseMass);
-	void sendDeath(const bool& isDead = true);
-	const float& getMass() const;
-	const bool& isDead() const;
-	const Vector3D& getPosition() const;
+	public:
+		void setMass(const float& mass);
+		void setInverseMass(const float& inverseMass);
+		void sendDeath(const bool& isDead = true);
+		const float& getMass() const;
+		const bool& isDead() const;
+		const Vector3D& getPosition() const;
 
-	void clearAccumulator();
-	void addForce(const Vector3D& force);
+		void clearAccumulator();
+		void addForce(const Vector3D& force);
 
-	virtual void integrate(float duration);
-	void reset();
+		virtual void integrate(float duration);
+		void reset();
 
-protected:
-	Vector3D m_position;
-	Vector3D m_initialPosition;
-	Vector3D m_velocity;
-	Vector3D m_acceleration;
+	protected:
+		Vector3D m_position;
+		Vector3D m_initialPosition;
+		Vector3D m_velocity;
+		Vector3D m_acceleration;
 
-	Vector3D m_forceAccumulator;
-	float m_damping;
-	float m_inverseMass;
+		Vector3D m_forceAccumulator;
+		float m_damping;
+		float m_inverseMass;
 
-	bool m_isDead;
-};
-
+		bool m_isDead;
+	};
+}

@@ -1,8 +1,8 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(498,5): warning MSB8004: Das Intermediate-Verzeichnis endet nicht mit einem nachstehenden Schrägstrich. Der Schrägstrich wird in dieser Buildinstanz hinzugefügt, da er für die ordnungsgemäße Auswertung des Intermediate-Verzeichnisses erforderlich ist.
 C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(499,5): warning MSB8004: Das Output-Verzeichnis endet nicht mit einem nachstehenden Schrägstrich. Der Schrägstrich wird in dieser Buildinstanz hinzugefügt, da er für die ordnungsgemäße Auswertung des Output-Verzeichnisses erforderlich ist.
+  DefaultParticleEngineCI.cpp
   Particle.cpp
-  Vector3D.cpp
   Code wird generiert...
-C:\Users\dan\Documents\SimulationVektoria\TodesEngine\TodesEngine\Particle.cpp(36): warning C4172: Adresse einer lokalen Variablen oder eines temporären Werts "" wird zurückgegeben
-C:\Users\dan\Documents\SimulationVektoria\TodesEngine\TodesEngine\Particle.cpp(37): warning C4172: Adresse einer lokalen Variablen oder eines temporären Werts "" wird zurückgegeben
+C:\Users\dan\Documents\SimulationVektoria\TodesEngine\TodesEngine\Particle.cpp(38): warning C4172: Adresse einer lokalen Variablen oder eines temporären Werts "" wird zurückgegeben
+C:\Users\dan\Documents\SimulationVektoria\TodesEngine\TodesEngine\Particle.cpp(39): warning C4172: Adresse einer lokalen Variablen oder eines temporären Werts "" wird zurückgegeben
   TodesEngine.vcxproj -> C:\Users\dan\Documents\SimulationVektoria\TodesEngine\Build\x64\Debug\TodesEngine.lib

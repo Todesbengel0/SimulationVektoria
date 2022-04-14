@@ -191,6 +191,7 @@
     <ClInclude Include="PhysicInterfaces\RigidBodyPlacement.h" />
     <ClInclude Include="PhysicInterfaces\RigidBodyPlacementWorld.h" />
     <ClInclude Include="PlacementParticle.h" />
+    <ClInclude Include="PlacementParticleWorld.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scenes\CanonScene.h" />
     <ClInclude Include="Scenes\CaveScene.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="PhysicInterfaces\RigidBodyPlacement.cpp" />
     <ClCompile Include="PhysicInterfaces\RigidBodyPlacementWorld.cpp" />
     <ClCompile Include="PlacementParticle.cpp" />
+    <ClCompile Include="PlacementParticleWorld.cpp" />
     <ClCompile Include="Scenes\CanonScene.cpp" />
     <ClCompile Include="Scenes\CaveScene.cpp" />
     <ClCompile Include="Scenes\FirstScene.cpp" />

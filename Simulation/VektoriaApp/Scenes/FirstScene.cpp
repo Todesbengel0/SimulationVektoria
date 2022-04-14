@@ -38,11 +38,11 @@ FirstScene::FirstScene()
 	m_pSphere2->AddGeo(sphereGeo2);
 	m_gSphere2 = sphereGeo2;
 
-	m_particle1 = new Particle(Vector3D(m_pSphere1->GetPos().x, m_pSphere1->GetPos().y, m_pSphere1->GetPos().z), 0.999f, 1.0f);
-	m_particle2 = new Particle(Vector3D(m_pSphere2->GetPos().x, m_pSphere2->GetPos().y, m_pSphere2->GetPos().z), 0.999f, 0.1f);
+	m_particle1 = new Todes::Particle(Todes::Vector3D(m_pSphere1->GetPos().x, m_pSphere1->GetPos().y, m_pSphere1->GetPos().z), 0.999f, 1.0f);
+	m_particle2 = new Todes::Particle(Todes::Vector3D(m_pSphere2->GetPos().x, m_pSphere2->GetPos().y, m_pSphere2->GetPos().z), 0.999f, 0.1f);
 
 
-	m_downForce = Vector3D(0.0f, -9.807f, 0.0f);
+	m_downForce = Todes::Vector3D(0.0f, -9.807f, 0.0f);
 }
 
 FirstScene::~FirstScene()

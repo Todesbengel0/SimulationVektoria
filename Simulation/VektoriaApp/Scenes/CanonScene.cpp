@@ -7,7 +7,7 @@
 
 CanonScene::CanonScene()
 {
-	m_downForce = Vector3D(0.0f, -9.807f, 0.0f);
+	m_downForce = Todes::Vector3D(0.0f, -9.807f, 0.0f);
 
 	m_canon.placement = new Vektoria::CPlacement();
 	m_pCave->AddPlacement(m_canon.placement);
@@ -106,12 +106,12 @@ void CanonScene::spawn()
 	pp->getPlacement()->TranslateDelta(canonDirection);
 	
 	// Get Particle Position (Vector3D) and Initilize Particle
-	pp->setParticle(new Particle(convertVector(pp->getPlacement()->GetPos()), 0.999f, 1.0f));
+	pp->setParticle(new Todes::Particle(convertVector(pp->getPlacement()->GetPos()), 0.999f, 1.0f));
 
 	// Create Muzzle Force
 	float muzzleVelocity = 20.0f;
-	Vector3D shootDirection(convertVector(canonDirection));
-	Vector3D muzzleForce = shootDirection * (muzzleVelocity / shootDirection.Length());
+	Todes::Vector3D shootDirection(convertVector(canonDirection));
+	Todes::Vector3D muzzleForce = shootDirection * (muzzleVelocity / shootDirection.Length());
 	
 	// Add Muzzle Force
 	pp->getParticle()->addForce(muzzleForce);

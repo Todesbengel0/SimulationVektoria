@@ -13,21 +13,81 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ParticleEngine">
+      <UniqueIdentifier>{57d31216-6ab2-4eca-a504-9807a115a14c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParticleEngine\Headerdateien">
+      <UniqueIdentifier>{d26c435e-5c1d-4190-8214-03aa692e970c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParticleEngine\Quelldateien">
+      <UniqueIdentifier>{9fb50a7e-a927-4ece-8f7b-b593f865ef22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParticleForces">
+      <UniqueIdentifier>{83b4ceb2-c635-47e9-8fe4-b15752ee57ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParticleForces\Headerdateien">
+      <UniqueIdentifier>{7105edf8-5369-451e-a558-7c3094bf438a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParticleForces\Quelldateien">
+      <UniqueIdentifier>{6d312395-9659-4a49-b79e-64d650f7837f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vector3D.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Particle.h">
+    <ClInclude Include="IComputationInterface.h">
       <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsEngineModule.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultParticleEngineCI.h">
+      <Filter>ParticleEngine\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>ParticleEngine\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleEngineCI.h">
+      <Filter>ParticleEngine\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleWorld.h">
+      <Filter>ParticleEngine\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleForceRegistry.h">
+      <Filter>ParticleForces\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="IParticleForceGenerator.h">
+      <Filter>ParticleForces\Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector3D.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Particle.cpp">
+    <ClCompile Include="IComputationInterface.cpp">
       <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsEngineModule.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="DefaultParticleEngineCI.cpp">
+      <Filter>ParticleEngine\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>ParticleEngine\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleEngineCI.cpp">
+      <Filter>ParticleEngine\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleWorld.cpp">
+      <Filter>ParticleEngine\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleForceRegistry.cpp">
+      <Filter>ParticleForces\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="IParticleForceGenerator.cpp">
+      <Filter>ParticleForces\Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
