@@ -17,6 +17,9 @@
 #define DIRECTINPUT_VERSION 0x0800
 #include <windows.h>
 
+// Own Engine
+#include "Vector3D.h"
+
 // C Libs
 #include <cassert>
 
