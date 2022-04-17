@@ -14,12 +14,30 @@ public:
 								Todes::Particle* particle);
 	explicit PlacementParticle(Vektoria::CPlacement* placement,
 								Todes::Particle* particle);
+	explicit PlacementParticle(Vektoria::CPlacement* placement,
+								Vektoria::CGeo* geo,
+								Vektoria::CMaterial* material,
+								const float& particleDamping,
+								const float& inverseParticleMass);
+	explicit PlacementParticle(Vektoria::CPlacement* placement,
+								const float& particleDamping,
+								const float& inverseParticleMass);
+
 	explicit PlacementParticle();
 	~PlacementParticle();
 
 public:
 	/** Update the scene graph node with the associated particle node. */
 	void update() const;
+
+	// Resets the Placement Particle to the start condition
+	void reset() const;
+
+	// Kills the Placement Particle
+	void kill() const;
+
+	// Revives Placement Particles
+	void revive() const;
 
 public:
 	/** Set the current particle. */

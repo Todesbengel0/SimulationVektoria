@@ -60,6 +60,9 @@
     <ClInclude Include="IParticleForceGenerator.h">
       <Filter>ParticleForces\Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleGravityForce.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector3D.cpp">
@@ -88,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="IParticleForceGenerator.cpp">
       <Filter>ParticleForces\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleGravityForce.cpp">
+      <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

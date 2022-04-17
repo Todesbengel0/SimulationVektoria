@@ -34,7 +34,7 @@ namespace Todes
 
 	const float& Particle::getMass() const
 	{
-		if (m_inverseMass == 0)
+		if (m_inverseMass < FINITE_INVERSE_MASS)
 			return std::numeric_limits<float>::max();
 		return 1.0f / m_inverseMass;
 	}
@@ -42,6 +42,11 @@ namespace Todes
 	const bool& Particle::isDead() const
 	{
 		return m_isDead;
+	}
+
+	const bool Particle::hasFiniteMass() const
+	{
+		return m_inverseMass >= FINITE_INVERSE_MASS;
 	}
 
 	const Vector3D& Particle::getPosition() const
@@ -61,7 +66,7 @@ namespace Todes
 
 	void Particle::integrate(float duration)
 	{
-		if (m_isDead || m_inverseMass <= 0) return;
+		if (m_isDead || m_inverseMass < FINITE_INVERSE_MASS) return;
 
 		m_position += m_velocity * duration;
 

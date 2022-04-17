@@ -8,7 +8,9 @@ PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, Vektoria::
 	m_geo(geo),
 	m_material(material),
 	m_particle(particle)
-{ }
+{
+	m_placement->AddGeo(m_geo);
+}
 
 PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, Todes::Particle* particle)
 	: m_placement(placement),
@@ -22,9 +24,23 @@ PlacementParticle::PlacementParticle()
 	m_geo(nullptr),
 	m_material(nullptr),
 	m_particle(nullptr)
-{
+{ }
 
+PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, Vektoria::CGeo* geo, Vektoria::CMaterial* material, const float& particleDamping, const float& inverseParticleMass)
+	: m_placement(placement),
+	m_geo(geo),
+	m_material(material),
+	m_particle(new Todes::Particle(convertVector(m_placement->GetPos()), 0.999f, 1.0f))
+{
+	m_placement->AddGeo(m_geo);
 }
+
+PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, const float& particleDamping, const float& inverseParticleMass)
+	: m_placement(placement),
+	m_geo(nullptr),
+	m_material(nullptr),
+	m_particle(new Todes::Particle(convertVector(m_placement->GetPos()), 0.999f, 1.0f))
+{ }
 
 PlacementParticle::~PlacementParticle()
 = default;
@@ -33,6 +49,24 @@ void PlacementParticle::update() const
 {
 	auto pos = convertVector(m_particle->getPosition());
 	m_placement->Translate(pos);
+}
+
+void PlacementParticle::reset() const
+{
+	m_particle->reset();
+	update();
+}
+
+void PlacementParticle::kill() const
+{
+	m_particle->sendDeath();
+	m_placement->SwitchOff();
+}
+
+void PlacementParticle::revive() const
+{
+	m_particle->sendDeath(false);
+	m_placement->SwitchOn();
 }
 
 void PlacementParticle::setParticle(Todes::Particle* particle)

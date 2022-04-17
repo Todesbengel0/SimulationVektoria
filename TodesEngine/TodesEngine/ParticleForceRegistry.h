@@ -36,6 +36,13 @@ namespace Todes
 		void add(Particle* particle, IParticleForceGenerator* generator);
 
 		/// <summary>
+		/// Register force generators with a particle they act on.
+		/// </summary>
+		/// <param name="particle">The particle, which will receive forces.</param>
+		/// <param name="generator">The force generators, which will act forces on the particle.</param>
+		void add(Particle* particle, std::initializer_list<IParticleForceGenerator*> generators);
+
+		/// <summary>
 		/// Remove an existing entry.
 		/// </summary>
 		/// <param name="particle">The particle stored in the entry.</param>

@@ -5,6 +5,7 @@
 #include "Particle.h"
 #include "DefaultParticleEngineCI.h"
 #include "PlacementParticle.h"
+#include "ForceDefines.h"
 
 #pragma region Constructor & Destructor
 PlacementParticleWorld::PlacementParticleWorld()
@@ -43,6 +44,24 @@ void PlacementParticleWorld::addPlacementParticle(PlacementParticle* placement)
 	m_world->addParticle(placement->getParticle());
 }
 
+void PlacementParticleWorld::addPlacementParticle(PlacementParticle* placement, ForceGeneratorList generators)
+{
+	addPlacementParticle(placement);
+	m_world->getParticleForceRegistry().add(placement->getParticle(), generators);
+}
+
+bool PlacementParticleWorld::addForces(PlacementParticle* placement, ForceGeneratorList generators)
+{
+	bool isRegistered = std::count(m_placementParticles.begin(), m_placementParticles.end(), placement) > 0;
+	
+	if (!isRegistered)
+		return false;
+
+	m_world->getParticleForceRegistry().add(placement->getParticle(), generators);
+
+	return true;
+}
+
 bool PlacementParticleWorld::removePlacementParticle(PlacementParticle* placement)
 {
 	const auto removablePlacement = std::remove(m_placementParticles.begin(),
@@ -66,8 +85,33 @@ void PlacementParticleWorld::clear()
 }
 #pragma endregion
 
-void PlacementParticleWorld::update()
+void PlacementParticleWorld::update(float timeDelta)
 {
+	// Updates the Forces of the Particles
+	m_world->getParticleForceRegistry().updateForces();
+
+	// Integrates the Particles
+	m_world->getComputationInterface()->integrate(timeDelta);
+
+	// Translates the Placements
 	for (auto& placementParticle : m_placementParticles)
 		placementParticle->update();
+}
+
+void PlacementParticleWorld::reset()const 
+{
+	for (auto& placementParticle : m_placementParticles)
+		placementParticle->reset();
+}
+
+void PlacementParticleWorld::kill() const
+{
+	for (auto& placementParticle : m_placementParticles)
+		placementParticle->kill();
+}
+
+void PlacementParticleWorld::revive() const
+{
+	for (auto& placementParticle : m_placementParticles)
+		placementParticle->revive();
 }

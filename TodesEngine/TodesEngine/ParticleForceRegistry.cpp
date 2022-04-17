@@ -19,6 +19,15 @@ namespace Todes
 		m_registrations.push_back(ParticleForceRegistrationEntry{ particle, generator });
 	}
 
+	void ParticleForceRegistry::add(Particle* particle, std::initializer_list<IParticleForceGenerator*> generators)
+	{
+		std::for_each(generators.begin(), generators.end(),
+			[&](IParticleForceGenerator* generator)
+			{
+				m_registrations.push_back(ParticleForceRegistrationEntry{ particle, generator });
+			});
+	}
+
 	bool ParticleForceRegistry::remove(Particle* particle, IParticleForceGenerator* generator)
 	{
 		const auto removableItem = std::remove_if(m_registrations.begin(), m_registrations.end(),

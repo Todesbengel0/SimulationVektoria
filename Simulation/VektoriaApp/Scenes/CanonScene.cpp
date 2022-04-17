@@ -4,10 +4,15 @@
 #include "Vektoria/GeoCylinder.h"
 #include "Scenes/CanonScene.h"
 #include "TodesConverter.h"
+#include "PlacementParticle.h"
+#include "PlacementParticleWorld.h"
+#include "Particle.h"
 
 CanonScene::CanonScene()
+	: m_particleWorld(new PlacementParticleWorld),
+	m_gravity(new Gravity(convertVector(Vektoria::CHVector(0.0f, -9.807f, 0.0f))))
 {
-	m_downForce = Todes::Vector3D(0.0f, -9.807f, 0.0f);
+//	m_downForce = Todes::Vector3D(0.0f, -9.807f, 0.0f);
 
 	m_canon.placement = new Vektoria::CPlacement();
 	m_pCave->AddPlacement(m_canon.placement);
@@ -28,70 +33,82 @@ CanonScene::CanonScene()
 
 CanonScene::~CanonScene()
 {
-	for (auto& pp : m_ppBalls)
-	{
-		if (pp->getParticle())
-			delete pp->getParticle();
-		if (pp->getPlacement())
-			delete pp->getPlacement();
-		delete pp;
-	}
+// 	for (auto& pp : m_ppBalls)
+// 	{
+// 		if (pp->getParticle())
+// 			delete pp->getParticle();
+// 		if (pp->getPlacement())
+// 			delete pp->getPlacement();
+// 		delete pp;
+// 	}
 }
 
 void CanonScene::update(float timeDelta)
 {
 	__super::update(timeDelta);
-	for (auto pp : m_ppBalls)
-	{
-		if (!pp->getParticle() || !pp->getPlacement())
-			continue;
-		if (pp->getParticle()->isDead())
-			continue;
-		auto force = pp->getParticle()->getMass() * m_downForce;
-		pp->getParticle()->addForce(force);
-		pp->getParticle()->integrate(timeDelta);
-		auto position = pp->getParticle()->getPosition();
-		auto vekvec = Vektoria::CHVector(position.x(), position.y(), position.z());
-		pp->getPlacement()->Translate(vekvec);
-	}
+// 	for (auto pp : m_ppBalls)
+// 	{
+// 		if (!pp->getParticle() || !pp->getPlacement())
+// 			continue;
+// 		if (pp->getParticle()->isDead())
+// 			continue;
+// 		auto force = pp->getParticle()->getMass() * m_downForce;
+// 		pp->getParticle()->addForce(force);
+// 		pp->getParticle()->integrate(timeDelta);
+// 		auto position = pp->getParticle()->getPosition();
+// 		auto vekvec = Vektoria::CHVector(position.x(), position.y(), position.z());
+// 		pp->getPlacement()->Translate(vekvec);
+// 	}
+
+	m_particleWorld->update(timeDelta);
 }
 
 void CanonScene::reset()
 {
-	for (auto pp : m_ppBalls)
-	{
-		if (!pp->getParticle() || !pp->getPlacement())
-			continue;
-		if (pp->getParticle()->isDead())
-			continue;
-		pp->getParticle()->sendDeath();
-		pp->getPlacement()->SwitchOff();
-	}
+// 	for (auto pp : m_ppBalls)
+// 	{
+// 		if (!pp->getParticle() || !pp->getPlacement())
+// 			continue;
+// 		if (pp->getParticle()->isDead())
+// 			continue;
+// 		pp->getParticle()->sendDeath();
+// 		pp->getPlacement()->SwitchOff();
+// 	}
+
+	m_particleWorld->kill();
+	m_particleWorld->clear();
 }
 
 void CanonScene::spawn()
 {
 	// new Ball
-	m_ppBalls.push_back(new PlacementParticle);
-	auto pp = m_ppBalls.back();
+// 	m_ppBalls.push_back(new PlacementParticle);
+// 	auto pp = m_ppBalls.back();
+	
 
 	// Initilize Placement
-	pp->setPlacement(new Vektoria::CPlacement());
-	m_pCave->AddPlacement(pp->getPlacement());
+// 	pp->setPlacement(new Vektoria::CPlacement());
+// 	m_pCave->AddPlacement(pp->getPlacement());
+	auto placementBall = new Vektoria::CPlacement();
+	m_pCave->AddPlacement(placementBall);
 
 	// Translate to Canon Base
 	auto cp = m_canon.placement->GetPos();
-	pp->getPlacement()->TranslateDelta(cp);
+	//pp->getPlacement()->TranslateDelta(cp);
+	placementBall->TranslateDelta(cp);
 
 	// Initilize Geo and Material
-	auto gBall = new Vektoria::CGeoSphere();
-	pp->setMaterial(new Vektoria::CMaterial());
-	pp->getMaterial()->LoadPreset((char*)"MarbleWhite");
-	regMaterial(pp->getMaterial());
-	gBall->Init(1.0f, pp->getMaterial());
-	pp->getPlacement()->AddGeo(gBall);
-	pp->setGeo(gBall);
-
+	auto geoBall = new Vektoria::CGeoSphere();
+	auto materialBall = new Vektoria::CMaterial();
+// 	pp->setMaterial(new Vektoria::CMaterial());
+// 	pp->getMaterial()->LoadPreset((char*)"MarbleWhite");
+// 	regMaterial(pp->getMaterial());
+// 	geoBall->Init(1.0f, pp->getMaterial());
+// 	pp->getPlacement()->AddGeo(geoBall);
+// 	pp->setGeo(geoBall);
+	materialBall->LoadPreset((char*)"MarbleWhite");
+	regMaterial(materialBall);
+	geoBall->Init(1.0f, materialBall);
 	
 	// Get Canon Direction
 	Vektoria::CHMat rotX;
@@ -103,10 +120,14 @@ void CanonScene::spawn()
 	auto canonDirection = rotX * rotZ * Vektoria::CHVector(0.0f, m_canon.height * 0.5f, 0.0f);
 
 	// Translate Ball to Muzzle
-	pp->getPlacement()->TranslateDelta(canonDirection);
+//	pp->getPlacement()->TranslateDelta(canonDirection);
+	placementBall->TranslateDelta(canonDirection);
 	
 	// Get Particle Position (Vector3D) and Initilize Particle
-	pp->setParticle(new Todes::Particle(convertVector(pp->getPlacement()->GetPos()), 0.999f, 1.0f));
+//	pp->setParticle(new Todes::Particle(convertVector(pp->getPlacement()->GetPos()), 0.999f, 1.0f));
+	auto ball = new PlacementParticle(placementBall, geoBall, materialBall, 0.999f, 1.0f);
+	m_particleWorld->addPlacementParticle(ball, { m_gravity });
+
 
 	// Create Muzzle Force
 	float muzzleVelocity = 20.0f;
@@ -114,9 +135,13 @@ void CanonScene::spawn()
 	Todes::Vector3D muzzleForce = shootDirection * (muzzleVelocity / shootDirection.Length());
 	
 	// Add Muzzle Force
-	pp->getParticle()->addForce(muzzleForce);
-	// Integrate once
-	pp->getParticle()->integrate(1.0f);
-	auto vekvec = Vektoria::CHVector(convertVector(pp->getParticle()->getPosition()));
-	pp->getPlacement()->Translate(vekvec);
+// 	pp->getParticle()->addForce(muzzleForce);
+	ball->getParticle()->addForce(muzzleForce);
+
+ 	// Integrate once
+// 	pp->getParticle()->integrate(1.0f);
+// 	auto vekvec = Vektoria::CHVector(convertVector(pp->getParticle()->getPosition()));
+// 	pp->getPlacement()->Translate(vekvec);
+	ball->getParticle()->integrate(1.0f);
+	ball->update();
 }

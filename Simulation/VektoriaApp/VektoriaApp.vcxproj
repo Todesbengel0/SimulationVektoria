@@ -181,6 +181,7 @@
     <ClInclude Include="DefaultScene.h" />
     <ClInclude Include="Examples\EmptyScene.h" />
     <ClInclude Include="Examples\FallingCubeScene.h" />
+    <ClInclude Include="ForceDefines.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="ParticleDan.h" />
     <ClInclude Include="pch.h" />

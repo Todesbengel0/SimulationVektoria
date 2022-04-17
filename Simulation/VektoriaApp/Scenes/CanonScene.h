@@ -1,7 +1,9 @@
 #pragma once
 #include "CaveScene.h"
-#include "Particle.h"
-#include "PlacementParticle.h"
+#include "ForceDefines.h"
+
+class PlacementParticle;
+class PlacementParticleWorld;
 
 struct Canon {
 	Vektoria::CPlacement* placement;
@@ -23,8 +25,10 @@ public:
 	void spawn() override;
 
 protected:
-	std::vector<PlacementParticle*> m_ppBalls;
-	Todes::Vector3D m_downForce;
+	//std::vector<PlacementParticle*> m_ppBalls;
+	PlacementParticleWorld* m_particleWorld;
+//	Todes::Vector3D m_downForce;
 	Canon m_canon;
+	Gravity* m_gravity;
 };
 

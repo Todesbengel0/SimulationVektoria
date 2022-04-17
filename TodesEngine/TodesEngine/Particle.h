@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector3D.h"
+#define FINITE_INVERSE_MASS 0.001f
 
 namespace Todes
 {
@@ -15,6 +16,7 @@ namespace Todes
 		void sendDeath(const bool& isDead = true);
 		const float& getMass() const;
 		const bool& isDead() const;
+		const bool hasFiniteMass() const;
 		const Vector3D& getPosition() const;
 
 		void clearAccumulator();

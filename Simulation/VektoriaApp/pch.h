@@ -35,6 +35,7 @@ namespace Todes
 #include <memory>
 #include <algorithm>
 #include <limits>
+#include <initializer_list>
 
 // Vektoria
 #ifdef _WIN64
