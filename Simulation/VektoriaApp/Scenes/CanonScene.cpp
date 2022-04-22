@@ -29,6 +29,13 @@ CanonScene::CanonScene()
 	canonGeo->Init(2.5f, 1.5f, m_canon.height = 5.0f, m_canon.material);
 	m_canon.placement->AddGeo(canonGeo);
 	m_canon.geo = canonGeo;
+
+	// Initialize Geo and Material
+	m_geoBall = new Vektoria::CGeoSphere();
+	m_materialBall = new Vektoria::CMaterial();
+	m_materialBall->LoadPreset((char*)"MarbleWhite");
+	regMaterial(m_materialBall);
+	m_geoBall->Init(1.0f, m_materialBall);
 }
 
 CanonScene::~CanonScene()
@@ -86,7 +93,7 @@ void CanonScene::spawn()
 // 	auto pp = m_ppBalls.back();
 	
 
-	// Initilize Placement
+	// Initialize Placement
 // 	pp->setPlacement(new Vektoria::CPlacement());
 // 	m_pCave->AddPlacement(pp->getPlacement());
 	auto placementBall = new Vektoria::CPlacement();
@@ -96,19 +103,6 @@ void CanonScene::spawn()
 	auto cp = m_canon.placement->GetPos();
 	//pp->getPlacement()->TranslateDelta(cp);
 	placementBall->TranslateDelta(cp);
-
-	// Initilize Geo and Material
-	auto geoBall = new Vektoria::CGeoSphere();
-	auto materialBall = new Vektoria::CMaterial();
-// 	pp->setMaterial(new Vektoria::CMaterial());
-// 	pp->getMaterial()->LoadPreset((char*)"MarbleWhite");
-// 	regMaterial(pp->getMaterial());
-// 	geoBall->Init(1.0f, pp->getMaterial());
-// 	pp->getPlacement()->AddGeo(geoBall);
-// 	pp->setGeo(geoBall);
-	materialBall->LoadPreset((char*)"MarbleWhite");
-	regMaterial(materialBall);
-	geoBall->Init(1.0f, materialBall);
 	
 	// Get Canon Direction
 	Vektoria::CHMat rotX;
@@ -123,9 +117,9 @@ void CanonScene::spawn()
 //	pp->getPlacement()->TranslateDelta(canonDirection);
 	placementBall->TranslateDelta(canonDirection);
 	
-	// Get Particle Position (Vector3D) and Initilize Particle
+	// Get Particle Position (Vector3D) and Initialize Particle
 //	pp->setParticle(new Todes::Particle(convertVector(pp->getPlacement()->GetPos()), 0.999f, 1.0f));
-	auto ball = new PlacementParticle(placementBall, geoBall, materialBall, 0.999f, 1.0f);
+	auto ball = new PlacementParticle(placementBall, m_geoBall, m_materialBall, 0.999f, 1.0f);
 	m_particleWorld->addPlacementParticle(ball, { m_gravity });
 
 
