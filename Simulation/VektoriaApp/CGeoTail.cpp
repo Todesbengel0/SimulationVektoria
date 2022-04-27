@@ -2,7 +2,7 @@
 #include "CGeoTail.h"
 namespace Vektoria
 {
-	CGeoTail::CGeoTail(CMaterial& zm)
+	CGeoTail::CGeoTail(CMaterial* zm)
 	{
 		m_vertexStart.Init(
 			CHVector(0.0f, 0.0f, 0.0f, 1.0f),
@@ -21,6 +21,6 @@ namespace Vektoria
 		AddVertex(&m_vertexStart);
 		AddVertex(&m_vertexEnd);
 		Init();
-		SetMaterial(&zm);
+		SetMaterial(zm);
 	}
 }
