@@ -43,6 +43,7 @@ protected:
 	float m_age;
 	const std::size_t m_number_of_iterations;
 	const PayloadBounds m_payloadBounds;
+	Todes::Vector3D m_prevPosition;
 	FireworkScene& m_scene;
 };
 

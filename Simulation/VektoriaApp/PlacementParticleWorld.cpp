@@ -95,8 +95,7 @@ void PlacementParticleWorld::update(float timeDelta)
 
 	// Translates the Placements
 	for (std::size_t i = 0; i < m_placementParticles.size(); ++i)
-		if (!m_placementParticles[i]->getParticle()->isDead())
-			m_placementParticles[i]->update(timeDelta);
+		m_placementParticles[i]->update(timeDelta);
 
 // 	for (auto placementParticle : m_placementParticles)
 // 		placementParticle->update(timeDelta);

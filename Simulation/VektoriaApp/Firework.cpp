@@ -8,7 +8,7 @@
 
 Firework::Firework(FireworkScene& scene, Vektoria::CPlacement* placement, Vektoria::CGeoSphere* geo, Vektoria::CMaterial* material, const std::size_t& number_of_iterations, const PayloadBounds& bounds)
 	: PlacementParticle(placement, geo, material, 0.999f, 1.0f / bounds.massMax),
-	m_scene(scene),
+	m_scene(scene), m_prevPosition(m_particle->getPosition()),
 	m_age(0), m_number_of_iterations(number_of_iterations), m_payloadBounds(bounds)
 {
 	m_placement->AddGeo(m_geo);
@@ -16,15 +16,35 @@ Firework::Firework(FireworkScene& scene, Vektoria::CPlacement* placement, Vektor
 
 void Firework::update(const float& timeDelta)
 {
+	if (m_particle->isDead())
+		return;
+
 	m_age += timeDelta;
-	
-	if (m_age <= m_payloadBounds.ageMax)
+
+	if (m_age > m_payloadBounds.ageMax)
 	{
-		PlacementParticle::update();
+		kill();
 		return;
 	}
 
-	kill();
+	PlacementParticle::update();
+
+	auto tail = m_scene.m_tails.m_applacement[m_scene.getCurrentTail()];
+	tail->SwitchOn();
+
+	auto currPosition = m_particle->getPosition();
+
+	auto posDif = (m_prevPosition - currPosition).Length();
+
+	// Rotate Delta From To Version new ? 
+	Vektoria::CHMat rotMat;
+	rotMat.Scale(posDif);
+	rotMat.RotateDelta(convertVector(m_prevPosition), convertVector(currPosition));
+	rotMat.TranslateDelta(convertVector(currPosition));
+
+	tail->SetMat(rotMat);
+
+	m_prevPosition = currPosition;
 }
 
 void Firework::update() const
@@ -55,6 +75,8 @@ void Firework::kill() const
 	Gravity* gravity = new Gravity(Todes::Vector3D(0.0f, -9.807f, 0.0f));
 	auto geo = new Vektoria::CGeoSphere();
 	geo->Init(sizeMax, m_material);
+
+	m_material->RotateHue(UM_DEG2RAD(Todes::Random::Float(0.0f, 360.0f)));
 
 	for (std::size_t i = 0; i < m_payloadBounds.countMax; ++i)
 	{

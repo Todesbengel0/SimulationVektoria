@@ -31,10 +31,11 @@ namespace Todes
 	{
 		assert(min <= max);
 
-		if (min == max)
+		auto dif = max - min;
+		if (dif == 0)
 			return min;
 
-		return rand() % (max - min) + min;
+		return rand() % dif + min;
 	}
 
 	std::size_t Random::Size_t()
@@ -46,10 +47,11 @@ namespace Todes
 	{
 		assert(min <= max);
 
-		if (min == max)
+		auto dif = max - min;
+		if (dif == 0)
 			return min;
 
-		return Size_t() % (max - min) + min;
+		return Size_t() % dif + min;
 	}
 
 	float Random::Float()
@@ -61,10 +63,11 @@ namespace Todes
 	{
 		assert(min <= max);
 
-		if (min == max)
+		auto dif = max - min;
+		if (dif == 0)
 			return min;
 
-		return FloatNorm() * (max - min) + min;
+		return FloatNorm() * dif + min;
 	}
 
 	float Random::FloatNorm()
@@ -81,10 +84,11 @@ namespace Todes
 	{
 		assert(min <= max);
 
-		if (min == max)
+		auto dif = max - min;
+		if (dif == 0)
 			return min;
 
-		return DoubleNorm() * (max - min) + min;
+		return DoubleNorm() * dif + min;
 	}
 
 	double Random::DoubleNorm()

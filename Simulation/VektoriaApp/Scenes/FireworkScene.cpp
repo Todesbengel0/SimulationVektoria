@@ -6,20 +6,40 @@
 #include "Particle.h"
 #include "Random.h"
 #include "Firework.h"
+#include "CGeoTail.h"
 
 PlacementParticleWorld* FireworkScene::getWorld() const
 {
 	return m_particleWorld;
 }
 
+unsigned int FireworkScene::getCurrentTail()
+{
+	auto current = m_currentTail;
+	++m_currentTail %= 1000;
+	return current;
+}
+
 FireworkScene::FireworkScene()
 	: m_particleWorld(new PlacementParticleWorld),
-	m_gravity(new Gravity(convertVector(Vektoria::CHVector(0.0f, -9.807f, 0.0f))))
+	m_gravity(new Gravity(convertVector(Vektoria::CHVector(0.0f, -9.807f, 0.0f)))),
+	m_fireworkMaterial(new Vektoria::CMaterial()),
+	m_tail(new Vektoria::CGeoTail(*m_fireworkMaterial)),
+	m_currentTail(0)
 {
 	Todes::Random::seed();
-	m_fireworkMaterial = new Vektoria::CMaterial();
-	m_fireworkMaterial->LoadPreset((char*)"PhongBlue");
+	m_fireworkMaterial->LoadPreset((char*)"Sun");
 	regMaterial(m_fireworkMaterial);
+	m_fireworkMaterial->SetGlowStrength(3.0f);
+
+	for (unsigned int i = 0; i < 1000; ++i)
+	{
+		auto placement = new Vektoria::CPlacement();
+		m_tails.Add(placement);
+		placement->AddGeo(m_tail);
+		m_pCave->AddPlacement(placement);
+		placement->SwitchOff();
+	}
 }
 
 FireworkScene::~FireworkScene()
@@ -51,7 +71,7 @@ void FireworkScene::spawn()
 		0.6f /* ageMin */
 		, Todes::Random::Float(0.6f, 0.8f) /* ageMax */
 		, 10 /* countMin */
-		, Todes::Random::Size_t(10, 30) /* countMax */
+		, Todes::Random::Size_t(10, 25) /* countMax */
 		, 0.1f /* massMin */
 		, Todes::Random::Float(0.1f, 5.0f) /* massMax */
 		, 0.1f /* sizeMin */
@@ -62,7 +82,7 @@ void FireworkScene::spawn()
 
 	auto geo = new Vektoria::CGeoSphere();
 	geo->Init(bounds.sizeMax, m_fireworkMaterial);
-
+	m_fireworkMaterial->RotateHue(UM_DEG2RAD(Todes::Random::Float(0.0f, 360.0f)));
 	auto firework = new Firework(*this, fireworkPlacement, geo, m_fireworkMaterial, 2, bounds);
 	m_particleWorld->addPlacementParticle(firework, { m_gravity });
 
@@ -70,4 +90,6 @@ void FireworkScene::spawn()
 	firework->getParticle()->addForce(muzzleForce);
 	firework->getParticle()->integrate(1.0f);
 	firework->update();
+
+
 }
