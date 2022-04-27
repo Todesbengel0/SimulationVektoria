@@ -94,24 +94,28 @@ void PlacementParticleWorld::update(float timeDelta)
 	m_world->getComputationInterface()->integrate(timeDelta);
 
 	// Translates the Placements
-	for (auto& placementParticle : m_placementParticles)
-		placementParticle->update();
+	for (std::size_t i = 0; i < m_placementParticles.size(); ++i)
+		if (!m_placementParticles[i]->getParticle()->isDead())
+			m_placementParticles[i]->update(timeDelta);
+
+// 	for (auto placementParticle : m_placementParticles)
+// 		placementParticle->update(timeDelta);
 }
 
-void PlacementParticleWorld::reset()const 
+void PlacementParticleWorld::reset() const
 {
-	for (auto& placementParticle : m_placementParticles)
+	for (auto placementParticle : m_placementParticles)
 		placementParticle->reset();
 }
 
 void PlacementParticleWorld::kill() const
 {
-	for (auto& placementParticle : m_placementParticles)
+	for (auto placementParticle : m_placementParticles)
 		placementParticle->kill();
 }
 
 void PlacementParticleWorld::revive() const
 {
-	for (auto& placementParticle : m_placementParticles)
+	for (auto placementParticle : m_placementParticles)
 		placementParticle->revive();
 }

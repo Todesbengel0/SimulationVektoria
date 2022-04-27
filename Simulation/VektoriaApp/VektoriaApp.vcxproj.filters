@@ -63,9 +63,6 @@
     <ClInclude Include="PhysicInterfaces\RigidBodyPlacementWorld.h">
       <Filter>PhysicInterfaces</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleDan.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Scenes\CanonScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -91,6 +88,12 @@
       <Filter>TodesPhysicInterfaces</Filter>
     </ClInclude>
     <ClInclude Include="ForceDefines.h">
+      <Filter>TodesPhysicInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\FireworkScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Firework.h">
       <Filter>TodesPhysicInterfaces</Filter>
     </ClInclude>
   </ItemGroup>
@@ -125,9 +128,6 @@
     <ClCompile Include="PhysicInterfaces\RigidBodyPlacementWorld.cpp">
       <Filter>PhysicInterfaces</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleDan.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scenes\CanonScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
@@ -147,6 +147,12 @@
       <Filter>TodesPhysicInterfaces</Filter>
     </ClCompile>
     <ClCompile Include="PlacementParticleWorld.cpp">
+      <Filter>TodesPhysicInterfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\FireworkScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Firework.cpp">
       <Filter>TodesPhysicInterfaces</Filter>
     </ClCompile>
   </ItemGroup>

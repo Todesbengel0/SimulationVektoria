@@ -181,9 +181,9 @@
     <ClInclude Include="DefaultScene.h" />
     <ClInclude Include="Examples\EmptyScene.h" />
     <ClInclude Include="Examples\FallingCubeScene.h" />
+    <ClInclude Include="Firework.h" />
     <ClInclude Include="ForceDefines.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="ParticleDan.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PhysicInterfaces\Converter.h" />
     <ClInclude Include="PhysicInterfaces\ParticlePlacement.h" />
@@ -196,6 +196,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scenes\CanonScene.h" />
     <ClInclude Include="Scenes\CaveScene.h" />
+    <ClInclude Include="Scenes\FireworkScene.h" />
     <ClInclude Include="Scenes\FirstScene.h" />
     <ClInclude Include="SimulationScene.h" />
     <ClInclude Include="targetver.h" />
@@ -205,8 +206,8 @@
     <ClCompile Include="DefaultScene.cpp" />
     <ClCompile Include="Examples\EmptyScene.cpp" />
     <ClCompile Include="Examples\FallingCubeScene.cpp" />
+    <ClCompile Include="Firework.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="ParticleDan.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -222,6 +223,7 @@
     <ClCompile Include="PlacementParticleWorld.cpp" />
     <ClCompile Include="Scenes\CanonScene.cpp" />
     <ClCompile Include="Scenes\CaveScene.cpp" />
+    <ClCompile Include="Scenes\FireworkScene.cpp" />
     <ClCompile Include="Scenes\FirstScene.cpp" />
     <ClCompile Include="SimulationScene.cpp" />
     <ClCompile Include="VektoriaApp.cpp" />

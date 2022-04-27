@@ -52,7 +52,6 @@ CanonScene::~CanonScene()
 
 void CanonScene::update(float timeDelta)
 {
-	__super::update(timeDelta);
 // 	for (auto pp : m_ppBalls)
 // 	{
 // 		if (!pp->getParticle() || !pp->getPlacement())
@@ -121,7 +120,6 @@ void CanonScene::spawn()
 //	pp->setParticle(new Todes::Particle(convertVector(pp->getPlacement()->GetPos()), 0.999f, 1.0f));
 	auto ball = new PlacementParticle(placementBall, m_geoBall, m_materialBall, 0.999f, 1.0f);
 	m_particleWorld->addPlacementParticle(ball, { m_gravity });
-
 
 	// Create Muzzle Force
 	float muzzleVelocity = 20.0f;

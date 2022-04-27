@@ -6,7 +6,7 @@
 namespace Todes
 {
 	/// <summary>
-	/// Class for working with threedimensional mathematical vectors
+	/// Class for working with three dimensional mathematical vectors
 	/// </summary>
 	class Vector3D
 	{

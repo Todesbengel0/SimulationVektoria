@@ -51,6 +51,11 @@ void PlacementParticle::update() const
 	m_placement->Translate(pos);
 }
 
+void PlacementParticle::update(const float& timeDelta)
+{
+	update();
+}
+
 void PlacementParticle::reset() const
 {
 	m_particle->reset();

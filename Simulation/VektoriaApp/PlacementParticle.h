@@ -28,16 +28,17 @@ public:
 
 public:
 	/** Update the scene graph node with the associated particle node. */
-	void update() const;
+	virtual void update() const;
+	virtual void update(const float& timeDelta);
 
 	// Resets the Placement Particle to the start condition
-	void reset() const;
+	virtual void reset() const;
 
 	// Kills the Placement Particle
-	void kill() const;
+	virtual void kill() const;
 
 	// Revives Placement Particles
-	void revive() const;
+	virtual void revive() const;
 
 public:
 	/** Set the current particle. */
@@ -60,7 +61,7 @@ public:
 	/** Get the current material. */
 	Vektoria::CMaterial* getMaterial() const;
 
-private:
+protected:
 	Vektoria::CPlacement* m_placement;
 	Vektoria::CGeo* m_geo;
 	Vektoria::CMaterial* m_material;

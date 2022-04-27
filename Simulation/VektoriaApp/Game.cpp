@@ -4,6 +4,7 @@
 #include "Examples/FallingCubeScene.h"
 #include "Scenes/CanonScene.h"
 #include "Scenes/FirstScene.h"
+#include "Scenes/FireworkScene.h"
 #include "Examples/EmptyScene.h"
 
 // singleton
@@ -101,6 +102,7 @@ void CGame::initScenes()
 	// ...
 	addScene(new FirstScene);
 	addScene(new CanonScene);
+	addScene(new FireworkScene);
 }
 
 void CGame::addScene(SimulationScene* scene)

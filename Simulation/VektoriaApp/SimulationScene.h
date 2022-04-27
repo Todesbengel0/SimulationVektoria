@@ -29,9 +29,6 @@ public:
 	void setWASDCam(bool wasdCam);
 	bool getWASDCam() const;
 
-protected:
-	explicit SimulationScene();
-
 	/**
 	 * Materialien die nicht im ersten Tick() referenziert werden,
 	 * müssen der Engine extra bekanntgemacht werden,
@@ -39,6 +36,9 @@ protected:
 	 * Hierzu diese Funktion zusätzlich zu Vektoria::CMaterial::Init() aufrufen!
 	 */
 	void regMaterial(Vektoria::CMaterial* pzm);
+
+protected:
+	explicit SimulationScene();
 
 	// necessary Vektoria scene components
 	Vektoria::CCamera m_camera;

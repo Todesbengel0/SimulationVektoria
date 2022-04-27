@@ -61,6 +61,9 @@
       <Filter>ParticleForces\Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ParticleGravityForce.h">
+      <Filter>ParticleEngine\Quelldateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
@@ -93,6 +96,9 @@
       <Filter>ParticleForces\Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ParticleGravityForce.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
