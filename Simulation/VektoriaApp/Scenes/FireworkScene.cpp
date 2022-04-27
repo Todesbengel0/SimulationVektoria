@@ -16,7 +16,7 @@ PlacementParticleWorld* FireworkScene::getWorld() const
 unsigned int FireworkScene::getCurrentTail()
 {
 	auto current = m_currentTail;
-	++m_currentTail %= 1000;
+	++m_currentTail %= 2000;
 	return current;
 }
 
@@ -32,7 +32,7 @@ FireworkScene::FireworkScene()
 	regMaterial(m_fireworkMaterial);
 	m_fireworkMaterial->SetGlowStrength(3.0f);
 
-	for (unsigned int i = 0; i < 1000; ++i)
+	for (unsigned int i = 0; i < 2000; ++i)
 	{
 		auto placement = new Vektoria::CPlacement();
 		m_tails.Add(placement);
