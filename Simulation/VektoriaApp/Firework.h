@@ -1,6 +1,5 @@
 #pragma once
 #include "PlacementParticle.h"
-#include "CTailPlacements.h"
 
 class FireworkScene;
 
@@ -24,7 +23,6 @@ public:
 public:
 	Firework(FireworkScene& scene, Vektoria::CPlacement* placement,
 		Vektoria::CGeoSphere* geo, Vektoria::CMaterial* material,
-		Vektoria::CTailPlacements* tail,
 		const std::size_t& number_of_iterations, const PayloadBounds& bounds);
 
 public:
@@ -46,7 +44,6 @@ protected:
 	const std::size_t m_number_of_iterations;
 	const PayloadBounds m_payloadBounds;
 	Todes::Vector3D m_prevPosition;
-	Vektoria::CTailPlacements* m_tail;
 	FireworkScene& m_scene;
 };
 

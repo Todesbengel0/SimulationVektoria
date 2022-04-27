@@ -6,10 +6,9 @@
 #include "Random.h"
 #include "PlacementParticleWorld.h"
 
-Firework::Firework(FireworkScene& scene, Vektoria::CPlacement* placement, Vektoria::CGeoSphere* geo, Vektoria::CMaterial* material, Vektoria::CTailPlacements* tail, const std::size_t& number_of_iterations, const PayloadBounds& bounds)
+Firework::Firework(FireworkScene& scene, Vektoria::CPlacement* placement, Vektoria::CGeoSphere* geo, Vektoria::CMaterial* material, const std::size_t& number_of_iterations, const PayloadBounds& bounds)
 	: PlacementParticle(placement, geo, material, 0.999f, 1.0f / bounds.massMax),
 	m_scene(scene), m_prevPosition(m_particle->getPosition()),
-	m_tail(tail),
 	m_age(0), m_number_of_iterations(number_of_iterations), m_payloadBounds(bounds)
 {
 	m_placement->AddGeo(m_geo);
@@ -17,8 +16,6 @@ Firework::Firework(FireworkScene& scene, Vektoria::CPlacement* placement, Vektor
 
 void Firework::update(const float& timeDelta)
 {
-	m_tail->update(timeDelta);
-
 	if (m_particle->isDead())
 		return;
 
@@ -32,7 +29,10 @@ void Firework::update(const float& timeDelta)
 
 	PlacementParticle::update();
 
-	const auto& currPosition = m_particle->getPosition();
+	auto tail = m_scene.m_tails.m_applacement[m_scene.getCurrentTail()];
+	tail->SwitchOn();
+
+	auto currPosition = m_particle->getPosition();
 
 	auto posDif = (m_prevPosition - currPosition).Length();
 
@@ -42,7 +42,7 @@ void Firework::update(const float& timeDelta)
 	rotMat.RotateDelta(convertVector(m_prevPosition), convertVector(currPosition));
 	rotMat.TranslateDelta(convertVector(currPosition));
 
-	m_tail->PutTail(rotMat);
+	tail->SetMat(rotMat);
 
 	m_prevPosition = currPosition;
 }
@@ -78,11 +78,6 @@ void Firework::kill() const
 
 	m_material->RotateHue(UM_DEG2RAD(Todes::Random::Float(0.0f, 360.0f)));
 
-// 	auto material = new Vektoria::CMaterial(*m_material);
-// 	m_scene.regMaterial(material);
-// 	auto tailPlacements = new Vektoria::CTailPlacements(m_scene.getCave(), material,
-// 		m_payloadBounds.countMax * 50, ageMax * 2.0f);
-
 	for (std::size_t i = 0; i < m_payloadBounds.countMax; ++i)
 	{
 		// Initialize Placement
@@ -112,7 +107,7 @@ void Firework::kill() const
 			, (velocityMax - m_payloadBounds.velocityMin) * 0.2f + m_payloadBounds.velocityMin /* velocityMax */
 		};
 
-		auto firework = new Firework(m_scene, fireworkPlacement, geo, m_material, m_tail, numIterations, bounds);
+		auto firework = new Firework(m_scene, fireworkPlacement, geo, m_material, numIterations, bounds);
 		m_scene.getWorld()->addPlacementParticle(firework, { gravity });
 
 		// Add Muzzle Force
