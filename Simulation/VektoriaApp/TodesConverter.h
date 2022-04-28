@@ -3,9 +3,9 @@
 
 #include "Vector3D.h"
 
-static Vektoria::CHVector convertVector(const Todes::Vector3D& vec)
+static Vektoria::CHVector convertVector(const Todes::Vector3D& vec, const float& wValue = 0.0f)
 {
-	return Vektoria::CHVector(vec.x(), vec.y(), vec.z());
+	return Vektoria::CHVector(vec.x(), vec.y(), vec.z(), wValue);
 }
 
 static Todes::Vector3D convertVector(const Vektoria::CHVector& vec)

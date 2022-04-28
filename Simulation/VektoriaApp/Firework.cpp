@@ -38,8 +38,9 @@ void Firework::update(const float& timeDelta)
 
 	// Rotate Delta From To Version new ? 
 	Vektoria::CHMat rotMat;
-	rotMat.Scale(posDif);
-	rotMat.RotateDelta(convertVector(currPosition), convertVector(m_prevPosition));
+	
+	rotMat.ScaleDelta(posDif);
+	rotMat.RotateDelta(convertVector(currPosition, 1.0f), convertVector(m_prevPosition, 1.0f));
 	rotMat.TranslateDelta(convertVector(m_prevPosition));
 
 	tail->SetMat(rotMat);
