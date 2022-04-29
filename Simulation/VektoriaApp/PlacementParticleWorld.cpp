@@ -95,10 +95,28 @@ void PlacementParticleWorld::update(float timeDelta)
 
 	// Translates the Placements
 	for (std::size_t i = 0; i < m_placementParticles.size(); ++i)
-		m_placementParticles[i]->update(timeDelta);
+	{
+		auto currentPP = m_placementParticles[i];
+		currentPP->update(timeDelta);
 
-// 	for (auto placementParticle : m_placementParticles)
-// 		placementParticle->update(timeDelta);
+		if (currentPP->isDirty())
+		{
+			auto particle = currentPP->getParticle();
+			auto placement = currentPP->getPlacement();
+			m_world->removeParticle(particle);
+			m_world->getParticleForceRegistry().remove(particle);
+			
+			// VEKTORIA
+// 			placement->SubAll();
+ 			m_placementParticles.erase(m_placementParticles.begin() + i);
+// 
+// 			delete particle;
+// 			delete placement;
+			delete currentPP;
+			--i;
+		}
+	}
+
 }
 
 void PlacementParticleWorld::reset() const

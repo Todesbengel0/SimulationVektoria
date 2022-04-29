@@ -6,9 +6,11 @@
 #include "Random.h"
 #include "PlacementParticleWorld.h"
 
-Firework::Firework(FireworkScene& scene, Vektoria::CPlacement* placement, Vektoria::CGeo* geo, Vektoria::CMaterial* material, const std::size_t& number_of_iterations, const PayloadBounds& bounds)
+Firework::Firework(Vektoria::CPlacement* placement, FireworkScene* scene,
+	Vektoria::CTailPlacements* tails, Vektoria::CGeo* geo, Vektoria::CMaterial* material,
+	const std::size_t& number_of_iterations, const PayloadBounds& bounds)
 	: PlacementParticle(placement, 0.999f, 1.0f / bounds.massMax),
-	m_scene(scene), m_prevPosition(m_particle->getPosition()),
+	m_scene(scene), m_tailPlacements(tails), m_prevPosition(m_particle->getPosition()),
 	m_age(0), m_number_of_iterations(number_of_iterations), m_payloadBounds(bounds)
 {
 	m_geo = geo;
@@ -34,18 +36,18 @@ void Firework::update(const float& timeDelta)
 
 	PlacementParticle::update();
 
-	auto currPosition = m_particle->getPosition();
+	const auto& currPosition = m_particle->getPosition();
 
 	auto posDif = (m_prevPosition - currPosition).Length();
 
 	// Rotate Delta From To Version new ? 
-	Vektoria::CHMat rotMat;
-	
-	rotMat.ScaleDelta(posDif);
-	rotMat.RotateDelta(convertVector(currPosition, 1.0f), convertVector(m_prevPosition, 1.0f));
-	rotMat.TranslateDelta(convertVector(m_prevPosition));
+	Vektoria::CHMat tailMat;
 
-	m_scene.m_tail->PutTail(rotMat);
+	tailMat.ScaleDelta(posDif);
+	//tailMat.RotateDelta(convertVector(currPosition, 1.0f), convertVector(m_prevPosition, 1.0f));
+	tailMat.TranslateDelta(convertVector(m_prevPosition));
+
+	m_tailPlacements->PutTail(tailMat);
 
 	m_prevPosition = currPosition;
 }
@@ -58,14 +60,14 @@ void Firework::update() const
 void Firework::reset() const
 { }
 
-void Firework::kill() const
+void Firework::kill()
 {
 	m_particle->sendDeath();
 	m_placement->SwitchOff();
 
 	if (m_number_of_iterations == 0 || m_payloadBounds.countMax == 0)
 	{
-		//PlacementParticle::~PlacementParticle();
+		destroy();
 		return;
 	}
 
@@ -86,7 +88,6 @@ void Firework::kill() const
 	{
 		// Initialize Placement
 		auto fireworkPlacement = new Vektoria::CPlacement();
-		m_scene.getCave()->AddPlacement(fireworkPlacement);
 
 		// Translate Placement to position of this firework
 		fireworkPlacement->TranslateDelta(convertVector(m_particle->getPosition()));
@@ -111,8 +112,8 @@ void Firework::kill() const
 			, (velocityMax - m_payloadBounds.velocityMin) * 0.2f + m_payloadBounds.velocityMin /* velocityMax */
 		};
 
-		auto firework = new Firework(m_scene, fireworkPlacement, m_geo, m_material, numIterations, bounds);
-		m_scene.getWorld()->addPlacementParticle(firework, { gravity });
+		auto firework = new Firework(fireworkPlacement, m_scene, m_tailPlacements, m_geo, m_material, numIterations, bounds);
+		m_scene->registerFirework(firework);
 
 		// Add Muzzle Force
 		firework->getParticle()->addForce(muzzleForce);
@@ -120,8 +121,17 @@ void Firework::kill() const
 		firework->update();
 	}
 
-	//PlacementParticle::~PlacementParticle();
+	
+	destroy();
 }
 
 void Firework::revive() const
 { }
+
+void Firework::destroy()
+{
+// 	m_placement->SubPlacement(m_geoPlacement);
+// 	m_geoPlacement->SubAll();
+// 	delete m_geoPlacement;
+	PlacementParticle::destroy();
+}

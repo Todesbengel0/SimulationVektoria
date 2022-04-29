@@ -49,6 +49,13 @@ namespace Todes
 		/// <param name="generator">The force generator stored in the entry.</param>
 		/// <returns>TRUE if the given pair was found, FALSE otherwise.</returns>
 		bool remove(Particle* particle, IParticleForceGenerator* generator);
+
+		/// <summary>
+		/// Removes all Entries of a given particle.
+		/// </summary>
+		/// <param name="particle">The particle to remove all entries from.</param>
+		/// <returns>TRUE: Pairs with this particle were found, FALSE otherwise</returns>
+		bool remove(Particle* particle);
 		
 		/// <summary>
 		/// Remove all entries.

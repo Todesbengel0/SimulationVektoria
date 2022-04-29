@@ -35,10 +35,15 @@ public:
 	virtual void reset() const;
 
 	// Kills the Placement Particle
-	virtual void kill() const;
+	virtual void kill();
+
+	// Destroys this Placement Particle
+	virtual void destroy();
 
 	// Revives Placement Particles
 	virtual void revive() const;
+
+	bool isDirty() const;
 
 public:
 	/** Set the current particle. */
@@ -66,5 +71,6 @@ protected:
 	Vektoria::CGeo* m_geo;
 	Vektoria::CMaterial* m_material;
 	Todes::Particle* m_particle;
+	bool m_dirty;
 };
 

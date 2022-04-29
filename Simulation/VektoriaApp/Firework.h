@@ -3,6 +3,8 @@
 
 class FireworkScene;
 
+namespace Vektoria { class CTailPlacements; }
+
 class Firework : public PlacementParticle
 {
 public:
@@ -21,7 +23,8 @@ public:
 	};
 
 public:
-	Firework(FireworkScene& scene, Vektoria::CPlacement* placement,
+	Firework(Vektoria::CPlacement* placement, FireworkScene* scene, 
+		Vektoria::CTailPlacements* tails,
 		Vektoria::CGeo* geo, Vektoria::CMaterial* material,
 		const std::size_t& number_of_iterations, const PayloadBounds& bounds);
 
@@ -34,10 +37,13 @@ public:
 	void reset() const override;
 	
 	// Kills this firework and shoots its payload
-	void kill() const override;
+	void kill() override;
 
 	// We cannot revive a firework
 	void revive() const override;
+
+	// Destroys the firework
+	void destroy() override;
 
 protected:
 	float m_age;
@@ -45,6 +51,6 @@ protected:
 	const PayloadBounds m_payloadBounds;
 	Vektoria::CPlacement* m_geoPlacement;
 	Todes::Vector3D m_prevPosition;
-	FireworkScene& m_scene;
+	FireworkScene* m_scene;
+	Vektoria::CTailPlacements* m_tailPlacements;
 };
-

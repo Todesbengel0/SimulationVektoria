@@ -5,6 +5,7 @@
 
 class PlacementParticle;
 class PlacementParticleWorld;
+class Firework;
 namespace Vektoria { class CGeoTail; }
 
 class FireworkScene : public CaveScene
@@ -19,14 +20,14 @@ public:
 
 	PlacementParticleWorld* getWorld() const;
 
-public:
-	Vektoria::CTailPlacements* m_tail;
+	void registerFirework(Firework* firework) const;
 
 protected:
 	PlacementParticleWorld* m_particleWorld;
 	Vektoria::CMaterial* m_fireworkMaterial;
 	Vektoria::CGeoSphere* m_fireworkGeo;
 	Vektoria::CGeoTail* m_tailGeo;
+	Vektoria::CTailPlacements* m_tail;
 	Gravity* m_gravity;
 };
 

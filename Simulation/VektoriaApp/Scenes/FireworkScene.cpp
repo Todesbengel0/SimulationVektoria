@@ -13,6 +13,12 @@ PlacementParticleWorld* FireworkScene::getWorld() const
 	return m_particleWorld;
 }
 
+void FireworkScene::registerFirework(Firework* firework) const
+{
+	m_pCave->AddPlacement(firework->getPlacement());
+	m_particleWorld->addPlacementParticle(firework, { m_gravity });
+}
+
 FireworkScene::FireworkScene()
 	: CaveScene(25.0f),
 	m_particleWorld(new PlacementParticleWorld),
@@ -25,7 +31,7 @@ FireworkScene::FireworkScene()
 	Todes::Random::seed();
 	m_fireworkMaterial->LoadPreset((char*)"Sun");
 	regMaterial(m_fireworkMaterial);
-	m_fireworkMaterial->SetGlowStrength(3.0f);
+	m_fireworkMaterial->SetGlowStrength(3.5f);
 
 	auto geo = new Vektoria::CGeoSphere();
 	geo->Init(1.0f, m_fireworkMaterial);
@@ -72,7 +78,7 @@ void FireworkScene::spawn()
 	};
 
 	m_fireworkMaterial->RotateHue(UM_DEG2RAD(Todes::Random::Float(0.0f, 360.0f)));
-	auto firework = new Firework(*this, fireworkPlacement, m_fireworkGeo, m_fireworkMaterial, 2, bounds);
+	auto firework = new Firework(fireworkPlacement, this, m_tail, m_fireworkGeo, m_fireworkMaterial, 2, bounds);
 	m_particleWorld->addPlacementParticle(firework, { m_gravity });
 
 	// Add Muzzle Force

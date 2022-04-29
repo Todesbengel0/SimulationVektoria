@@ -43,6 +43,21 @@ namespace Todes
 		return true;
 	}
 
+	bool ParticleForceRegistry::remove(Particle* particle)
+	{
+		const auto removableItem = std::remove_if(m_registrations.begin(), m_registrations.end(),
+			[&](const ParticleForceRegistrationEntry& entry)
+			{
+				return entry.m_particle == particle;
+			});
+
+		if (removableItem == m_registrations.end())
+			return false;
+
+		m_registrations.erase(removableItem, m_registrations.end());
+		return true;
+	}
+
 	void ParticleForceRegistry::clear()
 	{
 		m_registrations.clear();

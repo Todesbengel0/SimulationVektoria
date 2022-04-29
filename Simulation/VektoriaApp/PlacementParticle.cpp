@@ -7,7 +7,8 @@ PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, Vektoria::
 	: m_placement(placement),
 	m_geo(geo),
 	m_material(material),
-	m_particle(particle)
+	m_particle(particle),
+	m_dirty(false)
 {
 	m_placement->AddGeo(m_geo);
 }
@@ -16,21 +17,24 @@ PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, Todes::Par
 	: m_placement(placement),
 	m_geo(nullptr),
 	m_material(nullptr),
-	m_particle(particle)
+	m_particle(particle),
+	m_dirty(false)
 { }
 
 PlacementParticle::PlacementParticle()
 	: m_placement(nullptr),
 	m_geo(nullptr),
 	m_material(nullptr),
-	m_particle(nullptr)
+	m_particle(nullptr),
+	m_dirty(false)
 { }
 
 PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, Vektoria::CGeo* geo, Vektoria::CMaterial* material, const float& particleDamping, const float& inverseParticleMass)
 	: m_placement(placement),
 	m_geo(geo),
 	m_material(material),
-	m_particle(new Todes::Particle(convertVector(m_placement->GetPos()), 0.999f, 1.0f))
+	m_particle(new Todes::Particle(convertVector(m_placement->GetPos()), 0.999f, 1.0f)),
+	m_dirty(false)
 {
 	m_placement->AddGeo(m_geo);
 }
@@ -39,11 +43,12 @@ PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, const floa
 	: m_placement(placement),
 	m_geo(nullptr),
 	m_material(nullptr),
-	m_particle(new Todes::Particle(convertVector(m_placement->GetPos()), 0.999f, 1.0f))
+	m_particle(new Todes::Particle(convertVector(m_placement->GetPos()), 0.999f, 1.0f)),
+	m_dirty(false)
 { }
 
 PlacementParticle::~PlacementParticle()
-= default;
+{ }
 
 void PlacementParticle::update() const
 {
@@ -62,16 +67,26 @@ void PlacementParticle::reset() const
 	update();
 }
 
-void PlacementParticle::kill() const
+void PlacementParticle::kill()
 {
 	m_particle->sendDeath();
 	m_placement->SwitchOff();
+}
+
+void PlacementParticle::destroy()
+{
+	m_dirty = true;
 }
 
 void PlacementParticle::revive() const
 {
 	m_particle->sendDeath(false);
 	m_placement->SwitchOn();
+}
+
+bool PlacementParticle::isDirty() const
+{
+	return m_dirty;
 }
 
 void PlacementParticle::setParticle(Todes::Particle* particle)
