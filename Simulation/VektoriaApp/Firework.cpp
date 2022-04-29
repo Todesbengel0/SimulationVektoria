@@ -42,7 +42,7 @@ void Firework::update(const float& timeDelta)
 	Vektoria::CHMat rotMat;
 	
 	rotMat.ScaleDelta(posDif);
-//	rotMat.RotateDelta(convertVector(currPosition, 1.0f), convertVector(m_prevPosition, 1.0f));
+	rotMat.RotateDelta(convertVector(currPosition, 1.0f), convertVector(m_prevPosition, 1.0f));
 	rotMat.TranslateDelta(convertVector(m_prevPosition));
 
 	m_scene.m_tail->PutTail(rotMat);
@@ -64,7 +64,10 @@ void Firework::kill() const
 	m_placement->SwitchOff();
 
 	if (m_number_of_iterations == 0 || m_payloadBounds.countMax == 0)
+	{
+		//PlacementParticle::~PlacementParticle();
 		return;
+	}
 
 	std::size_t numIterations = m_number_of_iterations - 1;
 
@@ -116,6 +119,8 @@ void Firework::kill() const
 		firework->getParticle()->integrate(1.0f);
 		firework->update();
 	}
+
+	//PlacementParticle::~PlacementParticle();
 }
 
 void Firework::revive() const
