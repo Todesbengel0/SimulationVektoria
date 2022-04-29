@@ -179,6 +179,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CGeoTail.h" />
+    <ClInclude Include="CTailPlacements.h" />
     <ClInclude Include="DefaultScene.h" />
     <ClInclude Include="Examples\EmptyScene.h" />
     <ClInclude Include="Examples\FallingCubeScene.h" />
@@ -205,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CGeoTail.cpp" />
+    <ClCompile Include="CTailPlacements.cpp" />
     <ClCompile Include="DefaultScene.cpp" />
     <ClCompile Include="Examples\EmptyScene.cpp" />
     <ClCompile Include="Examples\FallingCubeScene.cpp" />

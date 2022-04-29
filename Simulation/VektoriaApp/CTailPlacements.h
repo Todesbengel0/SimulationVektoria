@@ -16,7 +16,7 @@ namespace Vektoria
 	private:
 		const unsigned int m_tailCount;
 		unsigned int m_currentTail;
-		static CGeoTail* s_geo;
+		CGeoTail* s_geo;
 		CMaterial* m_material;
 		CPlacements m_tailPlacements;
 		std::vector<float> m_tailAge;

@@ -32,6 +32,10 @@ FireworkScene::FireworkScene()
 	regMaterial(m_fireworkMaterial);
 	m_fireworkMaterial->SetGlowStrength(3.0f);
 
+	auto geo = new Vektoria::CGeoSphere();
+	geo->Init(1.0f, m_fireworkMaterial);
+	m_fireworkGeo = geo;
+
 	for (unsigned int i = 0; i < 2000; ++i)
 	{
 		auto placement = new Vektoria::CPlacement();
@@ -80,10 +84,8 @@ void FireworkScene::spawn()
 		, (muzzleVelocity - 5.0f) * 0.5f + 5.0f /* velocityMax */
 	};
 
-	auto geo = new Vektoria::CGeoSphere();
-	geo->Init(bounds.sizeMax, m_fireworkMaterial);
 	m_fireworkMaterial->RotateHue(UM_DEG2RAD(Todes::Random::Float(0.0f, 360.0f)));
-	auto firework = new Firework(*this, fireworkPlacement, geo, m_fireworkMaterial, 2, bounds);
+	auto firework = new Firework(*this, fireworkPlacement, m_fireworkGeo, m_fireworkMaterial, 2, bounds);
 	m_particleWorld->addPlacementParticle(firework, { m_gravity });
 
 	// Add Muzzle Force

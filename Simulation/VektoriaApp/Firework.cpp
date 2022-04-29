@@ -6,12 +6,17 @@
 #include "Random.h"
 #include "PlacementParticleWorld.h"
 
-Firework::Firework(FireworkScene& scene, Vektoria::CPlacement* placement, Vektoria::CGeoSphere* geo, Vektoria::CMaterial* material, const std::size_t& number_of_iterations, const PayloadBounds& bounds)
-	: PlacementParticle(placement, geo, material, 0.999f, 1.0f / bounds.massMax),
+Firework::Firework(FireworkScene& scene, Vektoria::CPlacement* placement, Vektoria::CGeo* geo, Vektoria::CMaterial* material, const std::size_t& number_of_iterations, const PayloadBounds& bounds)
+	: PlacementParticle(placement, 0.999f, 1.0f / bounds.massMax),
 	m_scene(scene), m_prevPosition(m_particle->getPosition()),
 	m_age(0), m_number_of_iterations(number_of_iterations), m_payloadBounds(bounds)
 {
-	m_placement->AddGeo(m_geo);
+	m_geo = geo;
+	m_material = material;
+	m_geoPlacement = new Vektoria::CPlacement();
+	m_geoPlacement->AddGeo(m_geo);
+	m_geoPlacement->Scale(m_payloadBounds.sizeMax);
+	m_placement->AddPlacement(m_geoPlacement);
 }
 
 void Firework::update(const float& timeDelta)
@@ -74,8 +79,6 @@ void Firework::kill() const
 
 	// Create Gravity and Geo for Payload
 	Gravity* gravity = new Gravity(Todes::Vector3D(0.0f, -9.807f, 0.0f));
-	auto geo = new Vektoria::CGeoSphere();
-	geo->Init(sizeMax, m_material);
 
 	m_material->RotateHue(UM_DEG2RAD(Todes::Random::Float(0.0f, 360.0f)));
 
@@ -108,7 +111,7 @@ void Firework::kill() const
 			, (velocityMax - m_payloadBounds.velocityMin) * 0.2f + m_payloadBounds.velocityMin /* velocityMax */
 		};
 
-		auto firework = new Firework(m_scene, fireworkPlacement, geo, m_material, numIterations, bounds);
+		auto firework = new Firework(m_scene, fireworkPlacement, m_geo, m_material, numIterations, bounds);
 		m_scene.getWorld()->addPlacementParticle(firework, { gravity });
 
 		// Add Muzzle Force

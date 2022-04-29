@@ -22,7 +22,7 @@ public:
 
 public:
 	Firework(FireworkScene& scene, Vektoria::CPlacement* placement,
-		Vektoria::CGeoSphere* geo, Vektoria::CMaterial* material,
+		Vektoria::CGeo* geo, Vektoria::CMaterial* material,
 		const std::size_t& number_of_iterations, const PayloadBounds& bounds);
 
 public:
@@ -43,6 +43,7 @@ protected:
 	float m_age;
 	const std::size_t m_number_of_iterations;
 	const PayloadBounds m_payloadBounds;
+	Vektoria::CPlacement* m_geoPlacement;
 	Todes::Vector3D m_prevPosition;
 	FireworkScene& m_scene;
 };

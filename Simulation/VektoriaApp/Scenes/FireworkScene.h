@@ -26,6 +26,7 @@ public:
 protected:
 	PlacementParticleWorld* m_particleWorld;
 	Vektoria::CMaterial* m_fireworkMaterial;
+	Vektoria::CGeoSphere* m_fireworkGeo;
 	Vektoria::CGeoTail* m_tail;
 	unsigned int m_currentTail;
 	Gravity* m_gravity;
