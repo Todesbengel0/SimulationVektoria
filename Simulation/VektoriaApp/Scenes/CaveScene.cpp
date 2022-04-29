@@ -2,14 +2,14 @@
 #include "CaveScene.h"
 #include "Vektoria/Placement.h"
 
-CaveScene::CaveScene(const float& caveWidth, const float& caveDepth, const float& caveHeight, const float& wallThickness)
+CaveScene::CaveScene(const float& translationZ, const float& caveWidth, const float& caveDepth, const float& caveHeight, const float& wallThickness)
 	: m_caveDimensions{ caveWidth, caveDepth, caveHeight, wallThickness }
 {
 	m_pCave = new Vektoria::CPlacement();
 	AddPlacement(m_pCave);
 	m_pCave->TranslateXDelta(-m_caveDimensions.width * 0.5f);
 	m_pCave->TranslateYDelta(-m_caveDimensions.height * 0.5f);
-	m_pCave->TranslateZDelta(-m_caveDimensions.depth - 10.0f);
+	m_pCave->TranslateZDelta(-m_caveDimensions.depth - translationZ);
 
 	m_floor.placement = new Vektoria::CPlacement();
 	m_floor.placement->RotateX(UM_DEG2RAD(-90.0f));

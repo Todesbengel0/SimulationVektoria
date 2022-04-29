@@ -34,9 +34,6 @@ void Firework::update(const float& timeDelta)
 
 	PlacementParticle::update();
 
-	auto tail = m_scene.m_tails.m_applacement[m_scene.getCurrentTail()];
-	tail->SwitchOn();
-
 	auto currPosition = m_particle->getPosition();
 
 	auto posDif = (m_prevPosition - currPosition).Length();
@@ -45,10 +42,10 @@ void Firework::update(const float& timeDelta)
 	Vektoria::CHMat rotMat;
 	
 	rotMat.ScaleDelta(posDif);
-	rotMat.RotateDelta(convertVector(currPosition, 1.0f), convertVector(m_prevPosition, 1.0f));
+//	rotMat.RotateDelta(convertVector(currPosition, 1.0f), convertVector(m_prevPosition, 1.0f));
 	rotMat.TranslateDelta(convertVector(m_prevPosition));
 
-	tail->SetMat(rotMat);
+	m_scene.m_tail->PutTail(rotMat);
 
 	m_prevPosition = currPosition;
 }

@@ -7,7 +7,7 @@ namespace Vektoria
 	class CTailPlacements
 	{
 	public:
-		CTailPlacements(CPlacement* rootPlacement, CMaterial* material, const unsigned int& tailCount, const float& maxAge);
+		CTailPlacements(CPlacement* rootPlacement, CGeoTail* tailGeo, const unsigned int& tailCount, const float& maxAge);
 
 		void PutTail(CHMat localMat);
 
@@ -16,8 +16,7 @@ namespace Vektoria
 	private:
 		const unsigned int m_tailCount;
 		unsigned int m_currentTail;
-		CGeoTail* s_geo;
-		CMaterial* m_material;
+		CGeoTail* m_geo;
 		CPlacements m_tailPlacements;
 		std::vector<float> m_tailAge;
 		const float m_maxAge;

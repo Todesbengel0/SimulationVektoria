@@ -17,7 +17,12 @@ struct CaveDimensions {
 class CaveScene : public SimulationScene
 {
 public:
-	explicit CaveScene(const float& caveWidth = 30.0f, const float& caveDepth = 20.0f, const float& caveHeight = 20.0f, const float& wallThickness = 0.1f);
+	explicit CaveScene(
+		const float& translationZ = 10.0f,
+		const float& caveWidth = 30.0f,
+		const float& caveDepth = 20.0f,
+		const float& caveHeight = 20.0f,
+		const float& wallThickness = 0.1f);
 	~CaveScene();
 
 	void update(float timeDelta) override;

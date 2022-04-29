@@ -13,20 +13,15 @@ PlacementParticleWorld* FireworkScene::getWorld() const
 	return m_particleWorld;
 }
 
-unsigned int FireworkScene::getCurrentTail()
-{
-	auto current = m_currentTail;
-	++m_currentTail %= 2000;
-	return current;
-}
-
 FireworkScene::FireworkScene()
-	: m_particleWorld(new PlacementParticleWorld),
+	: CaveScene(25.0f),
+	m_particleWorld(new PlacementParticleWorld),
 	m_gravity(new Gravity(convertVector(Vektoria::CHVector(0.0f, -9.807f, 0.0f)))),
 	m_fireworkMaterial(new Vektoria::CMaterial()),
-	m_tail(new Vektoria::CGeoTail(*m_fireworkMaterial)),
-	m_currentTail(0)
+	m_tailGeo(new Vektoria::CGeoTail(*m_fireworkMaterial))
 {
+	m_tail = new Vektoria::CTailPlacements(m_pCave, m_tailGeo, 2500, 0.7f);
+
 	Todes::Random::seed();
 	m_fireworkMaterial->LoadPreset((char*)"Sun");
 	regMaterial(m_fireworkMaterial);
@@ -35,15 +30,6 @@ FireworkScene::FireworkScene()
 	auto geo = new Vektoria::CGeoSphere();
 	geo->Init(1.0f, m_fireworkMaterial);
 	m_fireworkGeo = geo;
-
-	for (unsigned int i = 0; i < 2000; ++i)
-	{
-		auto placement = new Vektoria::CPlacement();
-		m_tails.Add(placement);
-		placement->AddGeo(m_tail);
-		m_pCave->AddPlacement(placement);
-		placement->SwitchOff();
-	}
 }
 
 FireworkScene::~FireworkScene()
@@ -52,6 +38,7 @@ FireworkScene::~FireworkScene()
 void FireworkScene::update(float timeDelta)
 {
 	m_particleWorld->update(timeDelta);
+	m_tail->update(timeDelta);
 }
 
 void FireworkScene::spawn()
@@ -92,6 +79,4 @@ void FireworkScene::spawn()
 	firework->getParticle()->addForce(muzzleForce);
 	firework->getParticle()->integrate(1.0f);
 	firework->update();
-
-
 }
