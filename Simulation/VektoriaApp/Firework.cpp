@@ -5,20 +5,27 @@
 #include "Scenes/FireworkScene.h"
 #include "Random.h"
 #include "PlacementParticleWorld.h"
+#include "CGeoTail.h"
 
 Firework::Firework(Vektoria::CPlacement* placement, FireworkScene* scene,
-	Vektoria::CTailPlacements* tails, Vektoria::CGeo* geo, Vektoria::CMaterial* material,
+	Vektoria::CMaterial* material,
 	const std::size_t& number_of_iterations, const PayloadBounds& bounds)
 	: PlacementParticle(placement, 0.999f, 1.0f / bounds.massMax),
-	m_scene(scene), m_tailPlacements(tails), m_prevPosition(m_particle->getPosition()),
+	m_scene(scene), m_prevPosition(m_particle->getPosition()),
 	m_age(0), m_number_of_iterations(number_of_iterations), m_payloadBounds(bounds)
 {
+	auto geo = new Vektoria::CGeoSphere();
+	m_material = new Vektoria::CMaterial(*material);
+	geo->Init(1.0f, m_material);
 	m_geo = geo;
-	m_material = material;
 	m_geoPlacement = new Vektoria::CPlacement();
 	m_geoPlacement->AddGeo(m_geo);
 	m_geoPlacement->Scale(m_payloadBounds.sizeMax);
 	m_placement->AddPlacement(m_geoPlacement);
+
+	m_tailPlacements = new Vektoria::CTailPlacements(new Vektoria::CGeoTail(m_material), 100, 1.25f);
+
+	scene->registerFirework(this, m_tailPlacements);
 }
 
 void Firework::update(const float& timeDelta)
@@ -87,9 +94,6 @@ void Firework::kill()
 	auto massMax = Todes::Random::Float(m_payloadBounds.massMin, m_payloadBounds.massMax);
 	auto velocityMax = Todes::Random::Float(m_payloadBounds.velocityMin, m_payloadBounds.velocityMax);
 
-	// Create Gravity and Geo for Payload
-	Gravity* gravity = new Gravity(Todes::Vector3D(0.0f, -9.807f, 0.0f));
-
 	m_material->RotateHue(UM_DEG2RAD(Todes::Random::Float(0.0f, 360.0f)));
 
 	for (std::size_t i = 0; i < m_payloadBounds.countMax; ++i)
@@ -120,8 +124,7 @@ void Firework::kill()
 			, (velocityMax - m_payloadBounds.velocityMin) * 0.1f + m_payloadBounds.velocityMin /* velocityMax */
 		};
 
-		auto firework = new Firework(fireworkPlacement, m_scene, m_tailPlacements, m_geo, m_material, numIterations, bounds);
-		m_scene->registerFirework(firework);
+		auto firework = new Firework(fireworkPlacement, m_scene, m_material, numIterations, bounds);
 
 		// Add Muzzle Force
 		firework->getParticle()->addForce(muzzleForce);
@@ -138,8 +141,10 @@ void Firework::revive() const
 
 void Firework::destroy()
 {
-// 	m_placement->SubPlacement(m_geoPlacement);
-// 	m_geoPlacement->SubAll();
-// 	delete m_geoPlacement;
+ 	m_placement->SubPlacement(m_geoPlacement);
+ 	delete m_geoPlacement;
+	delete m_geo;
+	//delete m_material;
+	m_tailPlacements->destroy();
 	PlacementParticle::destroy();
 }

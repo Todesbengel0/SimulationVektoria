@@ -13,29 +13,25 @@ PlacementParticleWorld* FireworkScene::getWorld() const
 	return m_particleWorld;
 }
 
-void FireworkScene::registerFirework(Firework* firework) const
+void FireworkScene::registerFirework(Firework* firework, Vektoria::CTailPlacements* tail)
 {
 	m_pCave->AddPlacement(firework->getPlacement());
 	m_particleWorld->addPlacementParticle(firework, { m_gravity });
+	regMaterial(firework->getMaterial());
+	m_tails.push_back(tail);
+	tail->Init(m_pCave);
 }
 
 FireworkScene::FireworkScene()
 	: CaveScene(25.0f),
 	m_particleWorld(new PlacementParticleWorld),
 	m_gravity(new Gravity(convertVector(Vektoria::CHVector(0.0f, -9.807f, 0.0f)))),
-	m_fireworkMaterial(new Vektoria::CMaterial()),
-	m_tailGeo(new Vektoria::CGeoTail(*m_fireworkMaterial))
+	m_fireworkMaterial(new Vektoria::CMaterial())
 {
-	m_tail = new Vektoria::CTailPlacements(m_pCave, m_tailGeo, 2500, 1.2f);
-
 	Todes::Random::seed();
 	m_fireworkMaterial->LoadPreset((char*)"Sun");
 	regMaterial(m_fireworkMaterial);
 	m_fireworkMaterial->SetGlowStrength(3.1f);
-
-	auto geo = new Vektoria::CGeoSphere();
-	geo->Init(1.0f, m_fireworkMaterial);
-	m_fireworkGeo = geo;
 }
 
 FireworkScene::~FireworkScene()
@@ -44,7 +40,21 @@ FireworkScene::~FireworkScene()
 void FireworkScene::update(float timeDelta)
 {
 	m_particleWorld->update(timeDelta);
-	m_tail->update(timeDelta);
+
+	for (std::size_t i = 0; i < m_tails.size(); ++i)
+	{
+		auto tail = m_tails[i];
+
+		if (!tail->isDirty())
+		{
+			tail->update(timeDelta);
+			continue;
+		}
+
+		delete tail;
+		m_tails.erase(m_tails.begin() + i);
+		--i;
+	}
 }
 
 void FireworkScene::spawn()
@@ -67,8 +77,8 @@ void FireworkScene::spawn()
 	{
 		0.5f /* ageMin */
 		, Todes::Random::Float(0.5f, 0.7f) /* ageMax */
-		, 10 /* countMin */
-		, Todes::Random::Size_t(10, 25) /* countMax */
+		, 1 /* countMin */
+		, Todes::Random::Size_t(1, 5) /* countMax */
 		, 0.1f /* massMin */
 		, Todes::Random::Float(0.1f, 5.0f) /* massMax */
 		, 0.1f /* sizeMin */
@@ -78,7 +88,7 @@ void FireworkScene::spawn()
 	};
 
 	m_fireworkMaterial->RotateHue(UM_DEG2RAD(Todes::Random::Float(0.0f, 360.0f)));
-	auto firework = new Firework(fireworkPlacement, this, m_tail, m_fireworkGeo, m_fireworkMaterial, 2, bounds);
+	auto firework = new Firework(fireworkPlacement, this, m_fireworkMaterial, 2, bounds);
 	m_particleWorld->addPlacementParticle(firework, { m_gravity });
 
 	// Add Muzzle Force

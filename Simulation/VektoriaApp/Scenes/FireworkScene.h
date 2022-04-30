@@ -20,14 +20,12 @@ public:
 
 	PlacementParticleWorld* getWorld() const;
 
-	void registerFirework(Firework* firework) const;
+	void registerFirework(Firework* firework, Vektoria::CTailPlacements* tail);
 
 protected:
 	PlacementParticleWorld* m_particleWorld;
 	Vektoria::CMaterial* m_fireworkMaterial;
-	Vektoria::CGeoSphere* m_fireworkGeo;
-	Vektoria::CGeoTail* m_tailGeo;
-	Vektoria::CTailPlacements* m_tail;
+	std::vector<Vektoria::CTailPlacements*> m_tails;
 	Gravity* m_gravity;
 };
 

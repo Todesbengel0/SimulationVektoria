@@ -23,9 +23,8 @@ public:
 	};
 
 public:
-	Firework(Vektoria::CPlacement* placement, FireworkScene* scene, 
-		Vektoria::CTailPlacements* tails,
-		Vektoria::CGeo* geo, Vektoria::CMaterial* material,
+	Firework(Vektoria::CPlacement* placement, FireworkScene* scene,
+		Vektoria::CMaterial* material,
 		const std::size_t& number_of_iterations, const PayloadBounds& bounds);
 
 public:
