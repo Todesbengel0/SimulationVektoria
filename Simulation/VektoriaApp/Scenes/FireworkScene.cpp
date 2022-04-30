@@ -26,12 +26,12 @@ FireworkScene::FireworkScene()
 	m_fireworkMaterial(new Vektoria::CMaterial()),
 	m_tailGeo(new Vektoria::CGeoTail(*m_fireworkMaterial))
 {
-	m_tail = new Vektoria::CTailPlacements(m_pCave, m_tailGeo, 2500, 0.7f);
+	m_tail = new Vektoria::CTailPlacements(m_pCave, m_tailGeo, 2500, 1.2f);
 
 	Todes::Random::seed();
 	m_fireworkMaterial->LoadPreset((char*)"Sun");
 	regMaterial(m_fireworkMaterial);
-	m_fireworkMaterial->SetGlowStrength(3.5f);
+	m_fireworkMaterial->SetGlowStrength(3.1f);
 
 	auto geo = new Vektoria::CGeoSphere();
 	geo->Init(1.0f, m_fireworkMaterial);
@@ -59,22 +59,22 @@ void FireworkScene::spawn()
 	, Todes::Vector3D(m_caveDimensions.width, 0.0f, 0.0f))));
 
 	// Create Muzzle Force
-	float muzzleVelocity = Todes::Random::Float(20.0f, 35.0f);
+	float muzzleVelocity = Todes::Random::Float(25.0f, 40.0f);
 	Todes::Vector3D shootDirection(0.0f, 1.0f, 0.0f);
 	Todes::Vector3D muzzleForce = shootDirection * muzzleVelocity;
 
 	const Firework::PayloadBounds bounds
 	{
-		0.6f /* ageMin */
-		, Todes::Random::Float(0.6f, 0.8f) /* ageMax */
+		0.5f /* ageMin */
+		, Todes::Random::Float(0.5f, 0.7f) /* ageMax */
 		, 10 /* countMin */
 		, Todes::Random::Size_t(10, 25) /* countMax */
 		, 0.1f /* massMin */
 		, Todes::Random::Float(0.1f, 5.0f) /* massMax */
 		, 0.1f /* sizeMin */
 		, Todes::Random::Float(0.1f, 0.3f) /* sizeMax */
-		, 5.0f /* velocityMin */
-		, (muzzleVelocity - 5.0f) * 0.5f + 5.0f /* velocityMax */
+		, 10.0f /* velocityMin */
+		, (muzzleVelocity - 10.0f) * 0.25f + 10.0f /* velocityMax */
 	};
 
 	m_fireworkMaterial->RotateHue(UM_DEG2RAD(Todes::Random::Float(0.0f, 360.0f)));

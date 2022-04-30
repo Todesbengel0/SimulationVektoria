@@ -37,7 +37,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), Ve
 
 	// Init background (comment out if black background is desired)
 	m_zb.InitFull(const_cast<char*>("textures\\blue_image.jpg"));
-// 	m_zv.AddBackground(&m_zb);
+	m_zv.AddBackground(&m_zb);
 	m_zv.SetBloomOn();
 	m_zv.SetBloomStrengthNear(6.0f);
 	m_zv.SetBloomStrengthFar(3.0f);

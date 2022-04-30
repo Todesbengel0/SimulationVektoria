@@ -38,13 +38,21 @@ void Firework::update(const float& timeDelta)
 
 	const auto& currPosition = m_particle->getPosition();
 
-	auto posDif = (m_prevPosition - currPosition).Length();
+	auto vecDif = currPosition - m_prevPosition;
+	auto posDif = vecDif.Length();
+	auto tailVec = Todes::Vector3D(0.0f, 1.0f, 0.0f);
+	//auto rotAxis = vecDif.Normalize().Cross(tailVec);
+	auto rotAxis = tailVec.Cross(vecDif.Normalize());
+	auto dot = vecDif * tailVec;
+	auto rotAngle = dot == 1.0f ? 0.0f :
+		std::atan2f(rotAxis.Length(), vecDif * tailVec);
 
-	// Rotate Delta From To Version new ? 
+	// Rotate Delta From To Version new ?
 	Vektoria::CHMat tailMat;
 
 	tailMat.ScaleDelta(posDif);
-	//tailMat.RotateDelta(convertVector(currPosition, 1.0f), convertVector(m_prevPosition, 1.0f));
+	if (dot != 1.0f)
+		tailMat.RotateDelta(convertVector(rotAxis), rotAngle);
 	tailMat.TranslateDelta(convertVector(m_prevPosition));
 
 	m_tailPlacements->PutTail(tailMat);
@@ -109,7 +117,7 @@ void Firework::kill()
 			, m_payloadBounds.sizeMin /* sizeMin */
 			, sizeMax /* sizeMax */
 			, m_payloadBounds.velocityMin /* velocityMin */
-			, (velocityMax - m_payloadBounds.velocityMin) * 0.2f + m_payloadBounds.velocityMin /* velocityMax */
+			, (velocityMax - m_payloadBounds.velocityMin) * 0.1f + m_payloadBounds.velocityMin /* velocityMax */
 		};
 
 		auto firework = new Firework(fireworkPlacement, m_scene, m_tailPlacements, m_geo, m_material, numIterations, bounds);

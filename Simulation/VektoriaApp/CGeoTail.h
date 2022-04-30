@@ -7,6 +7,7 @@ namespace Vektoria
 	public:
 		CGeoTail(CMaterial& zm);
 
+	private:
 		CVertex m_vertexStart;
 		CVertex m_vertexEnd;
 

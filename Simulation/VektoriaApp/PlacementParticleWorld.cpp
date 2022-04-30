@@ -110,7 +110,7 @@ void PlacementParticleWorld::update(float timeDelta)
 // 			placement->SubAll();
  			m_placementParticles.erase(m_placementParticles.begin() + i);
 // 
-// 			delete particle;
+			delete particle;
 // 			delete placement;
 			delete currentPP;
 			--i;
