@@ -41,7 +41,6 @@ void Firework::update(const float& timeDelta)
 	auto vecDif = currPosition - m_prevPosition;
 	auto posDif = vecDif.Length();
 	auto tailVec = Todes::Vector3D(0.0f, 1.0f, 0.0f);
-	//auto rotAxis = vecDif.Normalize().Cross(tailVec);
 	auto rotAxis = tailVec.Cross(vecDif.Normalize());
 	auto dot = vecDif * tailVec;
 	auto rotAngle = dot == 1.0f ? 0.0f :

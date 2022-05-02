@@ -73,8 +73,8 @@ void FireworkScene::spawn()
 		, Todes::Random::Float(0.1f, 5.0f) /* massMax */
 		, 0.1f /* sizeMin */
 		, Todes::Random::Float(0.1f, 0.3f) /* sizeMax */
-		, 10.0f /* velocityMin */
-		, (muzzleVelocity - 10.0f) * 0.25f + 10.0f /* velocityMax */
+		, 5.0f /* velocityMin */
+		, (muzzleVelocity - 5.0f) * 0.4f + 5.0f /* velocityMax */
 	};
 
 	m_fireworkMaterial->RotateHue(UM_DEG2RAD(Todes::Random::Float(0.0f, 360.0f)));
