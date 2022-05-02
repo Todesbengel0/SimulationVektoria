@@ -23,7 +23,7 @@ Firework::Firework(Vektoria::CPlacement* placement, FireworkScene* scene,
 	m_geoPlacement->Scale(m_payloadBounds.sizeMax);
 	m_placement->AddPlacement(m_geoPlacement);
 
-	m_tailPlacements = new Vektoria::CTailPlacements(new Vektoria::CGeoTail(m_material), 100, 1.25f);
+	m_tailPlacements = new Vektoria::CTailPlacements(new Vektoria::CGeoTail(m_material), 10, 1.25f);
 
 	scene->registerFirework(this, m_tailPlacements);
 }
@@ -142,8 +142,8 @@ void Firework::revive() const
 void Firework::destroy()
 {
  	m_placement->SubPlacement(m_geoPlacement);
- 	delete m_geoPlacement;
-	delete m_geo;
+ 	//delete m_geoPlacement;
+	//delete m_geo;
 	//delete m_material;
 	m_tailPlacements->destroy();
 	PlacementParticle::destroy();

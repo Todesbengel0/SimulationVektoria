@@ -51,7 +51,7 @@ void FireworkScene::update(float timeDelta)
 			continue;
 		}
 
-		delete tail;
+		//delete tail;
 		m_tails.erase(m_tails.begin() + i);
 		--i;
 	}
@@ -77,14 +77,14 @@ void FireworkScene::spawn()
 	{
 		0.5f /* ageMin */
 		, Todes::Random::Float(0.5f, 0.7f) /* ageMax */
-		, 1 /* countMin */
-		, Todes::Random::Size_t(1, 5) /* countMax */
+		, 5 /* countMin */
+		, Todes::Random::Size_t(5, 10) /* countMax */
 		, 0.1f /* massMin */
 		, Todes::Random::Float(0.1f, 5.0f) /* massMax */
 		, 0.1f /* sizeMin */
 		, Todes::Random::Float(0.1f, 0.3f) /* sizeMax */
-		, 10.0f /* velocityMin */
-		, (muzzleVelocity - 10.0f) * 0.25f + 10.0f /* velocityMax */
+		, 5.0f /* velocityMin */
+		, (muzzleVelocity - 5.0f) * 0.4f + 5.0f /* velocityMax */
 	};
 
 	m_fireworkMaterial->RotateHue(UM_DEG2RAD(Todes::Random::Float(0.0f, 360.0f)));

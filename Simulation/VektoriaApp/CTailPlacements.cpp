@@ -68,7 +68,7 @@ void Vektoria::CTailPlacements::update(float timeDelta)
 			{
 				auto placement = m_tailPlacements.m_applacement[i];
 				placement->SubAll();
-				delete placement;
+				//delete placement;
 			}
 		}
 		return;
