@@ -159,9 +159,11 @@
     <ClInclude Include="IComputationInterface.h" />
     <ClInclude Include="IParticleForceGenerator.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleAnchoredSpring.h" />
     <ClInclude Include="ParticleEngineCI.h" />
     <ClInclude Include="ParticleForceRegistry.h" />
     <ClInclude Include="ParticleGravityForce.h" />
+    <ClInclude Include="ParticleSpring.h" />
     <ClInclude Include="ParticleWorld.h" />
     <ClInclude Include="PhysicsEngineModule.h" />
     <ClInclude Include="Random.h" />
@@ -172,9 +174,11 @@
     <ClCompile Include="IComputationInterface.cpp" />
     <ClCompile Include="IParticleForceGenerator.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleAnchoredSpring.cpp" />
     <ClCompile Include="ParticleEngineCI.cpp" />
     <ClCompile Include="ParticleForceRegistry.cpp" />
     <ClCompile Include="ParticleGravityForce.cpp" />
+    <ClCompile Include="ParticleSpring.cpp" />
     <ClCompile Include="ParticleWorld.cpp" />
     <ClCompile Include="PhysicsEngineModule.cpp" />
     <ClCompile Include="Random.cpp" />

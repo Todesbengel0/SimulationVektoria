@@ -66,6 +66,12 @@
     <ClInclude Include="ParticleGravityForce.h">
       <Filter>ParticleForces\Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleAnchoredSpring.h">
+      <Filter>ParticleEngine\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSpring.h">
+      <Filter>ParticleEngine\Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector3D.cpp">
@@ -100,6 +106,12 @@
     </ClCompile>
     <ClCompile Include="ParticleGravityForce.cpp">
       <Filter>ParticleForces\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleAnchoredSpring.cpp">
+      <Filter>ParticleEngine\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSpring.cpp">
+      <Filter>ParticleEngine\Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

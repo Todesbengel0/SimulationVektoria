@@ -32,6 +32,11 @@ namespace Todes
 		m_isDead = isDead;
 	}
 
+	void Particle::translate(const Vector3D& translationVector)
+	{
+		m_position += translationVector;
+	}
+
 	const float& Particle::getMass() const
 	{
 		if (m_inverseMass < FINITE_INVERSE_MASS)

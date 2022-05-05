@@ -31,6 +31,5 @@ protected:
 	Vektoria::CGeoSphere* m_geoBall;
 	Vektoria::CMaterial* m_materialBall;
 	Canon m_canon;
-	Gravity* m_gravity;
 };
 

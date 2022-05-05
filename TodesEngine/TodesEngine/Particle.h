@@ -14,6 +14,7 @@ namespace Todes
 		void setMass(const float& mass);
 		void setInverseMass(const float& inverseMass);
 		void sendDeath(const bool& isDead = true);
+		void translate(const Vector3D& translationVector);
 		const float& getMass() const;
 		const bool& isDead() const;
 		const bool hasFiniteMass() const;

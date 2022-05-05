@@ -102,6 +102,9 @@
     <ClInclude Include="CTailPlacements.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Scenes\SpringScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -165,6 +168,9 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="CTailPlacements.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\SpringScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

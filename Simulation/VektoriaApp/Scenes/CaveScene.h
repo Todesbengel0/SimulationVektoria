@@ -1,5 +1,6 @@
 #pragma once
 #include "SimulationScene.h"
+#include "ForceDefines.h"
 
 struct VektoriaObject {
 	Vektoria::CPlacement* placement;
@@ -18,6 +19,7 @@ class CaveScene : public SimulationScene
 {
 public:
 	explicit CaveScene(
+		const float& downForce = -9.807f,
 		const float& translationZ = 10.0f,
 		const float& caveWidth = 30.0f,
 		const float& caveDepth = 20.0f,
@@ -33,8 +35,8 @@ public:
 
 protected:
 	Vektoria::CPlacement* m_pCave;
-
 	const CaveDimensions m_caveDimensions;
+	Gravity* m_gravity;
 
 private:
 	VektoriaObject m_floor;

@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "CaveScene.h"
 #include "Vektoria/Placement.h"
+#include "TodesConverter.h"
 
-CaveScene::CaveScene(const float& translationZ, const float& caveWidth, const float& caveDepth, const float& caveHeight, const float& wallThickness)
-	: m_caveDimensions{ caveWidth, caveDepth, caveHeight, wallThickness }
+CaveScene::CaveScene(const float& downForce, const float& translationZ, const float& caveWidth, const float& caveDepth, const float& caveHeight, const float& wallThickness)
+	: m_gravity(new Gravity(convertVector(Vektoria::CHVector(0.0f, downForce, 0.0f)))),
+	m_caveDimensions{ caveWidth, caveDepth, caveHeight, wallThickness }
 {
 	m_pCave = new Vektoria::CPlacement();
 	AddPlacement(m_pCave);

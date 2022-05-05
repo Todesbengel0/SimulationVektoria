@@ -28,6 +28,5 @@ protected:
 	Vektoria::CGeoSphere* m_fireworkGeo;
 	Vektoria::CGeoTail* m_tailGeo;
 	Vektoria::CTailPlacements* m_tail;
-	Gravity* m_gravity;
 };
 

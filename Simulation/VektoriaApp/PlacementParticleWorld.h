@@ -75,6 +75,13 @@ public:
 	bool removePlacementParticle(PlacementParticle* placement);
 
 	/// <summary>
+	/// Deletes an already registered Placement Particle.
+	/// </summary>
+	/// <param name="placement">Placement Particle to delete.</param>
+	/// <returns>TRUE: Placement was registered and deleted. FALSE: Placement was not registered.</returns>
+	bool deletePlacementParticle(PlacementParticle* placementParticle);
+
+	/// <summary>
 	/// Clears the list of Placement Particles.
 	/// </summary>
 	void clear();

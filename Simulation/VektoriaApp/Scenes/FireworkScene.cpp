@@ -20,9 +20,8 @@ void FireworkScene::registerFirework(Firework* firework) const
 }
 
 FireworkScene::FireworkScene()
-	: CaveScene(25.0f),
+	: CaveScene(-9.807f, 25.0f),
 	m_particleWorld(new PlacementParticleWorld),
-	m_gravity(new Gravity(convertVector(Vektoria::CHVector(0.0f, -9.807f, 0.0f)))),
 	m_fireworkMaterial(new Vektoria::CMaterial()),
 	m_tailGeo(new Vektoria::CGeoTail(*m_fireworkMaterial))
 {
@@ -39,7 +38,9 @@ FireworkScene::FireworkScene()
 }
 
 FireworkScene::~FireworkScene()
-= default;
+{
+	delete m_particleWorld;
+}
 
 void FireworkScene::update(float timeDelta)
 {
