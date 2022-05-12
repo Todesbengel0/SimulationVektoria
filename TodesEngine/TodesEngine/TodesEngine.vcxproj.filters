@@ -31,6 +31,15 @@
     <Filter Include="ParticleForces\Quelldateien">
       <UniqueIdentifier>{6d312395-9659-4a49-b79e-64d650f7837f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ParticleContacts">
+      <UniqueIdentifier>{c1ae67e3-e46b-42ad-b1f7-1e16c7955e9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParticleContacts\Headerdateien">
+      <UniqueIdentifier>{15a5f629-f883-47f8-87da-5be20e32e268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ParticleContacts\Quelldateien">
+      <UniqueIdentifier>{fb9ac715-b64c-4a36-993b-6b0b539b6228}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vector3D.h">
@@ -66,11 +75,41 @@
     <ClInclude Include="ParticleGravityForce.h">
       <Filter>ParticleForces\Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleAnchoredBungee.h">
+      <Filter>ParticleForces\Headerdateien</Filter>
+    </ClInclude>
     <ClInclude Include="ParticleAnchoredSpring.h">
-      <Filter>ParticleEngine\Headerdateien</Filter>
+      <Filter>ParticleForces\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleBungee.h">
+      <Filter>ParticleForces\Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ParticleSpring.h">
-      <Filter>ParticleEngine\Headerdateien</Filter>
+      <Filter>ParticleForces\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSpringLike.h">
+      <Filter>ParticleForces\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleFloatage.h">
+      <Filter>ParticleForces\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleTyphoon.h">
+      <Filter>ParticleForces\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleContact.h">
+      <Filter>ParticleContacts\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="IParticleContactGenerator.hpp">
+      <Filter>ParticleContacts\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="FixedSizeContainer.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleCable.h">
+      <Filter>ParticleContacts\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleLink.h">
+      <Filter>ParticleContacts\Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -107,11 +146,40 @@
     <ClCompile Include="ParticleGravityForce.cpp">
       <Filter>ParticleForces\Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleAnchoredBungee.cpp">
+      <Filter>ParticleForces\Quelldateien</Filter>
+    </ClCompile>
     <ClCompile Include="ParticleAnchoredSpring.cpp">
-      <Filter>ParticleEngine\Quelldateien</Filter>
+      <Filter>ParticleForces\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleBungee.cpp">
+      <Filter>ParticleForces\Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ParticleSpring.cpp">
-      <Filter>ParticleEngine\Quelldateien</Filter>
+      <Filter>ParticleForces\Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleSpringLike.cpp">
+      <Filter>ParticleForces\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleFloatage.cpp">
+      <Filter>ParticleForces\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleTyphoon.cpp">
+      <Filter>ParticleForces\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleContact.cpp">
+      <Filter>ParticleContacts\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleLink.cpp">
+      <Filter>ParticleContacts\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleCable.cpp">
+      <Filter>ParticleContacts\Quelldateien</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="FixedSizeContainer.inl">
+      <Filter>Quelldateien</Filter>
+    </None>
   </ItemGroup>
 </Project>

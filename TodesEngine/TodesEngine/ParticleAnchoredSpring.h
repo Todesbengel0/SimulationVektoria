@@ -1,5 +1,5 @@
 #pragma once
-#include "IParticleForceGenerator.h"
+#include "ParticleSpringLike.h"
 #include "Vector3D.h"
 
 namespace Todes
@@ -10,7 +10,7 @@ namespace Todes
 	/// ParticleAnchoredSpring is a particle generator, which
 	/// simulates a spring, which is anchored to a specific point.
 	/// </summary>
-	class ParticleAnchoredSpring : public IParticleForceGenerator
+	class ParticleAnchoredSpring : public ParticleSpringLike
 	{
 	public:
 		/// <summary>
@@ -22,16 +22,11 @@ namespace Todes
 		explicit ParticleAnchoredSpring(const Vector3D& anchor, const float& springConstant, const float& restLength);
 		~ParticleAnchoredSpring();
 
-		/// <summary>
-		/// Calculates and changes the force in the force accumulator of a particle.
-		/// </summary>
-		/// <param name="particle">The particle, on which the force should be applied to.</param>
-		void updateForce(Particle* particle) override;
+	protected:
+		const Vector3D& getOtherEnd() const override;
 
 	protected:
 		Vector3D m_anchor;
-		const float m_springConstant;
-		const float m_restLength;
 	};
 
 }

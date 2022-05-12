@@ -156,14 +156,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DefaultParticleEngineCI.h" />
+    <ClInclude Include="FixedSizeContainer.h" />
     <ClInclude Include="IComputationInterface.h" />
     <ClInclude Include="IParticleForceGenerator.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleAnchoredBungee.h" />
     <ClInclude Include="ParticleAnchoredSpring.h" />
+    <ClInclude Include="ParticleBungee.h" />
+    <ClInclude Include="ParticleCable.h" />
+    <ClInclude Include="ParticleContact.h" />
+    <ClInclude Include="IParticleContactGenerator.hpp" />
     <ClInclude Include="ParticleEngineCI.h" />
+    <ClInclude Include="ParticleFloatage.h" />
     <ClInclude Include="ParticleForceRegistry.h" />
     <ClInclude Include="ParticleGravityForce.h" />
+    <ClInclude Include="ParticleLink.h" />
     <ClInclude Include="ParticleSpring.h" />
+    <ClInclude Include="ParticleSpringLike.h" />
+    <ClInclude Include="ParticleTyphoon.h" />
     <ClInclude Include="ParticleWorld.h" />
     <ClInclude Include="PhysicsEngineModule.h" />
     <ClInclude Include="Random.h" />
@@ -171,14 +181,25 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultParticleEngineCI.cpp" />
+    <None Include="FixedSizeContainer.inl">
+      <FileType>Document</FileType>
+    </None>
     <ClCompile Include="IComputationInterface.cpp" />
     <ClCompile Include="IParticleForceGenerator.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleAnchoredBungee.cpp" />
     <ClCompile Include="ParticleAnchoredSpring.cpp" />
+    <ClCompile Include="ParticleBungee.cpp" />
+    <ClCompile Include="ParticleCable.cpp" />
+    <ClCompile Include="ParticleContact.cpp" />
     <ClCompile Include="ParticleEngineCI.cpp" />
+    <ClCompile Include="ParticleFloatage.cpp" />
     <ClCompile Include="ParticleForceRegistry.cpp" />
     <ClCompile Include="ParticleGravityForce.cpp" />
+    <ClCompile Include="ParticleLink.cpp" />
     <ClCompile Include="ParticleSpring.cpp" />
+    <ClCompile Include="ParticleSpringLike.cpp" />
+    <ClCompile Include="ParticleTyphoon.cpp" />
     <ClCompile Include="ParticleWorld.cpp" />
     <ClCompile Include="PhysicsEngineModule.cpp" />
     <ClCompile Include="Random.cpp" />

@@ -58,6 +58,9 @@ namespace Todes
 		Vector3D& Normalize();
 		Vector3D Cross(const Vector3D& rhs) const;
 		Vector3D& CrossEqual(const Vector3D& rhs);
+		Vector3D& RotateX(const float& radiant);
+		Vector3D& RotateY(const float& radiant);
+		Vector3D& RotateZ(const float& radiant);
 		void Print() const;
 
 	private:
@@ -73,8 +76,10 @@ namespace Todes
 			os << "( " << vector.m_x << " | " << vector.m_y << " | " << vector.m_z << " )";
 			return os;
 		}
+		Vector3D operator+() const;
 		Vector3D operator+(const Vector3D& rhs) const;
 		Vector3D& operator+=(const Vector3D& rhs);
+		Vector3D operator-() const;
 		Vector3D operator-(const Vector3D& rhs) const;
 		Vector3D& operator-=(const Vector3D& rhs);
 		friend float operator*(const Vector3D& lhs, const Vector3D& rhs)

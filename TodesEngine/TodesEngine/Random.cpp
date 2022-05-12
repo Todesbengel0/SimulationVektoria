@@ -11,7 +11,7 @@ namespace Todes
 		seed((unsigned int)time(nullptr));
 	}
 
-	void Random::seed(const unsigned int seed)
+	void Random::seed(const unsigned int& seed)
 	{
 		s_seed = seed;
 		srand(seed);
@@ -27,7 +27,7 @@ namespace Todes
 		return rand();
 	}
 
-	int Random::Integer(const int min, const int max)
+	int Random::Integer(const int& min, const int& max)
 	{
 		assert(min <= max);
 
@@ -43,7 +43,7 @@ namespace Todes
 		return (std::size_t)(DoubleNorm() * ULLONG_MAX);
 	}
 
-	std::size_t Random::Size_t(std::size_t min, std::size_t max)
+	std::size_t Random::Size_t(const std::size_t& min, const std::size_t& max)
 	{
 		assert(min <= max);
 
@@ -59,7 +59,7 @@ namespace Todes
 		return FloatNorm() * FLT_MAX;
 	}
 
-	float Random::Float(const float min, const float max)
+	float Random::Float(const float& min, const float& max)
 	{
 		assert(min <= max);
 
@@ -80,7 +80,7 @@ namespace Todes
 		return DoubleNorm() * DBL_MAX;
 	}
 
-	double Random::Double(const double min, const double max)
+	double Random::Double(const double& min, const double& max)
 	{
 		assert(min <= max);
 
@@ -101,7 +101,7 @@ namespace Todes
 		return Vector3D(Float(), Float(), Float());
 	}
 
-	Vector3D Random::Vec3D(const float min, const float max)
+	Vector3D Random::Vec3D(const float& min, const float& max)
 	{
 		return Vector3D(Float(min, max), Float(min, max), Float(min, max));
 	}
@@ -111,12 +111,15 @@ namespace Todes
 		return Vector3D(Float(min.x(), max.x()), Float(min.y(), max.y()), Float(min.z(), max.z()));
 	}
 
-	bool Random::Bool(const float chance)
+	bool Random::Bool(const float& chance)
 	{
+		if (chance == 0.0f) return false;
+		if (chance == 1.0f) return true;
+
 		return FloatNorm() < chance;
 	}
 
-	short Random::Sign(float chance)
+	short Random::Sign(const float& chance)
 	{
 		if (Bool(chance))
 			return -1;

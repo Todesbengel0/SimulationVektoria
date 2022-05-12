@@ -5,30 +5,16 @@
 namespace Todes
 {
 	ParticleAnchoredSpring::ParticleAnchoredSpring(const Vector3D& anchor, const float& springConstant, const float& restLength)
-		: m_anchor(anchor),
-		m_springConstant(springConstant),
-		m_restLength(restLength)
+		: ParticleSpringLike(springConstant, restLength),
+		m_anchor(anchor)
 	{
 	}
 
 	ParticleAnchoredSpring::~ParticleAnchoredSpring()
 		= default;
 
-	void ParticleAnchoredSpring::updateForce(Particle* particle)
+	const Vector3D& ParticleAnchoredSpring::getOtherEnd() const
 	{
-		auto force = particle->getPosition();
-		force -= m_anchor;
-
-		auto magnitude = force.Length();
-
-		if (magnitude == 0.0f)
-			return;
-
-		magnitude -= m_restLength;
-		magnitude *= m_springConstant;
-
-		force.Normalize();
-		force *= -magnitude;
-		particle->addForce(force);
+		return m_anchor;
 	}
 }

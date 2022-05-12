@@ -32,16 +32,31 @@ namespace Todes
 		m_isDead = isDead;
 	}
 
+	void Particle::setVelocity(const Vector3D& velocity)
+	{
+		m_velocity = velocity;
+	}
+
+	void Particle::setPosition(const Vector3D& position)
+	{
+		m_position = position;
+	}
+
 	void Particle::translate(const Vector3D& translationVector)
 	{
 		m_position += translationVector;
 	}
 
-	const float& Particle::getMass() const
+	float Particle::getMass() const
 	{
 		if (m_inverseMass < FINITE_INVERSE_MASS)
 			return std::numeric_limits<float>::max();
 		return 1.0f / m_inverseMass;
+	}
+
+	const float& Particle::getInverseMass() const
+	{
+		return m_inverseMass;
 	}
 
 	const bool& Particle::isDead() const
@@ -52,6 +67,16 @@ namespace Todes
 	const bool Particle::hasFiniteMass() const
 	{
 		return m_inverseMass >= FINITE_INVERSE_MASS;
+	}
+
+	const Todes::Vector3D& Particle::getVelocity() const
+	{
+		return m_velocity;
+	}
+
+	const Todes::Vector3D& Particle::getAcceleration() const
+	{
+		return m_acceleration;
 	}
 
 	const Vector3D& Particle::getPosition() const

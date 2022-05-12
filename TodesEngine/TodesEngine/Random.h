@@ -16,7 +16,7 @@ namespace Todes
 		/// Seed the random number generator with a given seed.
 		/// </summary>
 		/// <param name="seed">The number used as a seed</param>
-		static void seed(unsigned int seed);
+		static void seed(const unsigned int& seed);
 
 		/// <summary>
 		/// Returns the seed, which the random number generator got initialized
@@ -34,7 +34,7 @@ namespace Todes
 		/// <param name="min">Minimal value</param>
 		/// <param name="max">Maximal value</param>
 		/// <returns>Random integer between min and max</returns>
-		static int Integer(int min, int max);
+		static int Integer(const int& min, const int& max);
 
 		/// <summary>
 		/// Returns random unsigned long long value between std::size_t_min and std::size_t_max
@@ -47,7 +47,7 @@ namespace Todes
 		/// <param name="min">Minimal value</param>
 		/// <param name="max">Maximal value</param>
 		/// <returns>Random unsigned long long between min and max</returns>
-		static std::size_t Size_t(std::size_t min, std::size_t max);
+		static std::size_t Size_t(const std::size_t& min, const std::size_t& max);
 
 		/// <summary>
 		/// Returns random float value between float_min and float_max
@@ -60,7 +60,7 @@ namespace Todes
 		/// <param name="min">Minimal value</param>
 		/// <param name="max">Maximal value</param>
 		/// <returns>Random float between min and max</returns>
-		static float Float(float min, float max);
+		static float Float(const float& min, const float& max);
 
 		/// <summary>
 		/// Returns a random float between 0 and 1
@@ -78,7 +78,7 @@ namespace Todes
 		/// <param name="min">Minimal value</param>
 		/// <param name="max">Maximal value</param>
 		/// <returns>Random double between min and max</returns>
-		static double Double(double min, double max);
+		static double Double(const double& min, const double& max);
 
 		/// <summary>
 		/// Returns a random float between 0 and 1
@@ -96,7 +96,7 @@ namespace Todes
 		/// <param name="min">Minimal value for a vector component</param>
 		/// <param name="max">Maximal value for a vector component</param>
 		/// <returns>Random Vector 3D</returns>
-		static Vector3D Vec3D(float min, float max);
+		static Vector3D Vec3D(const float& min, const float& max);
 
 		/// <summary>
 		/// Calculate a random 3D vector in a user defined range.
@@ -110,13 +110,13 @@ namespace Todes
 		/// Returns a random boolean value.
 		/// </summary>
 		/// <param name="chance">The probability of the boolean value to be true.</param>
-		static bool Bool(float chance = 0.5f);
+		static bool Bool(const float& chance = 0.5f);
 
 		/// <summary>
 		/// Returns a signed value of -1 or 1 at random
 		/// </summary>
 		/// <param name="chance">Probability for number to be signed.</param>
-		static short Sign(float chance = 0.5f);
+		static short Sign(const float& chance = 0.5f);
 
 	private:
 		explicit Random();

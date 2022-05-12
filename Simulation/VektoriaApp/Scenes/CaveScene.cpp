@@ -54,16 +54,16 @@ CaveScene::CaveScene(const float& downForce, const float& translationZ, const fl
 	m_backWall.placement->AddGeo(backWallGeo);
 	m_backWall.geo = backWallGeo;
 
-	m_frontWall.placement = new Vektoria::CPlacement();
-	m_pCave->AddPlacement(m_frontWall.placement);
-	auto frontWallGeo = new Vektoria::CGeoWall();
-	m_frontWall.material = new Vektoria::CMaterial();
-	m_frontWall.material->LoadPreset((char*)"Glass");
-	m_frontWall.material->SetTransparencyOn();
-	m_frontWall.material->SetTransparency(0.9f);
-	frontWallGeo->Init(m_caveDimensions.width, m_caveDimensions.height, m_caveDimensions.thickness, m_frontWall.material, false, false, false, false, true, false);
-	m_frontWall.placement->AddGeo(frontWallGeo);
-	m_frontWall.geo = frontWallGeo;
+// 	m_frontWall.placement = new Vektoria::CPlacement();
+// 	m_pCave->AddPlacement(m_frontWall.placement);
+// 	auto frontWallGeo = new Vektoria::CGeoWall();
+// 	m_frontWall.material = new Vektoria::CMaterial();
+// 	m_frontWall.material->LoadPreset((char*)"Glass");
+// 	m_frontWall.material->SetTransparencyOn();
+// 	m_frontWall.material->SetTransparency(0.9f);
+// 	frontWallGeo->Init(m_caveDimensions.width, m_caveDimensions.height, m_caveDimensions.thickness, m_frontWall.material, false, false, false, false, true, false);
+// 	m_frontWall.placement->AddGeo(frontWallGeo);
+// 	m_frontWall.geo = frontWallGeo;
 
 	m_ceiling.placement = new Vektoria::CPlacement();
 	m_ceiling.placement->RotateX(UM_DEG2RAD(-90.0f));

@@ -7,6 +7,7 @@
 #include "Scenes/FireworkScene.h"
 #include "Examples/EmptyScene.h"
 #include "Scenes/SpringScene.h"
+#include "Scenes/TyphoonScene.h"
 
 // singleton
 CGame& CGame::GetInstance()
@@ -109,6 +110,7 @@ void CGame::initScenes()
 	addScene(new CanonScene);
 	addScene(new FireworkScene);
 	addScene(new SpringScene);
+	addScene(new TyphoonScene);
 }
 
 void CGame::addScene(SimulationScene* scene)

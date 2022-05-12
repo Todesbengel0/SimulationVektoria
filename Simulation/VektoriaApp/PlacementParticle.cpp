@@ -33,7 +33,7 @@ PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, Vektoria::
 	: m_placement(placement),
 	m_geo(geo),
 	m_material(material),
-	m_particle(new Todes::Particle(convertVector(m_placement->GetPos()), 0.999f, 1.0f)),
+	m_particle(new Todes::Particle(convertVector(m_placement->GetPos()), particleDamping, inverseParticleMass)),
 	m_dirty(false)
 {
 	m_placement->AddGeo(m_geo);
@@ -43,7 +43,7 @@ PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, const floa
 	: m_placement(placement),
 	m_geo(nullptr),
 	m_material(nullptr),
-	m_particle(new Todes::Particle(convertVector(m_placement->GetPos()), 0.999f, 1.0f)),
+	m_particle(new Todes::Particle(convertVector(m_placement->GetPos()), particleDamping, inverseParticleMass)),
 	m_dirty(false)
 { }
 

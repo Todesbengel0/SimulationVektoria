@@ -1,5 +1,5 @@
 #pragma once
-#include "IParticleForceGenerator.h"
+#include "ParticleSpringLike.h"
 
 namespace Todes
 {
@@ -9,7 +9,7 @@ namespace Todes
 	/// A ParticleSpring is a particle force generator, which
 	/// simulates a spring between two particles.
 	/// </summary>
-	class ParticleSpring : public IParticleForceGenerator
+	class ParticleSpring : public ParticleSpringLike
 	{
 	public:
 		/// <summary>
@@ -21,16 +21,11 @@ namespace Todes
 		ParticleSpring(Particle* other, const float& springConstant, const float& restLength);
 		~ParticleSpring();
 
-		/// <summary>
-		/// Calculates and changes the force in the force accumulator of a particle.
-		/// </summary>
-		/// <param name="particle">The particle, on which the force should be applied to.</param>
-		void updateForce(Particle* particle) override;
+	protected:
+		const Vector3D& getOtherEnd() const override;
 
 	protected:
 		Particle* m_other;
-		const float m_springConstant;
-		const float m_restLength;
 	};
 }
 

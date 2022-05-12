@@ -6,6 +6,8 @@
 #include "PlacementParticleWorld.h"
 #include "ParticleSpring.h"
 #include "ParticleAnchoredSpring.h"
+#include "ParticleAnchoredBungee.h"
+#include "ParticleFloatage.h"
 #include "Game.h"
 
 SpringScene::SpringScene()
@@ -24,6 +26,8 @@ SpringScene::SpringScene()
 	regMaterial(playerMaterial);
 	auto playerGeo = new Vektoria::CGeoSphere();
 	playerGeo->Init(1.5f, playerMaterial);
+
+	m_cameraPlacement.SetPointing(playerPlacement);
 
 	m_player = new PlacementParticle(playerPlacement, playerGeo, playerMaterial, 0.999f, 1.0f);
 	m_particleWorld->addPlacementParticle(m_player);
@@ -44,10 +48,39 @@ SpringScene::SpringScene()
 	regMaterial(jumperMaterial);
 	auto jumperGeo = new Vektoria::CGeoSphere();
 	jumperGeo->Init(1.0f, jumperMaterial);
-	auto jumper = new PlacementParticle(jumperPlacement, jumperGeo, jumperMaterial, 0.999f, 0.5f);
-	auto jumperRestLength = m_caveDimensions.height * 0.4f;
-	auto jumperSpring = new Todes::ParticleAnchoredSpring(convertVector(jumperPlacement->GetPos()), 2.0f, jumperRestLength);
-	m_particleWorld->addPlacementParticle(jumper, { m_gravity, jumperSpring });
+	auto jumper = new PlacementParticle(jumperPlacement, jumperGeo, jumperMaterial, 0.999f, 1.5f);
+	auto jumperRestLength = m_caveDimensions.height * 0.5f;
+	auto jumperBungee = new Todes::ParticleAnchoredBungee(convertVector(jumperPlacement->GetPos()), 10.0f, jumperRestLength);
+	m_particleWorld->addPlacementParticle(jumper, { m_gravity, jumperBungee });
+
+	// Create Water Tank
+	auto waterTank = new Vektoria::CPlacement();
+	m_pCave->AddPlacement(waterTank);
+	waterTank->TranslateDelta(Vektoria::CHVector(m_caveDimensions.width * 0.8f, m_caveDimensions.height * 0.15f, -m_caveDimensions.depth * 0.5f));
+	auto tankMaterial = new Vektoria::CMaterial();
+	tankMaterial->LoadPreset((char*)"Water");
+	tankMaterial->SetTransparency(0.2f);
+	regMaterial(tankMaterial);
+	auto tankGeo = new Vektoria::CGeoCube();
+	auto tankWidth = m_caveDimensions.width * 0.15f;
+	auto tankHeight = m_caveDimensions.height * 0.15f;
+	auto tankDepth = m_caveDimensions.depth * 0.3f;
+	tankGeo->Init(Vektoria::CHVector(tankWidth, tankHeight, tankDepth), tankMaterial);
+	waterTank->AddGeo(tankGeo);
+
+	// Create Swimmer
+	auto swimmerPlacement = new Vektoria::CPlacement();
+	m_pCave->AddPlacement(swimmerPlacement);
+	swimmerPlacement->TranslateDelta(waterTank->GetPos());
+	swimmerPlacement->TranslateYDelta(m_caveDimensions.height * 0.5f);
+	auto swimmerMaterial = new Vektoria::CMaterial();
+	swimmerMaterial->LoadPreset((char*)"PhongGreen");
+	regMaterial(swimmerMaterial);
+	auto swimmerGeo = new Vektoria::CGeoSphere();
+	swimmerGeo->Init(1.2f, swimmerMaterial);
+	auto swimmer = new PlacementParticle(swimmerPlacement, swimmerGeo, swimmerMaterial, 0.8f, 0.1f);
+	auto swimmerFloatage = new Todes::ParticleFloatage(2.4f, (2.0f * TWOPI / 3) * std::powf(1.2f, 3.0f), waterTank->GetPos().y + tankHeight, 10.0f);
+	m_particleWorld->addPlacementParticle(swimmer, { m_gravity, swimmerFloatage });
 }
 
 SpringScene::~SpringScene()

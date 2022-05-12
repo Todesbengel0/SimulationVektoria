@@ -135,6 +135,36 @@ namespace Todes
 		return *this;
 	}
 
+	Vector3D& Vector3D::RotateX(const float& radiant)
+	{
+		const auto cos = std::cosf(radiant);
+		const auto sin = std::sinf(radiant);
+		m_y = cos * m_y - sin * m_z;
+		m_z = sin * m_y + cos * m_z;
+
+		return *this;
+	}
+
+	Vector3D& Vector3D::RotateY(const float& radiant)
+	{
+		const auto cos = std::cosf(radiant);
+		const auto sin = std::sinf(radiant);
+		m_x = cos * m_x + sin * m_z;
+		m_z = - sin * m_x + cos * m_z;
+
+		return *this;
+	}
+
+	Vector3D& Vector3D::RotateZ(const float& radiant)
+	{
+		const auto cos = std::cosf(radiant);
+		const auto sin = std::sinf(radiant);
+		m_x = cos * m_x - sin * m_y;
+		m_y = sin * m_y + cos * m_x;
+
+		return *this;
+	}
+
 	void Vector3D::Print() const
 	{
 		std::cout << "( " << m_x << " | " << m_y << " | " << m_z << " )";
@@ -157,6 +187,12 @@ namespace Todes
 		return *this;
 	}
 
+	Vector3D Vector3D::operator+() const
+	{
+		Vector3D result = *this;
+		return result;
+	}
+
 	Vector3D Vector3D::operator-(const Vector3D& rhs) const
 	{
 		Vector3D result = *this;
@@ -172,6 +208,15 @@ namespace Todes
 		m_y -= rhs.m_y;
 		m_z -= rhs.m_z;
 		return *this;
+	}
+
+	Vector3D Vector3D::operator-() const
+	{
+		Vector3D result;
+		result.m_x = -m_x;
+		result.m_y = -m_y;
+		result.m_z = -m_z;
+		return result;
 	}
 
 	Vector3D Vector3D::operator*(const float rhs) const

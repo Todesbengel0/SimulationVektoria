@@ -201,6 +201,7 @@
     <ClInclude Include="Scenes\FireworkScene.h" />
     <ClInclude Include="Scenes\FirstScene.h" />
     <ClInclude Include="Scenes\SpringScene.h" />
+    <ClInclude Include="Scenes\TyphoonScene.h" />
     <ClInclude Include="SimulationScene.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TodesConverter.h" />
@@ -231,6 +232,7 @@
     <ClCompile Include="Scenes\FireworkScene.cpp" />
     <ClCompile Include="Scenes\FirstScene.cpp" />
     <ClCompile Include="Scenes\SpringScene.cpp" />
+    <ClCompile Include="Scenes\TyphoonScene.cpp" />
     <ClCompile Include="SimulationScene.cpp" />
     <ClCompile Include="VektoriaApp.cpp" />
   </ItemGroup>
