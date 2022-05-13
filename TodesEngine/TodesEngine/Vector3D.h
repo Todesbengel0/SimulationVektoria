@@ -62,6 +62,7 @@ namespace Todes
 		Vector3D& RotateY(const float& radiant);
 		Vector3D& RotateZ(const float& radiant);
 		void Print() const;
+		bool isZero() const;
 
 	private:
 		float m_x;

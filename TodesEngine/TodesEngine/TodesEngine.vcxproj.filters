@@ -109,7 +109,7 @@
       <Filter>ParticleEngine\Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ParticleCollision.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>ParticleContacts\Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -174,7 +174,7 @@
       <Filter>ParticleEngine\Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ParticleCollision.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>ParticleContacts\Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

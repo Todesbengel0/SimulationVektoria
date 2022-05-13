@@ -144,7 +144,8 @@ TyphoonScene::TyphoonScene()
 		1.0f);
 	
 	// Create Basket Ball Contact Generator
-	auto basketBallContact = new Todes::ParticleCable(m_caveDimensions.height - 1.0f, 0.3f);
+	auto basketBallContact = new Todes::ParticleCable
+		(m_caveDimensions.height - m_caveDimensions.thickness - 1.0f, 0.5f);
 	basketBallContact->setParticles(basketBall->getParticle(), anchor);
 
 	m_particleWorld->addPlacementParticle(basketBall, { m_gravity });
@@ -177,15 +178,13 @@ TyphoonScene::TyphoonScene()
 		2.0f);
 
 	m_particleWorld->addPlacementParticle(tennisBall, { m_gravity });
-	m_particleWorld->addContacts(
-		{
-			new Todes::ParticleCollision(basketBall->getParticle(), tennisBall->getParticle(), 1.5f, 0.3f),
-			new Todes::ParticleCollision(tennisBall->getParticle(), basketBall->getParticle(), 1.5f, 0.3f)
-		}
-	);
+	m_particleWorld->addContacts
+	({
+		new Todes::ParticleCollision(basketBall->getParticle(), tennisBall->getParticle(), 1.5f, 0.5f)
+	});
 #pragma endregion
-	tennisBallPlacement->AddPlacement(&m_cameraPlacement);
-	m_cameraPlacement.SetPointing(tennisBallPlacement);
+// 	tennisBallPlacement->AddPlacement(&m_cameraPlacement);
+// 	m_cameraPlacement.SetPointing(tennisBallPlacement);
 }
 
 TyphoonScene::~TyphoonScene()

@@ -170,6 +170,11 @@ namespace Todes
 		std::cout << "( " << m_x << " | " << m_y << " | " << m_z << " )";
 	}
 
+	bool Vector3D::isZero() const
+	{
+		return m_x == 0.0f && m_y == 0.0f && m_z == 0.0f;
+	}
+
 	Vector3D Vector3D::operator+(const Vector3D& rhs) const
 	{
 		Vector3D result = *this;

@@ -40,7 +40,8 @@ namespace Todes
 		/// Resolves the velocity and interpenetration
 		/// </summary>
 		/// <param name="timeDelta">The amount of time that has passed</param>
-		void resolve(const float& timeDelta);
+		/// <returns>Particle Translations through resolving Interpenetration</returns>
+		std::pair<Vector3D, Vector3D> resolve(const float& timeDelta);
 
 		/// <summary>
 		/// Returns the contact's particles.
@@ -94,11 +95,6 @@ namespace Todes
 		/// </summary>
 		Particle* getSecond() const;
 
-		/// <summary>
-		/// Returns the Movement of the particles
-		/// </summary>
-		const Vector3D* getParticlesMovement() const;
-
 	private:
 		/// <summary>
 		/// Resolves the velocity for the particles.
@@ -110,13 +106,13 @@ namespace Todes
 		/// Resolves the interpenetration of the particles.
 		/// </summary>
 		/// <param name="timeDelta">Time step of this update.</param>
-		void ResolveInterpenetration(const float& timeDelta);
+		/// <returns>Particle Translations through resolving Interpenetration</returns>
+		std::pair<Vector3D, Vector3D> ResolveInterpenetration(const float& timeDelta);
 
 	protected:
 		Particle* m_particles[2];
 		float m_restitution;
 		Vector3D m_contactNormal;
 		float m_penetration;
-		Vector3D m_particlesMovement[2];
 	};
 }

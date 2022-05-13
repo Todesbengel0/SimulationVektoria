@@ -95,17 +95,19 @@ namespace Todes
 
 	void ParticleWorld::updateWorld(const float& timeDelta)
 	{
-		// Update Collisions
-		updateCollisions();
-
-		// Solves Collisions
-		solveCollisions(timeDelta);
-
+		// It's important to first update the Forces and then check for collisions
+		
 		// Updates the Forces of the Particles
 		updateForces();
 
 		// Integrates the Particles
 		integrate(timeDelta);
+
+		// Update Collisions
+		updateCollisions();
+
+		// Solves Collisions
+		solveCollisions(timeDelta);
 	}
 
 	void ParticleWorld::reset()

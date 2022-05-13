@@ -10,9 +10,7 @@ namespace Todes
 	{
 		const auto& contactCount = contactData.getUsedEntries();
 
-		unsigned int iterationsUsed = 0;
-
-		while (iterationsUsed < maxIterations)
+		for (unsigned int iterationsUsed = 0; iterationsUsed < maxIterations; ++iterationsUsed)
 		{
 			// Search for contact with smallest separation velocity (greatest collision velocity)
 			auto max = std::numeric_limits<float>::max();
@@ -37,35 +35,48 @@ namespace Todes
 
 			// Resolve the Contact the smallest separation velocity
 			auto& mostImportantContact = contactData[maxIndex];
-			mostImportantContact.resolve(timeDelta);
+			const auto move = mostImportantContact.resolve(timeDelta);
 
-			// Calculate Penetration
-			auto micFirst = mostImportantContact.getFirst();
-			auto micSecond = mostImportantContact.getSecond();
-			const auto move = mostImportantContact.getParticlesMovement();
+			if (move.first.isZero()) return;
+
+			// If the Resolve has created a new interpenetration (or reduced one),
+			// we need to resolve it in a later iteration
+			auto maxFirst = contactData[maxIndex].getFirst();
+			auto maxSecond = contactData[maxIndex].getSecond();
 
 			for (unsigned i = 0; i < contactCount; ++i)
 			{
-				auto& currentContact = contactData[i];
+				if (i == maxIndex)
+					continue;
 
-				auto currFirst = currentContact.getFirst();
-				auto currSecond = currentContact.getSecond();
-				const auto& contactNormal = currentContact.getContactNormal();
+				auto currFirst = contactData[i].getFirst();
+				auto currSecond = contactData[i].getSecond();
 
-				if (!currSecond->hasFiniteMass())
-				{
-					if (currFirst == micFirst)
-						currentContact.AddPenetration(-move[0] * contactNormal);
+				const auto& contactNormal = contactData[i].getContactNormal();
 
-					else if (currFirst == micSecond)
-						currentContact.AddPenetration(-move[1] * contactNormal);
-				}
+				// If our first particle from the last calculation is 
+				// the first particle of this contact,
+				// we need to subtract its Translation away from contact normal
+				if (maxFirst == currFirst)
+					contactData[i].AddPenetration(-move.first * contactNormal);
+				// If it is the second particle of this contact,
+				// we want to add the Translation away from contact normal
+				else if (maxFirst == currSecond)
+					contactData[i].AddPenetration(move.first * contactNormal);
+
+				if (move.second.isZero()) continue;
+
+				// If our second particle from the last calculation is 
+				// the first particle of this contact,
+				if (maxFirst == currFirst)
+					contactData[i].AddPenetration(-move.second * contactNormal);
+				// If it is the second particle of this contact,
+				// we want to add the Translation away from contact normal
+				else if (maxFirst == currSecond)
+					contactData[i].AddPenetration(move.second * contactNormal);
 			}
 
-			++iterationsUsed;
 		}
-
-
 	}
 
 

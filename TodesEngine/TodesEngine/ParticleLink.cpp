@@ -21,19 +21,14 @@ namespace Todes
 	{
 		const auto penetration = calculatePenetration();
 		if (penetration <= 0.0f) return;
-
+		
 		// Get an unused contact
 		auto contact = contactData.getAvailableEntry();
 
 		assert(contact);
 
 		contact->Init(m_particles[0], m_particles[1]);
-
-		// Negative contact normal
-		auto normal = m_particles[1]->getPosition() - m_particles[0]->getPosition();
-		normal.Normalize();
-
-		contact->setContactNormal(normal);
+		contact->setContactNormal(calculateContactNormal());
 		contact->setPenetration(penetration);
 		contact->setRestitution(m_restitution);
 	}
@@ -58,11 +53,18 @@ namespace Todes
 		m_triggerDistance = distance;
 	}
 
-	float Todes::ParticleLink::currentLength() const
+	float ParticleLink::currentLength() const
 	{
 		assert(m_particles[0] && m_particles[1]);
 
 		const auto distance = m_particles[0]->getPosition() - m_particles[1]->getPosition();
 		return distance.Length();
+	}
+
+	Vector3D ParticleLink::calculateContactNormal() const
+	{
+		// Contact normal n = (a.position - b.positon).Norm
+		auto normal = m_particles[0]->getPosition() - m_particles[1]->getPosition();
+		return normal.Normalize();
 	}
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "IParticleContactGenerator.hpp"
+#include "Vector3D.h"
 
 namespace Todes
 {
@@ -54,6 +55,11 @@ namespace Todes
 
 	protected:
 		explicit ParticleLink(const float& triggerDistance = 1.0f, const float& restitution = 0.0f);
+
+		/// <summary>
+		/// Returns the current Contact Normal
+		/// </summary>
+		virtual Vector3D calculateContactNormal() const;
 
 		/// <summary>
 		/// Calculates the length between the current particles.

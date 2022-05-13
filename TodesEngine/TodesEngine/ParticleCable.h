@@ -21,6 +21,12 @@ namespace Todes
 		/// Calculates the penetration between the two particles.
 		/// </summary>
 		float calculatePenetration() const override;
+
+	protected:
+		/// <summary>
+		/// Returns the current Contact Normal
+		/// </summary>
+		Vector3D calculateContactNormal() const override;
     };
 
 }
