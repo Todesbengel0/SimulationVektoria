@@ -22,7 +22,7 @@ namespace Todes
 		/// FixedSizeContainer constructor
 		/// </summary>
 		/// <param name="size">Size of the Container</param>
-		explicit FixedSizeContainer(const int& size);
+		explicit FixedSizeContainer(const unsigned int& size);
 		~FixedSizeContainer();
 
 		/// <summary>
@@ -56,17 +56,17 @@ namespace Todes
 		/// <summary>
 		/// Returns the number of remaining slots that can fit by elements.
 		/// </summary>
-		int getRemainingEntries() const;
+		unsigned int getRemainingEntries() const;
 
 		/// <summary>
 		/// Returns the number of entries that are already filled.
 		/// </summary>
-		const int& getUsedEntries() const;
+		const unsigned int& getUsedEntries() const;
 
 		/// <summary>
 		/// Returns the maximal number of elements that can fit this container.
 		/// </summary>
-		const int& size() const;
+		const unsigned int& size() const;
 
 		/// <summary>
 		/// Returns the last element of the container.
@@ -96,9 +96,11 @@ namespace Todes
 		/// <returns>All data with m_entriesUsed number of valid elements.</returns>
 		const Container_Type& getData() const;
 
+		Element_Type& operator[](const unsigned int& index);
+
 	private:
-		int m_size;
-		int m_entriesUsed;
+		unsigned int m_size;
+		unsigned int m_entriesUsed;
 
 		Container_Type m_data;
 	};

@@ -1,35 +1,24 @@
 #pragma once
 #include "PhysicsEngineModule.h"
 #include "ParticleForceRegistry.h"
+#include "ParticleContactRegistry.h"
+#include "FixedSizeContainer.h"
 
 namespace Todes
 {
 	class Particle;
-
-	class ParticleEngineCI;
+	class ParticleContact;
 
 	class ParticleWorld : public PhysicsEngineModule
 	{
 #pragma region Constructor & Destructor
 	public:
-		explicit ParticleWorld();
+		explicit ParticleWorld(const unsigned int& maxContacts);
 		~ParticleWorld();
 #pragma endregion
 
 #pragma region Getter & Setter
 	public:
-		/// <summary>
-		/// Change the computation interface, used by the module.
-		/// </summary>
-		/// <param name="computationInterface">The new computation interface.</param>
-		void setComputationInterface(ParticleEngineCI* computationInterface);
-
-		/// <summary>
-		/// Get the module's computation interface.
-		/// </summary>
-		/// <returns>The currently used computation interface.</returns>
-		IComputationInterface* getComputationInterface() const override;
-
 		/// <summary>
 		/// Get the module's particle force registry
 		/// </summary>
@@ -41,6 +30,16 @@ namespace Todes
 		/// </summary>
 		/// <returns>The particle force registry</returns>
 		const ParticleForceRegistry& getParticleForceRegistry() const;
+
+		/// <summary>
+		/// Returns the module's Particle Contact Registry
+		/// </summary>
+		ParticleContactRegistry& getParticleContactRegistry();
+
+		/// <summary>
+		/// Returns the module's Particle Contact Registry
+		/// </summary>
+		const ParticleContactRegistry& getParticleContactRegistry() const;
 
 		/// <summary>
 		/// Get the module's particles.
@@ -72,10 +71,46 @@ namespace Todes
 		bool removeParticle(Particle* particle);
 #pragma endregion
 
-	private:
-		ParticleEngineCI* m_computationInterface{};
+#pragma region Engine Functionalities
+	public:
+		/// <summary>
+		/// Updates Particle Forces
+		/// </summary>
+		void updateForces();
 
+		/// <summary>
+		/// Integrates the Particles
+		/// </summary>
+		/// <param name="timeDelta">Time Step of this update.</param>
+		void integrate(const float& timeDelta);
+
+		/// <summary>
+		/// Updates Particle Collisions
+		/// </summary>
+		void updateCollisions();
+
+		/// <summary>
+		/// Solves the Particle Collisions
+		/// </summary>
+		/// <param name="timeDelta">Time Step of this update.</param>
+		void solveCollisions(const float& timeDelta);
+
+		/// <summary>
+		/// Updates the Particle Forces and Collisions
+		/// </summary>
+		/// <param name="timeDelta">Time Step of this update.</param>
+		void updateWorld(const float& timeDelta);
+
+		/// <summary>
+		/// Resets the Particle Contacts
+		/// </summary>
+		void reset();
+#pragma endregion
+
+	private:
 		ParticleForceRegistry m_forceRegistry;
+		ParticleContactRegistry m_contactRegistry;
+		FixedSizeContainer<ParticleContact> m_contactContainer;
 
 		std::vector<Particle*> m_particles;
 	};

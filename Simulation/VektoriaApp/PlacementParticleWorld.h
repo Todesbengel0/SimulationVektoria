@@ -5,6 +5,7 @@ namespace Todes
 	class ParticleWorld;
 	class Particle;
 	class IParticleForceGenerator;
+	class IParticleContactGenerator;
 }
 
 class PlacementParticle;
@@ -17,6 +18,7 @@ public:
 	using Particles = std::vector<Todes::Particle*>;
 	using PlacementParticles = std::vector<PlacementParticle*>;
 	using ForceGeneratorList = std::initializer_list<Todes::IParticleForceGenerator*>;
+	using ContactGeneratorList = std::initializer_list<Todes::IParticleContactGenerator*>;
 #pragma endregion
 
 #pragma region Constructor & Destructor
@@ -66,6 +68,12 @@ public:
 	/// <param name="generators">Force Generators that act on the Particle.</param>
 	/// <returns>TRUE: Placement was registered. FALSE: Placement was not registered.</returns>
 	bool addForces(PlacementParticle* placement, ForceGeneratorList generators);
+
+	/// <summary>
+	/// Adds Contact Generators to act in the world.
+	/// </summary>
+	/// <param name="contacts">Contact Generators acting in the world.</param>
+	void addContacts(ContactGeneratorList contacts);
 
 	/// <summary>
 	/// Removes an already registered Placement Particle.

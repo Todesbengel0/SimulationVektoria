@@ -10,10 +10,7 @@
 #pragma region Constructor & Destructor
 PlacementParticleWorld::PlacementParticleWorld()
 {
-	m_world = std::make_unique<Todes::ParticleWorld>();
-
-	const auto computationInterface = new Todes::DefaultParticleEngineCI(m_world.get());
-	m_world->setComputationInterface(computationInterface);
+	m_world = std::make_unique<Todes::ParticleWorld>(100);
 }
 
 PlacementParticleWorld::~PlacementParticleWorld()
@@ -65,6 +62,11 @@ bool PlacementParticleWorld::addForces(PlacementParticle* placement, ForceGenera
 	return true;
 }
 
+void PlacementParticleWorld::addContacts(ContactGeneratorList contacts)
+{
+	m_world->getParticleContactRegistry().add(contacts);
+}
+
 bool PlacementParticleWorld::removePlacementParticle(PlacementParticle* placement)
 {
 	const auto removablePlacement = std::remove(m_placementParticles.begin(),
@@ -114,11 +116,7 @@ void PlacementParticleWorld::clear()
 
 void PlacementParticleWorld::update(float timeDelta)
 {
-	// Updates the Forces of the Particles
-	m_world->getParticleForceRegistry().updateForces();
-
-	// Integrates the Particles
-	m_world->getComputationInterface()->integrate(timeDelta);
+	m_world->updateWorld(timeDelta);
 
 	// Translates the Placements
 	for (std::size_t i = 0; i < m_placementParticles.size(); ++i)
@@ -137,6 +135,8 @@ void PlacementParticleWorld::update(float timeDelta)
 
 void PlacementParticleWorld::reset() const
 {
+	m_world->reset();
+
 	for (auto placementParticle : m_placementParticles)
 		placementParticle->reset();
 }

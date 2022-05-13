@@ -20,6 +20,17 @@ namespace Todes
 		void setParticles(Particle* first, Particle* second);
 
 		/// <summary>
+		/// Generates new Contacts.
+		/// </summary>
+		/// <param name="contactData">Out parameter in which new contacts are added.</param>
+		void addContact(FixedSizeContainer<ParticleContact>& contactData) const override;
+
+		/// <summary>
+		/// Calculates the penetration between the two particles.
+		/// </summary>
+		virtual float calculatePenetration() const = 0;
+
+		/// <summary>
 		/// Returns the first particle.
 		/// </summary>
 		Particle* getFirst() const;
@@ -29,8 +40,20 @@ namespace Todes
 		/// </summary>
 		Particle* getSecond() const;
 
+		/// <summary>
+		/// Sets the restitution of the generated contacts.
+		/// </summary>
+		/// <param name="restitution">Restitution coefficient [unitless quantity].</param>
+		void setRestitution(const float& restitution);
+
+		/// <summary>
+		/// Sets the threshold at which contacts will be generated.
+		/// </summary>
+		/// <param name="distance">Distance at which to calculate Contact.</param>
+		void setTriggerDistance(const float& distance);
+
 	protected:
-		explicit ParticleLink();
+		explicit ParticleLink(const float& triggerDistance = 1.0f, const float& restitution = 0.0f);
 
 		/// <summary>
 		/// Calculates the length between the current particles.
@@ -41,6 +64,8 @@ namespace Todes
 
 	protected:
 		Particle* m_particles[2];
+		float m_triggerDistance;
+		float m_restitution;
 	};
 
 }

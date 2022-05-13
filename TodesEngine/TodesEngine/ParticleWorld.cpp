@@ -1,26 +1,20 @@
 #include "ParticleWorld.h"
 #include "Particle.h"
 #include "ParticleEngineCI.h"
+#include "ParticleContact.h"
+#include "IParticleContactGenerator.hpp"
+#include "ParticleContactResolver.h"
 
 #include <algorithm>
 
 namespace Todes
 {
-	ParticleWorld::ParticleWorld()
-		= default;
+	ParticleWorld::ParticleWorld(const unsigned int& maxContacts)
+		: m_contactContainer(maxContacts)
+	{ }
 
 	ParticleWorld::~ParticleWorld()
 		= default;
-
-	void ParticleWorld::setComputationInterface(ParticleEngineCI* computationInterface)
-	{
-		m_computationInterface = computationInterface;
-	}
-
-	IComputationInterface* ParticleWorld::getComputationInterface() const
-	{
-		return m_computationInterface;
-	}
 
 	ParticleForceRegistry& ParticleWorld::getParticleForceRegistry()
 	{
@@ -30,6 +24,16 @@ namespace Todes
 	const ParticleForceRegistry& ParticleWorld::getParticleForceRegistry() const
 	{
 		return m_forceRegistry;
+	}
+
+	Todes::ParticleContactRegistry& ParticleWorld::getParticleContactRegistry()
+	{
+		return m_contactRegistry;
+	}
+
+	const Todes::ParticleContactRegistry& ParticleWorld::getParticleContactRegistry() const
+	{
+		return m_contactRegistry;
 	}
 
 	std::vector<Particle*>& ParticleWorld::getParticles()
@@ -57,4 +61,56 @@ namespace Todes
 		m_particles.erase(removableParticle);
 		return true;
 	}
+
+	void ParticleWorld::updateForces()
+	{
+		m_forceRegistry.updateForces();
+	}
+
+	void ParticleWorld::integrate(const float& timeDelta)
+	{
+		for (int i = 0; i < m_particles.size(); ++i)
+			m_particles[i]->integrate(timeDelta);
+	}
+
+	void ParticleWorld::updateCollisions()
+	{
+		for (const auto& generator : m_contactRegistry)
+		{
+			if (m_contactContainer.isFull()) return;
+
+			generator->addContact(m_contactContainer);
+		}
+	}
+
+	void ParticleWorld::solveCollisions(const float& timeDelta)
+	{
+		const auto usedContacts = m_contactContainer.getUsedEntries();
+
+		if (usedContacts > 0)
+			ParticleContactResolver::ResolveContacts(m_contactContainer, usedContacts * 2, timeDelta);
+
+		reset();
+	}
+
+	void ParticleWorld::updateWorld(const float& timeDelta)
+	{
+		// Update Collisions
+		updateCollisions();
+
+		// Solves Collisions
+		solveCollisions(timeDelta);
+
+		// Updates the Forces of the Particles
+		updateForces();
+
+		// Integrates the Particles
+		integrate(timeDelta);
+	}
+
+	void ParticleWorld::reset()
+	{
+		m_contactContainer.reset();
+	}
+
 }

@@ -128,7 +128,6 @@ void Firework::kill()
 		firework->update();
 	}
 
-	
 	destroy();
 }
 

@@ -129,12 +129,15 @@ namespace Todes
 		const auto deltaVelocity = newSeparatingVelocity - separatingVelocity;
 
 		// Velocity changes depending on the mass of the particles
-		auto totalMass = m_particles[0]->getMass();
+//		auto totalMass = m_particles[0]->getMass();
+		auto totalInverseMass = m_particles[0]->getInverseMass();
 		if (m_particles[1]->hasFiniteMass())
-			totalMass += m_particles[1]->getMass();
+//			totalMass += m_particles[1]->getMass();
+			totalInverseMass += m_particles[1]->getInverseMass();
 
 		// Total impulse g = (m_1 + m_2) * v 
-		const auto impulse = deltaVelocity * totalMass;
+//		const auto impulse = deltaVelocity * totalMass;
+		const auto impulse = deltaVelocity / totalInverseMass;
 
 		// Impulse * Mass in direction of contact normal
 		const auto impulsePerMass = m_contactNormal * impulse;
@@ -157,19 +160,25 @@ namespace Todes
 		if (m_penetration <= 0) return;
 
 		// Velocity change in accordance with their masses
-		auto totalMass = m_particles[0]->getMass();
+//		auto totalMass = m_particles[0]->getMass();
+		auto totalInverseMass = m_particles[0]->getInverseMass();
 		if (m_particles[1]->hasFiniteMass())
-			totalMass += m_particles[1]->getMass();
+//			totalMass += m_particles[1]->getMass();
+			totalInverseMass += m_particles[1]->getInverseMass();
 		
-		if (totalMass <= 0.0f) return;
+//		if (totalMass <= 0.0f) return;
+		if (totalInverseMass <= 0) return;
 
 		// Calculate (m_a + m_b) * d * n
-		auto movePerMass = m_contactNormal * m_penetration * totalMass;
+//		auto movePerMass = m_contactNormal * m_penetration * totalMass;
+		auto movePerInverseMass = m_contactNormal * (m_penetration / totalInverseMass);
 
 		// Calculate Delta-p_a and Delta-p_b
-		m_particlesMovement[0] = movePerMass * m_particles[0]->getInverseMass();
+//		m_particlesMovement[0] = movePerMass * m_particles[0]->getInverseMass();
+		m_particlesMovement[0] = movePerInverseMass * m_particles[0]->getInverseMass();
 		if (m_particles[1]->hasFiniteMass())
-			m_particlesMovement[1] = movePerMass * -m_particles[1]->getInverseMass();
+//			m_particlesMovement[1] = movePerMass * -m_particles[1]->getInverseMass();
+			m_particlesMovement[1] = movePerInverseMass * -m_particles[1]->getInverseMass();
 
 		else
 			m_particlesMovement[1] = Vector3D();

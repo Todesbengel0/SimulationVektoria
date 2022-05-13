@@ -45,19 +45,10 @@
     <ClInclude Include="Vector3D.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="IComputationInterface.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicsEngineModule.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="DefaultParticleEngineCI.h">
-      <Filter>ParticleEngine\Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Particle.h">
-      <Filter>ParticleEngine\Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleEngineCI.h">
       <Filter>ParticleEngine\Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ParticleWorld.h">
@@ -111,24 +102,24 @@
     <ClInclude Include="ParticleLink.h">
       <Filter>ParticleContacts\Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleContactRegistry.h">
+      <Filter>ParticleContacts\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleContactResolver.h">
+      <Filter>ParticleEngine\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleCollision.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector3D.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="IComputationInterface.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="PhysicsEngineModule.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="DefaultParticleEngineCI.cpp">
-      <Filter>ParticleEngine\Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="Particle.cpp">
-      <Filter>ParticleEngine\Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleEngineCI.cpp">
       <Filter>ParticleEngine\Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ParticleWorld.cpp">
@@ -175,6 +166,15 @@
     </ClCompile>
     <ClCompile Include="ParticleCable.cpp">
       <Filter>ParticleContacts\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleContactRegistry.cpp">
+      <Filter>ParticleContacts\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleContactResolver.cpp">
+      <Filter>ParticleEngine\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleCollision.cpp">
+      <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
