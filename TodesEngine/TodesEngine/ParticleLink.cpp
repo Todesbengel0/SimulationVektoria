@@ -5,7 +5,7 @@
 namespace Todes
 {
 	ParticleLink::ParticleLink(const float& triggerDistance /*= 1.0f*/, const float& restitution /*= 0.0f*/)
-		: m_triggerDistance(triggerDistance), m_restitution(restitution)
+		: m_particles{}, m_triggerDistance(triggerDistance), m_restitution(restitution)
 	{ }
 
 	ParticleLink::~ParticleLink()

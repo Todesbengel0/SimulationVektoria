@@ -6,7 +6,10 @@ namespace Todes
 {
 
 	ParticleContact::ParticleContact()
-		= default;
+		: m_particles{}
+		, m_penetration(0.0f)
+		, m_restitution(1.0f)
+	{ }
 
 	ParticleContact::ParticleContact(Particle* first, Particle* second)
 		: m_restitution(0.0f)
@@ -37,7 +40,11 @@ namespace Todes
 
 	std::pair<Vector3D, Vector3D> ParticleContact::resolve(const float& timeDelta)
 	{
-		ResolveVelocity(timeDelta);
+		if (!isResting(timeDelta))
+			ResolveVelocity(timeDelta);
+
+		if (m_penetration <= 0.0f) return std::pair<Vector3D, Vector3D>();
+
 		return ResolveInterpenetration(timeDelta);
 	}
 
@@ -91,13 +98,13 @@ namespace Todes
 		return m_particles[1];
 	}
 
-	void ParticleContact::ResolveVelocity(const float& timeDelta)
+	bool ParticleContact::isResting(const float& timeDelta)
 	{
 		// Checks if the particles are the wrong way around
 		if (!m_particles[0]->hasFiniteMass())
 		{
 			// If both particles have infinite mass, there's nothing to resolve
-			if (!m_particles[1]->hasFiniteMass()) return;
+			if (!m_particles[1]->hasFiniteMass()) return true;
 
 			auto temp = m_particles[0];
 
@@ -106,48 +113,66 @@ namespace Todes
 			m_contactNormal *= -1;
 		}
 
-		float separatingVelocity = CalculateSeparatingVelocity();
-
-		// If the separating velocity is positive, the particles move away from each other
-		if (separatingVelocity > 0.0f) return;
-
-#pragma region Calculation_for_resting_contacts
-		// Calculation for resting contacts
-
-		// Acceleration is always 0 in Rumble3D
-
-		// Calculate velocity from Acceleration: vfa = a.acceleration * timeDelta - b.acceleration * timeDelta
-		Vector3D separatingAcceleration = m_particles[0]->getAcceleration();
+		// We calculate the separating velocity
+		// but save ourselves the single velocities
+		const auto firstVelocity = m_particles[0]->getVelocity() * m_contactNormal;
+		const auto secondVelocity = m_particles[1]->getVelocity() * m_contactNormal;
+		float separatingVelocity = firstVelocity;
 		if (m_particles[1]->hasFiniteMass())
-			separatingAcceleration -= m_particles[1]->getAcceleration();
+			separatingVelocity -= secondVelocity;
 
-		// Velocity = Acceleration * Time
-		auto velocityFromAcceleration = separatingAcceleration * timeDelta;
+		// Calculate velocity from Acceleration:
+		// vfa = a.acceleration * timeDelta - b.acceleration * timeDelta
+		// Multiply with contact normal to get the velocity towards the contact normal
+		
+		// Acceleration is always 0 in Rumble3D
+		const auto firstAcceleration = m_particles[0]->getAcceleration() * m_contactNormal;
+		const auto firstVelFromAcc = firstAcceleration * timeDelta;
+		const auto secondAcceleration = m_particles[1]->getAcceleration() * m_contactNormal;
+		const auto secondVelFromAcc = secondAcceleration * timeDelta;
 
-		// Check how much velocity works towards contact normal
-		auto velocityTowardsNormal = velocityFromAcceleration * m_contactNormal;
+		float velocityFromAcceleration = firstVelFromAcc;
+		if (m_particles[1]->hasFiniteMass())
+			velocityFromAcceleration -= secondVelFromAcc;
+
+		// If we do not have any velocity from acceleration towards the contact,
+		// this is not resting
+		if (velocityFromAcceleration >= 0.0f) return false;
 
 		// Now we need to check if the velocity created from the acceleration
 		// is equal to the separation velocity
 		// (in which case the whole velocity came from this resting contact)
-		if (nearlyEqual(velocityTowardsNormal, separatingVelocity))
-		{
-			// In case of a resting contact, we do not have a separation velocity
-			// But we need to remove the velocity that the contact prevents the particle to have
-			m_particles[0]->addVelocity(-velocityFromAcceleration);
+		bool isResting = nearlyEqual(velocityFromAcceleration, separatingVelocity);
 
-			// Because the two particles are not supposed to be colliding anymore,
-			// we need to return from this function
-			return;
+		// In case of a resting contact, we do not have a separation velocity
+		// But we need to remove the velocity that the contact prevents the particle to have
+		// (This is also true, if the contact is only partially resting)
+
+		// And we only want to remove the part that is greater (less negative)
+		m_particles[0]->addAcceleration(-firstAcceleration * m_contactNormal);
+		m_particles[0]->addVelocity(-std::max(firstVelFromAcc, firstVelocity) * m_contactNormal);
+
+		if (m_particles[1]->hasFiniteMass())
+		{
+			m_particles[1]->addAcceleration(-secondAcceleration * m_contactNormal);
+			m_particles[1]->addVelocity(-std::min(secondVelFromAcc, secondVelocity) * m_contactNormal);
 		}
 
-		// If we actually have a separation velocity (negative) from the acceleration
-		// (even though it is not the only velocity working in this direction)
-		// we have to at least remove the part it plays
-		if (velocityTowardsNormal < 0.0f)
-			separatingVelocity -= velocityTowardsNormal;
+		return isResting;
+	}
 
-#pragma endregion
+	void ParticleContact::ResolveVelocity(const float& timeDelta)
+	{
+		// We calculate the separating velocity
+		// but save ourselves the single velocities
+		const auto firstVelocity = m_particles[0]->getVelocity() * m_contactNormal;
+		const auto secondVelocity = m_particles[1]->getVelocity() * m_contactNormal;
+		float separatingVelocity = firstVelocity;
+		if (m_particles[1]->hasFiniteMass())
+			separatingVelocity -= secondVelocity;
+
+		// If the separating velocity is positive, the particles move away from each other
+		if (separatingVelocity > 0.0f) return;
 
 		// Restitution Velocity vs' = -c * vs
 		float restitutionVelocity = -m_restitution * separatingVelocity;
@@ -155,23 +180,31 @@ namespace Todes
 		// If the second particle has infinite mass, the velocity is turned around
 		if (!m_particles[1]->hasFiniteMass())
 		{
-			// Should use velocity of particle in contact direction, I think
-			m_particles[0]->addVelocity(2.0f * restitutionVelocity * m_contactNormal);
+			// We need to use velocity of particle in contact direction
+			m_particles[0]->addVelocity((restitutionVelocity - firstVelocity) * m_contactNormal);
 			return;
 		}
 
-		// Velocity changes depending on the mass of the particles
-		auto totalMass = m_particles[0]->getMass() + m_particles[1]->getMass();
+		// a.impulse = vs' * (b.mass / a.mass) - a.velocityToNormal
+		const auto impulse0 =
+			restitutionVelocity
+			* m_particles[1]->getMass()
+			* m_particles[0]->getInverseMass()
+			- firstVelocity;
 
-		// Impulse g = (m1 + m2) * vs'
-		const auto impulse = totalMass * restitutionVelocity;
+		// b.impulse = vs' * (a.mass / b.mass) + b.velocityToNormal
+		const auto impulse1 =
+			restitutionVelocity
+			* m_particles[0]->getMass()
+			* m_particles[1]->getInverseMass()
+			+ secondVelocity;
 
-		// a.velocity' = a.velocity + m_contactNormal * g / a.mass
-		m_particles[0]->addVelocity(m_contactNormal * impulse * m_particles[0]->getInverseMass());
+		// a.velocity' = a.velocity + m_contactNormal * a.impulse
+		m_particles[0]->addVelocity(m_contactNormal * impulse0);
 
 		// For the second particle we have the new velocity towards the negative contact normal
-		// = b.velocity - m_contactNormal * g / b.mass
-		m_particles[1]->addVelocity(-m_contactNormal * impulse * m_particles[1]->getInverseMass());
+		// = b.velocity - m_contactNormal * b.impulse
+		m_particles[1]->addVelocity(-m_contactNormal * impulse1);
 	}
 
 	std::pair<Vector3D, Vector3D> ParticleContact::ResolveInterpenetration(const float& timeDelta)
@@ -180,7 +213,7 @@ namespace Todes
 		std::pair<Vector3D, Vector3D> particlesTranslation;
 
 		// Without penetration, we do not need to resolve anything
-		if (m_penetration <= 0) return particlesTranslation;
+		if (m_penetration <= 0.0001f) return particlesTranslation;
 
 		// If both particles have infinite mass, there's nothing to resolve
 		if (!m_particles[0]->hasFiniteMass() && !m_particles[1]->hasFiniteMass()) return particlesTranslation;

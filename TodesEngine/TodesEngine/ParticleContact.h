@@ -97,6 +97,12 @@ namespace Todes
 
 	private:
 		/// <summary>
+		/// Checks if this Contact is resting. Adjusts particle movements if it is.
+		/// </summary>
+		/// <returns>TRUE: Contact is resting. FALSE: Contact is forcefull.</returns>
+		bool isResting(const float& timeDelta);
+
+		/// <summary>
 		/// Resolves the velocity for the particles.
 		/// </summary>
 		/// <param name="timeDelta">Time step of this update.</param>
