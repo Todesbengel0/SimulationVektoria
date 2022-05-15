@@ -29,7 +29,7 @@ FireworkScene::FireworkScene()
 	const auto pos = m_backWall.placement->GetPos();
 	m_backWall.placement->ScaleY(50.0f);
 	m_backWall.placement->ScaleXDelta(50.0f);
-	m_backWall.placement->TranslateDelta(pos.x - 25.0f, pos.y - 25.0f, pos.z);
+	m_backWall.placement->TranslateDelta(pos.x - 50.0f, pos.y - 25.0f, pos.z - 50.0f);
 	auto stars = new Vektoria::CMaterial();
 	stars->LoadPreset((char*)"SkyStarfield");
 	regMaterial(stars);
@@ -40,7 +40,7 @@ FireworkScene::FireworkScene()
 	m_ceiling.placement->SwitchOff();
 /*	m_frontWall.placement->SwitchOff();*/
 
-	m_tail = new Vektoria::CTailPlacements(m_pCave, m_tailGeo, 2500, 1.2f);
+	m_tail = new Vektoria::CTailPlacements(m_pCave, m_tailGeo, 4000, 1.2f);
 
 	Todes::Random::seed();
 	m_fireworkMaterial->LoadPreset((char*)"Sun");

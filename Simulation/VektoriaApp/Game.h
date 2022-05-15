@@ -21,6 +21,12 @@ public:
 
 	void WindowReSize(int iNewWidth, int iNewHeight);
 
+	// Holt das minimale Zeitdelta zur eventuellen Frame-Rate-Beschränkung:
+	float GetTimeDeltaMin();
+
+	// Holt die Versionsnummer:
+	float GetVersion();
+
 	/** Get the root node */
 	Vektoria::CRoot& getRoot();
 	/** Get the keyboard */
@@ -47,6 +53,7 @@ private:
 	Vektoria::CRoot m_zr;
 	Vektoria::CFrame m_zf;
 	Vektoria::CViewport m_zv;
+	Vektoria::CLightParallel m_zl;
 	Vektoria::CBackground m_zb;
 
 	/* Input */

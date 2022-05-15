@@ -4,6 +4,7 @@
 // ------------------------------------------------------------------------
 
 #include "pch.h"
+#include <windows.h> // Windows
 #include "resource.h" // Das Icon
 #include "Game.h" // Das Spiel
 #include "Vektoria\Timer.h" // Timer fütr die Frame-Rate-Anzeige
