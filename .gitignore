@@ -10,3 +10,6 @@
 
 # Vektoria Lib
 [Ll]ib*
+*.obj
+*.tlog
+*.log
