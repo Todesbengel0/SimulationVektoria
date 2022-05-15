@@ -37,6 +37,16 @@ namespace Todes
 		m_velocity = velocity;
 	}
 
+	void Particle::addVelocity(const Vector3D& velocitySummand)
+	{
+		m_velocity += velocitySummand;
+	}
+
+	void Particle::addAcceleration(const Vector3D& accelerationSummand)
+	{
+		m_acceleration += accelerationSummand;
+	}
+
 	void Particle::setPosition(const Vector3D& position)
 	{
 		m_position = position;
@@ -100,10 +110,11 @@ namespace Todes
 
 		m_position += m_velocity * duration;
 
-		auto resultingAcceleration = m_acceleration;
-		resultingAcceleration += m_forceAccumulator * m_inverseMass;
+// 		auto resultingAcceleration = m_acceleration;
+// 		resultingAcceleration += m_forceAccumulator * m_inverseMass;
+		m_acceleration = m_forceAccumulator * m_inverseMass;
 
-		m_velocity += resultingAcceleration * duration;
+		m_velocity += m_acceleration * duration;
 
 		m_velocity *= powf(m_damping, duration);
 

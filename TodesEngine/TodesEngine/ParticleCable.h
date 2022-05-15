@@ -3,8 +3,6 @@
 
 namespace Todes
 {
-    class ParticleContact;
-
     /// <summary>
     /// Contact Generator that generates a contact if the two particles are too far apart.
     /// </summary>
@@ -20,26 +18,15 @@ namespace Todes
 		~ParticleCable();
 
 		/// <summary>
-		/// Generates new Contacts.
+		/// Calculates the penetration between the two particles.
 		/// </summary>
-		/// <param name="contactData">Out parameter in which new contacts are added.</param>
-		void addContact(FixedSizeContainer<ParticleContact>& contactData) const override;
-
-		/// <summary>
-		/// Sets the threshold at which contacts will be generated.
-		/// </summary>
-		/// <param name="maxLength">The maximal length of the cablein [m].</param>
-		void setMaxLength(const float& maxLength);
-
-		/// <summary>
-		/// Sets the restitution of the generated contacts.
-		/// </summary>
-		/// <param name="restitution">Restitution coefficient [unitless quantity].</param>
-		void setRestitution(const float& restitution);
+		float calculatePenetration() const override;
 
 	protected:
-		float m_maxLength;
-		float m_restitution;
+		/// <summary>
+		/// Returns the current Contact Normal
+		/// </summary>
+		Vector3D calculateContactNormal() const override;
     };
 
 }

@@ -28,12 +28,6 @@ void Firework::update(const float& timeDelta)
 
 	m_age += timeDelta;
 
-	if (m_age > m_payloadBounds.ageMax)
-	{
-		kill();
-		return;
-	}
-
 	PlacementParticle::update();
 
 	const auto& currPosition = m_particle->getPosition();
@@ -57,6 +51,12 @@ void Firework::update(const float& timeDelta)
 	m_tailPlacements->PutTail(tailMat);
 
 	m_prevPosition = currPosition;
+
+	if (m_age > m_payloadBounds.ageMax)
+	{
+		kill();
+		return;
+	}
 }
 
 void Firework::update() const
@@ -100,10 +100,7 @@ void Firework::kill()
 		fireworkPlacement->TranslateDelta(convertVector(m_particle->getPosition()));
 
 		// Create Muzzle Force
-		Todes::Vector3D muzzleForce = Todes::Random::Vec3D(
-										Todes::Vector3D(-1.0f, -1.0f, -1.0f).Norm(),
-										Todes::Vector3D(1.0f, 1.0f, 1.0f).Norm())
-									* velocityMax;
+		Todes::Vector3D muzzleForce = Todes::Random::Vec3D(velocityMax);
 
 		const Firework::PayloadBounds bounds
 		{
@@ -123,12 +120,9 @@ void Firework::kill()
 		m_scene->registerFirework(firework);
 
 		// Add Muzzle Force
-		firework->getParticle()->addForce(muzzleForce);
-		firework->getParticle()->integrate(1.0f);
-		firework->update();
+		firework->getParticle()->setVelocity(muzzleForce);
 	}
 
-	
 	destroy();
 }
 

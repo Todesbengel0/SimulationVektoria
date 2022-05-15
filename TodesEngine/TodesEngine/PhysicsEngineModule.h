@@ -13,12 +13,6 @@ namespace Todes
 	{
 	public:
 		virtual ~PhysicsEngineModule();
-		
-		/// <summary>
-		/// Get the computation interface of this module.
-		/// </summary>
-		/// <returns>The computation interface.</returns>
-		virtual IComputationInterface* getComputationInterface() const = 0;
 
 		/// <summary>
 		/// Enable or disable this module.

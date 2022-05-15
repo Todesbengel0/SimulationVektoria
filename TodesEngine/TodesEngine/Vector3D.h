@@ -43,25 +43,111 @@ namespace Todes
 
 #pragma region Getter & Setter
 	public:
+		/// <summary>
+		/// Returns the x-coordinate of the vector
+		/// </summary>
 		const float& x() const;
+
+		/// <summary>
+		/// Returns the y-coordinate of the vector
+		/// </summary>
 		const float& y() const;
+
+		/// <summary>
+		/// Returns the z-coordinate of the vector
+		/// </summary>
 		const float& z() const;
-		const float& x(const float& new_x);
-		const float& y(const float& new_y);
-		const float& z(const float& new_z);
+
+		/// <summary>
+		/// Sets the x-coordinate of the vector
+		/// </summary>
+		/// <param name="new_x">new x-coordinate</param>
+		void x(const float& new_x);
+
+		/// <summary>
+		/// Sets the y-coordinate of the vector
+		/// </summary>
+		/// <param name="new_y">new y-coordinate</param>
+		void y(const float& new_y);
+
+		/// <summary>
+		/// Sets the z-coordinate of the vector
+		/// </summary>
+		/// <param name="new_z">new z-coordinate</param>
+		void z(const float& new_z);
 #pragma endregion
 
 	public:
+		/// <summary>
+		/// Returns the squared Length of the Vector
+		/// </summary>
 		float LengthSq() const;
+
+		/// <summary>
+		/// Returns the Length of the Vector
+		/// </summary>
 		float Length() const;
+
+		/// <summary>
+		/// Returns a Vector representing the normalized version of this vector
+		/// </summary>
+		/// <returns>A new Vector 3D</returns>
 		Vector3D Norm() const;
+
+		/// <summary>
+		/// Normalizes this vector
+		/// </summary>
+		/// <returns>This Vector after being normalized</returns>
 		Vector3D& Normalize();
+
+		/// <summary>
+		/// Calculates the Cross Product between this Vector and another
+		/// </summary>
+		/// <param name="rhs">Other Vector to calculate Cross Product with</param>
+		/// <returns>A new Vector 3D</returns>
 		Vector3D Cross(const Vector3D& rhs) const;
+
+		/// <summary>
+		/// Calculates the Cross Product between this Vector and another
+		/// </summary>
+		/// <param name="rhs">Other Vector to calculate Cross Product with</param>
+		/// <returns>This Vector after being changed to the cross product</returns>
 		Vector3D& CrossEqual(const Vector3D& rhs);
+
+		/// <summary>
+		/// Rotates this Vector around the x-axis
+		/// </summary>
+		/// <param name="radiant">Rotation angle in rad</param>
+		/// <returns>This Vector after being rotated</returns>
 		Vector3D& RotateX(const float& radiant);
+
+		/// <summary>
+		/// Rotates this Vector around the y-axis
+		/// </summary>
+		/// <param name="radiant">Rotation angle in rad</param>
+		/// <returns>This Vector after being rotated</returns>
 		Vector3D& RotateY(const float& radiant);
+
+		/// <summary>
+		/// Rotates this Vector around the z-axis
+		/// </summary>
+		/// <param name="radiant">Rotation angle in rad</param>
+		/// <returns>This Vector after being rotated</returns>
 		Vector3D& RotateZ(const float& radiant);
-		void Print() const;
+
+		/// <summary>
+		/// Rotates this Vector around a given rotation axis
+		/// </summary>
+		/// <param name="rotationAngle">Rotation angle in rad</param>
+		/// <param name="rotationAxis">Axis to rotate this vector around</param>
+		/// <returns>This Vector after being rotated</returns>
+		Vector3D& Rotate(const float& rotationAngle, const Vector3D& rotationAxis);
+
+		/// <summary>
+		/// Checks if the Vector is a null vector.
+		/// </summary>
+		/// <returns>TRUE: Vector is null vector. FALSE: Vector is not null vector.</returns>
+		bool isNull() const;
 
 	private:
 		float m_x;
@@ -71,6 +157,9 @@ namespace Todes
 
 #pragma region Overloaded Operations
 	public:
+		/// <summary>
+		/// Prints this vector
+		/// </summary>
 		friend std::ostream& operator<<(std::ostream& os, const Vector3D& vector)
 		{
 			os << "( " << vector.m_x << " | " << vector.m_y << " | " << vector.m_z << " )";

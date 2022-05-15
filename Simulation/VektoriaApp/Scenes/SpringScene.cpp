@@ -14,7 +14,7 @@ SpringScene::SpringScene()
 	: CaveScene(-9.807f, 10.0f, 50.0f, 30.0f),
 	m_particleWorld(new PlacementParticleWorld)
 {
-	setWASDCam(false);
+/*	setWASDCam(false);*/
 
 	// Player Character
 	auto playerPlacement = new Vektoria::CPlacement();
@@ -27,17 +27,17 @@ SpringScene::SpringScene()
 	auto playerGeo = new Vektoria::CGeoSphere();
 	playerGeo->Init(1.5f, playerMaterial);
 
-	m_cameraPlacement.SetPointing(playerPlacement);
+/*	m_cameraPlacement.SetPointing(playerPlacement);*/
 
 	m_player = new PlacementParticle(playerPlacement, playerGeo, playerMaterial, 0.999f, 1.0f);
 	m_particleWorld->addPlacementParticle(m_player);
 
-	// Create Particle and Force for Camera
-	auto camera = new PlacementParticle(&m_cameraPlacement, 0.999f, 1.0f);
-	auto playerCameraVector = playerPlacement->GetPos() - m_cameraPlacement.GetPos();
-	auto restLength = playerCameraVector.Length();
-	auto cameraPlayerSpring = new Todes::ParticleSpring(m_player->getParticle(), 0.2f, restLength);
-	m_particleWorld->addPlacementParticle(camera, { cameraPlayerSpring });
+// 	// Create Particle and Force for Camera
+// 	auto camera = new PlacementParticle(&m_cameraPlacement, 0.999f, 1.0f);
+// 	auto playerCameraVector = playerPlacement->GetPos() - m_cameraPlacement.GetPos();
+// 	auto restLength = playerCameraVector.Length();
+// 	auto cameraPlayerSpring = new Todes::ParticleSpring(m_player->getParticle(), 0.2f, restLength);
+// 	m_particleWorld->addPlacementParticle(camera, { cameraPlayerSpring });
 
 	// Create Bungee jumper
 	auto jumperPlacement = new Vektoria::CPlacement();
@@ -72,14 +72,14 @@ SpringScene::SpringScene()
 	auto swimmerPlacement = new Vektoria::CPlacement();
 	m_pCave->AddPlacement(swimmerPlacement);
 	swimmerPlacement->TranslateDelta(waterTank->GetPos());
-	swimmerPlacement->TranslateYDelta(m_caveDimensions.height * 0.5f);
+	swimmerPlacement->TranslateYDelta(m_caveDimensions.height);
 	auto swimmerMaterial = new Vektoria::CMaterial();
 	swimmerMaterial->LoadPreset((char*)"PhongGreen");
 	regMaterial(swimmerMaterial);
 	auto swimmerGeo = new Vektoria::CGeoSphere();
-	swimmerGeo->Init(1.2f, swimmerMaterial);
-	auto swimmer = new PlacementParticle(swimmerPlacement, swimmerGeo, swimmerMaterial, 0.8f, 0.1f);
-	auto swimmerFloatage = new Todes::ParticleFloatage(2.4f, (2.0f * TWOPI / 3) * std::powf(1.2f, 3.0f), waterTank->GetPos().y + tankHeight, 10.0f);
+	swimmerGeo->Init(1.5f, swimmerMaterial);
+	auto swimmer = new PlacementParticle(swimmerPlacement, swimmerGeo, swimmerMaterial, 0.999f, 0.04f);
+	auto swimmerFloatage = new Todes::ParticleFloatage(1.5f, waterTank->GetPos().y + tankHeight, 10.0f);
 	m_particleWorld->addPlacementParticle(swimmer, { m_gravity, swimmerFloatage });
 }
 

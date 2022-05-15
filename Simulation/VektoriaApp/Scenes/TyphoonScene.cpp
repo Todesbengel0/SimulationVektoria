@@ -6,6 +6,7 @@
 #include "PlacementParticleWorld.h"
 #include "ParticleTyphoon.h"
 #include "ParticleCable.h"
+#include "ParticleCollision.h"
 
 TyphoonScene::TyphoonScene()
 	: CaveScene(-9.807f, 10.0f, 50.0f, 30.0f),
@@ -143,11 +144,47 @@ TyphoonScene::TyphoonScene()
 		1.0f);
 	
 	// Create Basket Ball Contact Generator
-	auto basketBallContact = new Todes::ParticleCable(m_caveDimensions.height, 0.5f);
-	basketBallContact->setParticles(anchor, basketBall->getParticle());
+	auto basketBallContact = new Todes::ParticleCable
+		(m_caveDimensions.height - m_caveDimensions.thickness - 1.0f, 0.5f);
+	basketBallContact->setParticles(basketBall->getParticle(), anchor);
 
 	m_particleWorld->addPlacementParticle(basketBall, { m_gravity });
+	m_particleWorld->addContacts({ basketBallContact });
 #pragma endregion
+
+#pragma region Exercise 7.3
+	// Create Tennis Ball
+	const auto tennisBallPosition = Todes::Vector3D
+	(m_caveDimensions.width * 0.5f
+		, m_caveDimensions.height + 3.0f
+		, -m_caveDimensions.depth * 0.5f);
+
+	auto tennisBallPlacement = new Vektoria::CPlacement();
+	m_pCave->AddPlacement(tennisBallPlacement);
+
+	tennisBallPlacement->TranslateDelta(convertVector(tennisBallPosition));
+
+	auto tennisBallMaterial = new Vektoria::CMaterial();
+	tennisBallMaterial->LoadPreset((char*)"PhongGreen");
+	regMaterial(tennisBallMaterial);
+	auto tennisBallGeo = new Vektoria::CGeoSphere();
+	tennisBallGeo->Init(0.5f, tennisBallMaterial);
+
+	auto tennisBall = new PlacementParticle(
+		tennisBallPlacement,
+		tennisBallGeo,
+		tennisBallMaterial,
+		0.999f,
+		2.0f);
+
+	m_particleWorld->addPlacementParticle(tennisBall, { m_gravity });
+	m_particleWorld->addContacts
+	({
+		new Todes::ParticleCollision(basketBall->getParticle(), tennisBall->getParticle(), 1.5f, 0.5f)
+	});
+#pragma endregion
+// 	tennisBallPlacement->AddPlacement(&m_cameraPlacement);
+// 	m_cameraPlacement.SetPointing(tennisBallPlacement);
 }
 
 TyphoonScene::~TyphoonScene()

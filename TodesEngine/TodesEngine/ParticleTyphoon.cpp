@@ -1,8 +1,8 @@
 #include "ParticleTyphoon.h"
+#include "Common.h"
 #include "Particle.h"
 #include "Random.h"
 #include <cassert>
-constexpr auto TWOPI = 6.28318530718f;
 
 namespace Todes
 {

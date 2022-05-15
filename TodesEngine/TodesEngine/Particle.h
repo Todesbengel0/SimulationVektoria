@@ -15,6 +15,8 @@ namespace Todes
 		void setInverseMass(const float& inverseMass);
 		void sendDeath(const bool& isDead = true);
 		void setVelocity(const Vector3D& velocity);
+		void addVelocity(const Vector3D& velocitySummand);
+		void addAcceleration(const Vector3D& accelerationSummand);
 		void setPosition(const Vector3D& position);
 		void translate(const Vector3D& translationVector);
 		float getMass() const;

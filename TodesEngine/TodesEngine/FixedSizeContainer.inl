@@ -3,7 +3,7 @@
 namespace Todes
 {
 	template<class Element_Type, class Container_Type /*= std::vector<Element_Type>*/>
-	FixedSizeContainer<Element_Type, Container_Type>::FixedSizeContainer(const int& size)
+	FixedSizeContainer<Element_Type, Container_Type>::FixedSizeContainer(const unsigned int& size)
 		: m_entriesUsed(0)
 	{
 		assert(size >= 0);
@@ -49,19 +49,19 @@ namespace Todes
 	}
 
 	template<class Element_Type, class Container_Type /*= std::vector<Element_Type>*/>
-	const int& FixedSizeContainer<Element_Type, Container_Type>::size() const
+	const unsigned int& FixedSizeContainer<Element_Type, Container_Type>::size() const
 	{
 		return m_size;
 	}
 
 	template<class Element_Type, class Container_Type /*= std::vector<Element_Type>*/>
-	const int& FixedSizeContainer<Element_Type, Container_Type>::getUsedEntries() const
+	const unsigned int& FixedSizeContainer<Element_Type, Container_Type>::getUsedEntries() const
 	{
 		return m_entriesUsed;
 	}
 
 	template<class Element_Type, class Container_Type /*= std::vector<Element_Type>*/>
-	int FixedSizeContainer<Element_Type, Container_Type>::getRemainingEntries() const
+	unsigned int FixedSizeContainer<Element_Type, Container_Type>::getRemainingEntries() const
 	{
 		return m_size - m_entriesUsed;
 	}
@@ -84,5 +84,10 @@ namespace Todes
 		m_entriesUsed = 0;
 	}
 
-	
+	template<class Element_Type, class Container_Type /*= std::vector<Element_Type>*/>
+	Element_Type& FixedSizeContainer<Element_Type, Container_Type>::operator[](const unsigned int& index)
+	{
+		assert(index < m_entriesUsed);
+		return m_data[index];
+	}
 }

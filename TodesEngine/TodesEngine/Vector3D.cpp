@@ -68,9 +68,9 @@ namespace Todes
 		return m_x;
 	}
 
-	const float& Vector3D::x(const float& new_x)
+	void Vector3D::x(const float& new_x)
 	{
-		return m_x = new_x;
+		m_x = new_x;
 	}
 
 	const float& Vector3D::y() const
@@ -78,9 +78,9 @@ namespace Todes
 		return m_y;
 	}
 
-	const float& Vector3D::y(const float& new_y)
+	void Vector3D::y(const float& new_y)
 	{
-		return m_y = new_y;
+		m_y = new_y;
 	}
 
 	const float& Vector3D::z() const
@@ -88,9 +88,9 @@ namespace Todes
 		return m_z;
 	}
 
-	const float& Vector3D::z(const float& new_z)
+	void Vector3D::z(const float& new_z)
 	{
-		return m_z = new_z;
+		m_z = new_z;
 	}
 #pragma endregion
 
@@ -165,9 +165,21 @@ namespace Todes
 		return *this;
 	}
 
-	void Vector3D::Print() const
+	Vector3D& Vector3D::Rotate(const float& rotationAngle, const Vector3D& rotationAxis)
 	{
-		std::cout << "( " << m_x << " | " << m_y << " | " << m_z << " )";
+		const float cos = std::cosf(rotationAngle);
+		const float sin = std::sinf(rotationAngle);
+
+		*this = (*this) * cos
+			+ rotationAxis.Cross(*this) * sin
+			+ rotationAxis * rotationAxis * (*this) * (1 - cos);
+
+		return *this;
+	}
+
+	bool Vector3D::isNull() const
+	{
+		return m_x == 0.0f && m_y == 0.0f && m_z == 0.0f;
 	}
 
 	Vector3D Vector3D::operator+(const Vector3D& rhs) const
