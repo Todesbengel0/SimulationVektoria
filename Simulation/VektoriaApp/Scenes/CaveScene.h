@@ -38,7 +38,7 @@ protected:
 	const CaveDimensions m_caveDimensions;
 	Gravity* m_gravity;
 
-private:
+protected:
 	VektoriaObject m_floor;
 	VektoriaObject m_leftWall;
 	VektoriaObject m_rightWall;

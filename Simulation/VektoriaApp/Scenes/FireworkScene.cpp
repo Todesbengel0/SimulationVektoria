@@ -20,11 +20,26 @@ void FireworkScene::registerFirework(Firework* firework) const
 }
 
 FireworkScene::FireworkScene()
-	: CaveScene(-9.807f, 25.0f),
+	: CaveScene(-9.807f, 25.0f, 40.0f, 20.0f, 30.0f),
 	m_particleWorld(new PlacementParticleWorld),
 	m_fireworkMaterial(new Vektoria::CMaterial()),
 	m_tailGeo(new Vektoria::CGeoTail(*m_fireworkMaterial))
 {
+	m_cameraPlacement.TranslateZDelta(20.0f);
+	const auto pos = m_backWall.placement->GetPos();
+	m_backWall.placement->ScaleY(50.0f);
+	m_backWall.placement->ScaleXDelta(50.0f);
+	m_backWall.placement->TranslateDelta(pos.x - 25.0f, pos.y - 25.0f, pos.z);
+	auto stars = new Vektoria::CMaterial();
+	stars->LoadPreset((char*)"SkyStarfield");
+	regMaterial(stars);
+	m_backWall.geo->SetMaterial(stars);
+
+	m_leftWall.placement->SwitchOff();
+	m_rightWall.placement->SwitchOff();
+	m_ceiling.placement->SwitchOff();
+/*	m_frontWall.placement->SwitchOff();*/
+
 	m_tail = new Vektoria::CTailPlacements(m_pCave, m_tailGeo, 2500, 1.2f);
 
 	Todes::Random::seed();
@@ -60,7 +75,7 @@ void FireworkScene::spawn()
 	, Todes::Vector3D(m_caveDimensions.width, 0.0f, 0.0f))));
 
 	// Create Muzzle Force
-	float muzzleVelocity = Todes::Random::Float(25.0f, 40.0f);
+	float muzzleVelocity = Todes::Random::Float(30.0f, 40.0f);
 	Todes::Vector3D shootDirection(0.0f, 1.0f, 0.0f);
 	Todes::Vector3D muzzleForce = shootDirection * muzzleVelocity;
 
@@ -75,7 +90,7 @@ void FireworkScene::spawn()
 		, 0.1f /* sizeMin */
 		, Todes::Random::Float(0.1f, 0.3f) /* sizeMax */
 		, 5.0f /* velocityMin */
-		, (muzzleVelocity - 5.0f) * 0.4f + 5.0f /* velocityMax */
+		, (muzzleVelocity - 5.0f) * 0.3f + 5.0f /* velocityMax */
 	};
 
 	m_fireworkMaterial->RotateHue(UM_DEG2RAD(Todes::Random::Float(0.0f, 360.0f)));
@@ -83,7 +98,5 @@ void FireworkScene::spawn()
 	m_particleWorld->addPlacementParticle(firework, { m_gravity });
 
 	// Add Muzzle Force
-	firework->getParticle()->addForce(muzzleForce);
-	firework->getParticle()->integrate(1.0f);
-	firework->update();
+	firework->getParticle()->setVelocity(muzzleForce);
 }

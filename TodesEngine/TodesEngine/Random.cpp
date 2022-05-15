@@ -3,6 +3,8 @@
 #include <utility>
 #include <ctime>
 #include <limits>
+constexpr float PI = 3.1415927f;
+constexpr float TWOPI = 6.283185f;
 
 namespace Todes
 {
@@ -109,6 +111,54 @@ namespace Todes
 	Vector3D Random::Vec3D(const Vector3D& min, const Vector3D& max)
 	{
 		return Vector3D(Float(min.x(), max.x()), Float(min.y(), max.y()), Float(min.z(), max.z()));
+	}
+
+	Vector3D Random::Vec3D(const float& length)
+	{
+		Vector3D surfacePoint;
+
+		// Calculate a uniformly distributed z
+		surfacePoint.z(-1.0f + 2.0f * FloatNorm());
+
+		// Calculate a uniformly distributed longitude
+		const auto longitude = 2.0f * PI * FloatNorm();
+
+		// Horizontal Radius (= r * sin(colatitude), with r = 1)
+		const auto rh = std::sqrtf(1.0f - surfacePoint.z() * surfacePoint.z());
+
+		// Calculate x and y coordinates
+		surfacePoint.x(rh * std::cosf(longitude));
+		surfacePoint.y(rh * std::sinf(longitude));
+
+		// Now we need to scale the surface point by the given length
+		return surfacePoint * length;
+	}
+
+	Vector3D Random::Vec3D(const float& length, const Vector3D& axis)
+	{
+		// Calculate a random angle between 0 and TWOPI
+		const auto angle = FloatNorm() * TWOPI;
+
+		// Get a Vector that is orthogonal to the axis
+		Vector3D orthogonal;
+		if (axis.x() != 0.0f)
+		{
+			orthogonal.y(axis.x());
+			orthogonal.x(-axis.y());
+		}
+		else if (axis.y() != 0.0f)
+			orthogonal.x(axis.y());
+		else
+			orthogonal.x(axis.z());
+
+		// Normalize the Vector
+		orthogonal.Normalize();
+
+		// Rotate it by the angle around the axis
+		orthogonal.Rotate(angle, axis);
+
+		// Return it scaled by the given length
+		return orthogonal * length;
 	}
 
 	bool Random::Bool(const float& chance)

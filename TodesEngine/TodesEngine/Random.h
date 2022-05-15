@@ -99,6 +99,21 @@ namespace Todes
 		static Vector3D Vec3D(const float& min, const float& max);
 
 		/// <summary>
+		/// Calculates a Vector3D randomly rotated onto a spherical surface.
+		/// </summary>
+		/// <param name="length">Length of the random Vector.</param>
+		/// <returns>Random Vector 3D</returns>
+		static Vector3D Vec3D(const float& length);
+
+		/// <summary>
+		/// Calculates a random Vector 3D rotated around a given axis.
+		/// </summary>
+		/// <param name="length">Length of the random Vector.</param>
+		/// <param name="axis">Axis around which to rotate the Vector randomly.</paran>
+		/// <returns>Random Vector 3D</returns>
+		static Vector3D Vec3D(const float& length, const Vector3D& axis);
+
+		/// <summary>
 		/// Calculate a random 3D vector in a user defined range.
 		/// </summary>
 		/// <param name="min">Minimal Value</param>

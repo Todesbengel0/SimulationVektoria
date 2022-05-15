@@ -37,7 +37,7 @@ namespace Todes
 			auto& mostImportantContact = contactData[maxIndex];
 			const auto move = mostImportantContact.resolve(timeDelta);
 
-			if (move.first.isZero()) return;
+			if (move.first.isNull()) return;
 
 			// If the Resolve has created a new interpenetration (or reduced one),
 			// we need to resolve it in a later iteration
@@ -64,7 +64,7 @@ namespace Todes
 				else if (maxFirst == currSecond)
 					contactData[i].AddPenetration(move.first * contactNormal);
 
-				if (move.second.isZero()) continue;
+				if (move.second.isNull()) continue;
 
 				// If our second particle from the last calculation is 
 				// the first particle of this contact,
