@@ -102,10 +102,10 @@
     <ClInclude Include="CTailPlacements.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes\SpringScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Scenes\TyphoonScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\SpringScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
@@ -173,10 +173,10 @@
     <ClCompile Include="CTailPlacements.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scenes\SpringScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scenes\TyphoonScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\SpringScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>

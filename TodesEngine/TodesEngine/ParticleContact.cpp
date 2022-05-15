@@ -1,6 +1,6 @@
 #include "ParticleContact.h"
+#include "Common.h"
 #include "Particle.h"
-#define nearlyEqual(a, b)	float(a - b) < 0.01f && float(a - b) > -0.01f
 
 namespace Todes
 {

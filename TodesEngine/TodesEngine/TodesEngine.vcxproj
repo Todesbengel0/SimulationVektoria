@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Common.h" />
     <ClInclude Include="FixedSizeContainer.h" />
     <ClInclude Include="IParticleForceGenerator.h" />
     <ClInclude Include="Particle.h" />
@@ -183,7 +184,6 @@
     <None Include="FixedSizeContainer.inl">
       <FileType>Document</FileType>
     </None>
-    <ClCompile Include="IParticleForceGenerator.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleAnchoredBungee.cpp" />
     <ClCompile Include="ParticleAnchoredSpring.cpp" />

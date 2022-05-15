@@ -1,10 +1,9 @@
 #include "Random.h"
+#include "Common.h"
 #include <cassert>
 #include <utility>
 #include <ctime>
 #include <limits>
-constexpr float PI = 3.1415927f;
-constexpr float TWOPI = 6.283185f;
 
 namespace Todes
 {

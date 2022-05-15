@@ -12,17 +12,19 @@ namespace Todes
 		/// <summary>
 		/// ParticleFloatige Constructor.
 		/// </summary>
-		/// <param name="maxDepth">Depth in [m] at which the body is completely submerged.</param>
-		/// <param name="volume">Volume of the body in [m^3].</param>
+		/// <param name="particleRadius">Radius of the particle in [m].</param>
 		/// <param name="liquidHeight">Height of the liquid in [m].</param>
 		/// <param name="liquidDensity">Density of the volume in [kg/m^3].</param>
+		/// <param name="liquidViscosity">Viscosity of the liquid in [Pa*s]</param>
+		/// <param name="impactConservation">Factor of Velocity that is kept during impact in [%].</param>
 		/// <param name="gravity">Gravity in [m/s] working on the particle.</param>
 		explicit ParticleFloatage
 		(
-			const float& maxDepth,
-			const float& volume,
+			const float& particleRadius,
 			const float& liquidHeight,
 			const float& liquidDensity = 1000.0f,
+			const float& liquidViscosity = 0.0010016f,
+			const float& impactConservation = 0.7f,
 			const float& gravity = 9.807f
 		);
 		~ParticleFloatage();
@@ -34,31 +36,20 @@ namespace Todes
 		void updateForce(Particle* particle) override;
 
 		/// <summary>
-		/// Returns the current at which the body is completely submerged.
+		/// Returns the radius of the particle.
 		/// </summary>
-		float getMaxDepth() const;
+		const float& getRadius() const;
 
 		/// <summary>
-		/// Sets the current at which the body is completely submerged.
+		/// Sets the radius of the particle.
 		/// </summary>
-		/// <param name="depth">Depth in [m] at which the body is completely submerged.</param>
-		void setMaxDepth(const float& depth);
-
-		/// <summary>
-		/// Returns the volume of the body.
-		/// </summary>
-		float getVolume() const;
-
-		/// <summary>
-		/// Sets the volume of the body.
-		/// </summary>
-		/// <param name="volume">Volume of the body in [m^3].</param>
-		void setVolume(const float& volume);
+		/// <param name="volume">Radius of the particle in [m].</param>
+		void setRadius(const float& radius);
 
 		/// <summary>
 		/// Returns the height of the liquid.
 		/// </summary>
-		float getLiquidHeight() const;
+		const float& getLiquidHeight() const;
 
 		/// <summary>
 		/// Sets the height of the liquid.
@@ -69,7 +60,7 @@ namespace Todes
 		/// <summary>
 		/// Returns the liquid density.
 		/// </summary>
-		float getLiquidDensity() const;
+		const float& getLiquidDensity() const;
 
 		/// <summary>
 		/// Sets the liquid density.
@@ -78,9 +69,31 @@ namespace Todes
 		void setLiquidDensity(const float& density);
 
 		/// <summary>
+		/// Returns the liquid viscosity.
+		/// </summary>
+		const float& getLiquidViscosity() const;
+
+		/// <summary>
+		/// Sets the liquid viscosity.
+		/// </summary>
+		/// <param name="viscosity">Viscosity of the liquid in [Pa*s]</param>
+		void setLiquidViscosity(const float& viscosity);
+
+		/// <summary>
+		/// Returns the impact conservation factor.
+		/// </summary>
+		const float& getImpactConservation() const;
+
+		/// <summary>
+		/// Sets the impact conservation factor.
+		/// </summary>
+		/// <param name="conservation">Factor of Velocity that is kept during impact in [%].</param>
+		void setImpactConservation(const float& conservation);
+
+		/// <summary>
 		/// Returns the gravity (up-force) working on the particle.
 		/// </summary>
-		float getGravity() const;
+		const float& getGravity() const;
 
 		/// <summary>
 		/// Sets the gravity (up-force) of this generator.
@@ -89,12 +102,15 @@ namespace Todes
 		void setGravity(const float& gravity);
 
 	protected:
-		float m_maxDepth;
-		float m_volume;
+		float m_radius;
 		float m_liquidHeight;
 		float m_liquidDensity;
+		float m_liquidViscosity;
+		float m_impactConservation;
 
 		float m_gravity;
+
+		bool m_impacted;
 	};
 
 }

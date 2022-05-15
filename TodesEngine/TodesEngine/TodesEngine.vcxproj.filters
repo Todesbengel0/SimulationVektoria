@@ -111,6 +111,9 @@
     <ClInclude Include="ParticleCollision.h">
       <Filter>ParticleContacts\Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector3D.cpp">
@@ -126,9 +129,6 @@
       <Filter>ParticleEngine\Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ParticleForceRegistry.cpp">
-      <Filter>ParticleForces\Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="IParticleForceGenerator.cpp">
       <Filter>ParticleForces\Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Random.cpp">
