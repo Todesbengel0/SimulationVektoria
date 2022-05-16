@@ -40,6 +40,11 @@ public:
 	/// </summary>
 	/// <returns>Adjustable Container of Particles.</returns>
 	Particles& getParticles();
+	
+	/// <summary>
+	/// Returns all registered placement particles.
+	/// </summary>
+	PlacementParticles& getPlacementParticles();
 
 	/// <summary>
 	/// Returns the pointer to the particle world.
@@ -68,6 +73,12 @@ public:
 	/// <param name="generators">Force Generators that act on the Particle.</param>
 	/// <returns>TRUE: Placement was registered. FALSE: Placement was not registered.</returns>
 	bool addForces(PlacementParticle* placement, ForceGeneratorList generators);
+
+	/// <summary>
+	/// Adds Force Generators to act on all registered Particles.
+	/// </summary>
+	/// <param name="generators">Force Generators that act on the Particle.</param>
+	void addForces(ForceGeneratorList generators);
 
 	/// <summary>
 	/// Adds Contact Generators to act in the world.

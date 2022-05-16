@@ -22,13 +22,23 @@ namespace Todes
 		/// <param name="particle">The particle, on which the force should be applied to.</param>
 		void updateForce(Particle* particle) override;
 
+		/// <summary>
+		/// Sets the rest length at which no forces will be applied.
+		/// </summary>
+		void setRestLength(const float& restLength);
+
+		/// <summary>
+		/// Returns the Rest Length
+		/// </summary>
+		const float& getRestLength() const;
+
 	protected:
 		virtual const Vector3D& getOtherEnd() const = 0;
 		virtual float calculateMagnitude(const Vector3D& force) const;
 
 	protected:
 		const float m_springConstant;
-		const float m_restLength;
+		float m_restLength;
 	};
 
 }

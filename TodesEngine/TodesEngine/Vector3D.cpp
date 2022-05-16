@@ -150,7 +150,7 @@ namespace Todes
 		const auto cos = std::cosf(radiant);
 		const auto sin = std::sinf(radiant);
 		m_x = cos * m_x + sin * m_z;
-		m_z = - sin * m_x + cos * m_z;
+		m_z = -sin * m_x + cos * m_z;
 
 		return *this;
 	}
@@ -160,7 +160,7 @@ namespace Todes
 		const auto cos = std::cosf(radiant);
 		const auto sin = std::sinf(radiant);
 		m_x = cos * m_x - sin * m_y;
-		m_y = sin * m_y + cos * m_x;
+		m_y = sin * m_x + cos * m_y;
 
 		return *this;
 	}

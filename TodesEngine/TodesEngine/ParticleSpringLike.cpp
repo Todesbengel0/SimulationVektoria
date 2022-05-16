@@ -22,6 +22,16 @@ void Todes::ParticleSpringLike::updateForce(Particle* particle)
 	particle->addForce(force);
 }
 
+void Todes::ParticleSpringLike::setRestLength(const float& restLength)
+{
+	m_restLength = restLength;
+}
+
+const float& Todes::ParticleSpringLike::getRestLength() const
+{
+	return m_restLength;
+}
+
 float Todes::ParticleSpringLike::calculateMagnitude(const Vector3D& force) const
 {
 	auto magnitude = force.Length();

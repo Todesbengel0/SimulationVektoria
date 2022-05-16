@@ -31,6 +31,11 @@ PlacementParticleWorld::Particles& PlacementParticleWorld::getParticles()
 	return m_world->getParticles();
 }
 
+PlacementParticleWorld::PlacementParticles& PlacementParticleWorld::getPlacementParticles()
+{
+	return m_placementParticles;
+}
+
 Todes::ParticleWorld* PlacementParticleWorld::getWorld() const
 {
 	return m_world.get();
@@ -60,6 +65,12 @@ bool PlacementParticleWorld::addForces(PlacementParticle* placement, ForceGenera
 	m_world->getParticleForceRegistry().add(placement->getParticle(), generators);
 
 	return true;
+}
+
+void PlacementParticleWorld::addForces(ForceGeneratorList generators)
+{
+	for (auto pp : m_placementParticles)
+		m_world->getParticleForceRegistry().add(pp->getParticle(), generators);
 }
 
 void PlacementParticleWorld::addContacts(ContactGeneratorList contacts)
