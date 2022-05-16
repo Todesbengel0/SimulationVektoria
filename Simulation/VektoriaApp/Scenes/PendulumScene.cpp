@@ -218,7 +218,7 @@ PendulumScene::PendulumScene()
 
 	// Calculate Position of Particle5
 	auto sphere5Position = Todes::Vector3D(0.0f, -cableLength-sphereRadius, 0.0f);
-	sphere5Position.RotateZ(UM_DEG2RAD(20.0f));
+	sphere5Position.RotateZ(UM_DEG2RAD(40.0f));
 	sphere5Position += Todes::Vector3D(
 			centerAnchorPosition.x + sphereRadius * 4.0f
 			, centerAnchorPosition.y
@@ -300,10 +300,10 @@ PendulumScene::PendulumScene()
 	// Create Contact between neighbors
 	m_particleWorld->addContacts
 	({
-		new Todes::ParticleCollision(sphere1->getParticle(), sphere2->getParticle(), sphereRadius * 2.0f, 0.8f),
-		new Todes::ParticleCollision(sphere2->getParticle(), sphere3->getParticle(), sphereRadius * 2.0f, 0.8f),
-		new Todes::ParticleCollision(sphere3->getParticle(), sphere4->getParticle(), sphereRadius * 2.0f, 0.8f),
-		new Todes::ParticleCollision(sphere4->getParticle(), sphere5->getParticle(), sphereRadius * 2.0f, 0.8f)
+		new Todes::ParticleCollision(sphere1->getParticle(), sphere2->getParticle(), sphereRadius * 2.0f, 0.9f),
+		new Todes::ParticleCollision(sphere2->getParticle(), sphere3->getParticle(), sphereRadius * 2.0f, 0.9f),
+		new Todes::ParticleCollision(sphere3->getParticle(), sphere4->getParticle(), sphereRadius * 2.0f, 0.9f),
+		new Todes::ParticleCollision(sphere4->getParticle(), sphere5->getParticle(), sphereRadius * 2.0f, 0.9f)
 	});
 #pragma endregion
 }

@@ -163,48 +163,59 @@ namespace Todes
 
 	void ParticleContact::ResolveVelocity(const float& timeDelta)
 	{
-		// We calculate the separating velocity
-		// but save ourselves the single velocities
-		const auto firstVelocity = m_particles[0]->getVelocity() * m_contactNormal;
-		const auto secondVelocity = m_particles[1]->getVelocity() * m_contactNormal;
-		float separatingVelocity = firstVelocity;
+		// We calculate the velocities of our particles
+		// in direction of the contact normal
+		const auto firstVelocityTowardsContact = m_particles[0]->getVelocity() * m_contactNormal;
+		const auto secondVelocityTowardsContact = m_particles[1]->getVelocity() * m_contactNormal;
+
+		// And get the separating Velocity
+		auto separatingVelocity = firstVelocityTowardsContact;
 		if (m_particles[1]->hasFiniteMass())
-			separatingVelocity -= secondVelocity;
+			separatingVelocity -= secondVelocityTowardsContact;
 
 		// If the separating velocity is positive, the particles move away from each other
 		if (separatingVelocity > 0.0f) return;
-
-		// Restitution Velocity vs' = -c * vs
-		float restitutionVelocity = -m_restitution * separatingVelocity;
 
 		// If the second particle has infinite mass, the velocity is turned around
 		if (!m_particles[1]->hasFiniteMass())
 		{
 			// We need to use velocity of particle in contact direction
-			m_particles[0]->addVelocity((restitutionVelocity - firstVelocity) * m_contactNormal);
+			// a.velocity += -a.velocity * c - a.velocity
+			// <=> a.velocity += -a.velocity * (c + 1) 
+			m_particles[0]->addVelocity((-firstVelocityTowardsContact * (m_restitution + 1.0f)) * m_contactNormal);
 			return;
 		}
 
-		// a.impulse = vs' * (b.mass / a.mass) - a.velocityToNormal
-		const auto impulse0 =
-			restitutionVelocity
-			* m_particles[1]->getMass()
-			* m_particles[0]->getInverseMass()
-			- firstVelocity;
+		// Velocity changes depending on the mass of the particles
+		const auto firstMass = m_particles[0]->getMass();
+		const auto secondMass = m_particles[1]->getMass();
 
-		// b.impulse = vs' * (a.mass / b.mass) + b.velocityToNormal
-		const auto impulse1 =
-			restitutionVelocity
-			* m_particles[0]->getMass()
-			* m_particles[1]->getInverseMass()
-			+ secondVelocity;
+		// mass * velocity
+		const auto mv1 = firstVelocityTowardsContact * firstMass;
+		const auto mv2 = secondVelocityTowardsContact * secondMass;
 
-		// a.velocity' = a.velocity + m_contactNormal * a.impulse
-		m_particles[0]->addVelocity(m_contactNormal * impulse0);
+		// 1 / (a.mass + b.mass)
+		const auto inverseTotalMass = 1.0f / (firstMass + secondMass);
 
-		// For the second particle we have the new velocity towards the negative contact normal
-		// = b.velocity - m_contactNormal * b.impulse
-		m_particles[1]->addVelocity(-m_contactNormal * impulse1);
+		// a.impulse = (mv1 - b.mass * a.velocity + 2 * mv2) / (a.mass + b.mass)
+		const auto firstImpulse =
+			(mv1 - secondMass * firstVelocityTowardsContact + 2 * mv2)
+			* inverseTotalMass;
+
+		// b.impulse = (2 * mv1 - a.mass * b.velocity + mv2) / (a.mass + b.mass)
+		const auto secondImpulse =
+			(2 * mv1 - firstMass * secondVelocityTowardsContact + mv2)
+			* inverseTotalMass;
+
+		// We calculate the new velocities after the impact
+		
+		// a.velocity += (a.impulse * restitution - a.velocityToContact) * m_contactNormal
+		m_particles[0]->addVelocity(
+			(firstImpulse * m_restitution - firstVelocityTowardsContact) * m_contactNormal);
+
+		// b.velocity += (b.impulse * restitution - b.velocityToContact) * m_contactNormal
+		m_particles[1]->addVelocity(
+			(secondImpulse * m_restitution - secondVelocityTowardsContact) * m_contactNormal);
 	}
 
 	std::pair<Vector3D, Vector3D> ParticleContact::ResolveInterpenetration(const float& timeDelta)
