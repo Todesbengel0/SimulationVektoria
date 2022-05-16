@@ -4,7 +4,7 @@
 
 struct VektoriaObject {
 	Vektoria::CPlacement* placement;
-	Vektoria::CGeo* geo;
+	Vektoria::CGeoWall* geo;
 	Vektoria::CMaterial* material;
 };
 

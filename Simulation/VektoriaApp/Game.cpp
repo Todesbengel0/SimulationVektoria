@@ -39,8 +39,8 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), Ve
 	// Verwende DirectX12 und nicht DirectX11.
 	// Falls kein Bild erscheint oder der Rechner abstürzen sollte, hast du einen Rechner, der nicht DirectX12-kompatibel ist. 
 	// Dann kannst du das DirectX11 SDK installieren (siehe Manual, erster Foliensatz) und hier eApiRender_DirectX11_Shadermodel50_Standard eintragen:
-	m_zf.SetApiRender(Vektoria::eApiRender_DirectX11_Shadermodel50_Standard);
-	//m_zf.SetApiRender(Vektoria::eApiRender_DirectX12);
+	//m_zf.SetApiRender(Vektoria::eApiRender_DirectX11_Shadermodel50_Standard);
+	m_zf.SetApiRender(Vektoria::eApiRender_DirectX12);
 
 	// Begrenze die Bildwiederholrate auf max. 100 Hz, damit empfindliche Rechner nicht überhitzen:
 	m_zr.SetFrameRateMax(100.0f);
@@ -61,10 +61,10 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), Ve
 	// Hänge den Viewport an den Frame:
 	m_zf.AddViewport(&m_zv);
  
-// 	m_zv.SetBloomOn();
-// 	m_zv.SetBloomStrengthNear(6.0f);
-// 	m_zv.SetBloomStrengthFar(3.0f);
-// 	m_zv.SetBloomWidth(1.5f);
+	m_zv.SetBloomOn();
+	m_zv.SetBloomStrengthNear(6.0f);
+	m_zv.SetBloomStrengthFar(3.0f);
+	m_zv.SetBloomWidth(1.5f);
 
 	// Init devices
 	m_zf.AddDeviceKeyboard(&m_keyboard);

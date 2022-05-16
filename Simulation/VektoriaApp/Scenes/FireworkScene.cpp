@@ -27,20 +27,19 @@ FireworkScene::FireworkScene()
 {
 	m_cameraPlacement.TranslateZDelta(20.0f);
 	const auto pos = m_backWall.placement->GetPos();
-	m_backWall.placement->ScaleY(50.0f);
-	m_backWall.placement->ScaleXDelta(50.0f);
-	m_backWall.placement->TranslateDelta(pos.x - 50.0f, pos.y - 25.0f, pos.z - 50.0f);
+
+	m_backWall.placement->TranslateDelta(pos.x - 100.0f, pos.y - 25.0f, pos.z - 50.0f);
 	auto stars = new Vektoria::CMaterial();
-	stars->LoadPreset((char*)"SkyStarfield");
+	stars->LoadPreset((char*)"SkyStarfieldLowRes");
 	regMaterial(stars);
-	m_backWall.geo->SetMaterial(stars);
+	m_backWall.geo->Init(409.6f, 102.4f, m_caveDimensions.thickness, stars, false, false, false, false, true, false);
 
 	m_leftWall.placement->SwitchOff();
 	m_rightWall.placement->SwitchOff();
 	m_ceiling.placement->SwitchOff();
 /*	m_frontWall.placement->SwitchOff();*/
 
-	m_tail = new Vektoria::CTailPlacements(m_pCave, m_tailGeo, 4000, 1.2f);
+	m_tail = new Vektoria::CTailPlacements(m_pCave, m_tailGeo, 10000, 0.7f);
 
 	Todes::Random::seed();
 	m_fireworkMaterial->LoadPreset((char*)"Sun");
@@ -75,14 +74,14 @@ void FireworkScene::spawn()
 	, Todes::Vector3D(m_caveDimensions.width, 0.0f, 0.0f))));
 
 	// Create Muzzle Force
-	float muzzleVelocity = Todes::Random::Float(30.0f, 40.0f);
+	float muzzleVelocity = Todes::Random::Float(30.0f, 45.0f);
 	Todes::Vector3D shootDirection(0.0f, 1.0f, 0.0f);
 	Todes::Vector3D muzzleForce = shootDirection * muzzleVelocity;
 
 	const Firework::PayloadBounds bounds
 	{
 		0.5f /* ageMin */
-		, Todes::Random::Float(0.5f, 0.7f) /* ageMax */
+		, Todes::Random::Float(0.5f, 0.8f) /* ageMax */
 		, 10 /* countMin */
 		, Todes::Random::Size_t(10, 25) /* countMax */
 		, 0.1f /* massMin */
