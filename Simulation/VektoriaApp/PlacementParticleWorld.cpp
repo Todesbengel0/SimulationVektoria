@@ -107,7 +107,6 @@ bool PlacementParticleWorld::deletePlacementParticle(PlacementParticle* placemen
 	m_world->getParticleForceRegistry().remove(particle);
 
 	// VEKTORIA
-//	placement->SubAll();
 	m_placementParticles.erase(it);
 	
 	delete particle;

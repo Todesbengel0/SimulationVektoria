@@ -229,6 +229,7 @@ PendulumScene::PendulumScene()
 	// Create Material, Geo and Placement Particle
 	auto sphereMaterial = new Vektoria::CMaterial();
 	sphereMaterial->LoadPreset((char*)"GlassButzen");
+	sphereMaterial->SetTransparency(0.2f);
 	regMaterial(sphereMaterial);
 	auto sphereGeo = new Vektoria::CGeoSphere();
 	sphereGeo->Init(1.5f, sphereMaterial);

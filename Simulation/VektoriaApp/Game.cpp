@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Game.h"
 
-#include "Examples/FallingCubeScene.h"
 #include "Scenes/CanonScene.h"
 #include "Scenes/FirstScene.h"
 #include "Scenes/FireworkScene.h"
@@ -40,7 +39,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), Ve
 	// Verwende DirectX12 und nicht DirectX11.
 	// Falls kein Bild erscheint oder der Rechner abstürzen sollte, hast du einen Rechner, der nicht DirectX12-kompatibel ist. 
 	// Dann kannst du das DirectX11 SDK installieren (siehe Manual, erster Foliensatz) und hier eApiRender_DirectX11_Shadermodel50_Standard eintragen:
-	m_zf.SetApiRender(Vektoria::eApiRender_DirectX11_Shadermodel50_Monolight);
+	m_zf.SetApiRender(Vektoria::eApiRender_DirectX11_Shadermodel50_Standard);
 	//m_zf.SetApiRender(Vektoria::eApiRender_DirectX12);
 
 	// Begrenze die Bildwiederholrate auf max. 100 Hz, damit empfindliche Rechner nicht überhitzen:
@@ -61,7 +60,7 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), Ve
 
 	// Hänge den Viewport an den Frame:
 	m_zf.AddViewport(&m_zv);
-
+ 
 // 	m_zv.SetBloomOn();
 // 	m_zv.SetBloomStrengthNear(6.0f);
 // 	m_zv.SetBloomStrengthFar(3.0f);
@@ -91,7 +90,7 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	// Prevent very high framerates, that can cause hardware damage
 	// Comment out, if you have low FPS / reliable hardware
 	// Can be removed, once Vektoria::CRoot::SetFrameRateMax() starts working properly
-	/*Sleep(1u);*/
+//	Sleep(1u);
 }
 
 void CGame::Fini()
@@ -123,11 +122,7 @@ Vektoria::CDeviceMouse& CGame::getMouse()
 
 void CGame::initScenes()
 {
-	// Example scene
-	addScene(new FallingCubeScene);
-
 	// ADD NEW SCENES HERE
-	// ...
 	addScene(new FirstScene);
 	addScene(new CanonScene);
 	addScene(new FireworkScene);
@@ -160,7 +155,6 @@ void CGame::changeScene(SimulationScene* scene)
 	if (scene)
 	{
 		m_zv.InitFull(&scene->getCamera());
-
 		scene->activate();
 		
 		m_zr.AddScene(scene);
@@ -191,7 +185,7 @@ void CGame::handleUserInput()
 
 void CGame::nextScene()
 {
-	const auto sceneCount = int(m_scenes.size());
+	const auto sceneCount = m_scenes.size();
 	if (sceneCount <= 1) return;
 
 	m_activeSceneIndex = (m_activeSceneIndex + 1) % sceneCount;
@@ -200,9 +194,9 @@ void CGame::nextScene()
 
 void CGame::prevScene()
 {
-	const auto sceneCount = int(m_scenes.size());
+	const auto sceneCount = m_scenes.size();
 	if (sceneCount <= 1) return;
 
-	if (--m_activeSceneIndex < 0) m_activeSceneIndex = sceneCount - 1;
+	if (m_activeSceneIndex-- == 0) m_activeSceneIndex = sceneCount - 1;
 	changeScene(m_scenes[m_activeSceneIndex]);
 }

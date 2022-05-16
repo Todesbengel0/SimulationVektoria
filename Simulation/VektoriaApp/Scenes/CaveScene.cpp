@@ -51,6 +51,7 @@ CaveScene::CaveScene(const float& downForce, const float& translationZ, const fl
 	m_backWall.material = new Vektoria::CMaterial();
 	m_backWall.material->LoadPreset((char*)"WallFachwerk");
 	backWallGeo->Init(m_caveDimensions.width, m_caveDimensions.height, m_caveDimensions.thickness, m_backWall.material, false, false, false, false, true, false);
+	
 	m_backWall.placement->AddGeo(backWallGeo);
 	m_backWall.geo = backWallGeo;
 

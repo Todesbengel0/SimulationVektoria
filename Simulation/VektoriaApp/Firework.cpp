@@ -131,8 +131,9 @@ void Firework::revive() const
 
 void Firework::destroy()
 {
-// 	m_placement->SubPlacement(m_geoPlacement);
-// 	m_geoPlacement->SubAll();
-//	delete m_geoPlacement;
+	m_placement->SubPlacement(m_geoPlacement);
+//	m_geoPlacement->SubAll();
+	m_geoPlacement->SubGeo(m_geo);
+	delete m_geoPlacement;
 	PlacementParticle::destroy();
 }
