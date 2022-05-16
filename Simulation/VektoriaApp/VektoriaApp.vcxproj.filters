@@ -109,7 +109,7 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\PendulumScene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -183,7 +183,7 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\PendulumScene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
