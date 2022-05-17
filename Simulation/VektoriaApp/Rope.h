@@ -1,6 +1,8 @@
 #pragma once
 #include "PlacementParticle.h"
 
+class CaveScene;
+
 namespace Todes
 {
 	class Particle;
@@ -40,13 +42,14 @@ public:
 #pragma region Init
 public:
 	void Init
-		( Vektoria::CPlacement* anchorPlacement
+		(CaveScene* scene
+		, const Todes::Vector3D& anchorPosition
 		, const float& ropeLength
 		, const float& ropeRadius = 0.1f
 		, const float& restitution = 0.3f);
 
 	void Init
-		( Vektoria::CPlacement* anchorPlacement
+		( const Todes::Vector3D& anchorPosition
 		, const Vektoria::CMaterial& ropeMaterial
 		, const float& ropeLength
 		, const float& ropeRadius = 0.1f
@@ -67,7 +70,8 @@ public:
 
 protected:
 	void InitContact
-		( const float& ropeLength
+		( const Todes::Vector3D& anchorPosition
+		, const float& ropeLength
 		, const float& restitution);
 	void InitRope(const float& ropeRadius, const float& ropeLength);
 
@@ -76,6 +80,6 @@ private:
 	Vektoria::CGeoCylinder m_ropeGeo;
 	Vektoria::CPlacement m_ropePlacement;
 	Vektoria::CMaterial m_ropeMaterial;
-	Vektoria::CPlacement* m_anchorPlacement;
+	Vektoria::CPlacement m_pointingPlacement;
 };
 

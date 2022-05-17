@@ -21,9 +21,6 @@ PendulumScene::PendulumScene()
 			m_caveDimensions.width * 0.2f,
 			m_caveDimensions.height,
 			-m_caveDimensions.depth * 0.8f);
-	auto cabulumAnchor = new Vektoria::CPlacement();
-	m_pCave->AddPlacement(cabulumAnchor);
-	cabulumAnchor->Translate(cabulumAnchorPosition);
 
 	// Calculate Length of the Cable
 	auto cabulumLength = m_caveDimensions.height * 0.3f + 0.5f;
@@ -47,7 +44,7 @@ PendulumScene::PendulumScene()
 
 	// Create Rope Placement Particle
 	auto cabulum = new Rope(cabulumPlacement, cabulumGeo, cabulumMaterial, 0.999f, 2.0f);
-	cabulum->Init(cabulumAnchor, cabulumLength);
+	cabulum->Init(this, convertVector(cabulumAnchorPosition), cabulumLength);
 
 	// Add Placement Particle and Contact
 	m_particleWorld->addPlacementParticle(cabulum);
@@ -118,35 +115,21 @@ PendulumScene::PendulumScene()
 	m_pCave->AddPlacement(linkulum1Placement);
 	m_pCave->AddPlacement(linkulum2Placement);
 
-	// Create Material, Geo and Placement Particle
+	// Create Material and Geo
 	auto linkulumMaterial = new Vektoria::CMaterial();
 	linkulumMaterial->LoadPreset((char*)"BarkBirch");
 	regMaterial(linkulumMaterial);
 	auto linkulumGeo = new Vektoria::CGeoSphere();
 	linkulumGeo->Init(0.4f, linkulumMaterial);
-	auto linkulum1 = new PlacementParticle(linkulum1Placement, linkulumGeo, linkulumMaterial, 0.999f, 1.5f);
-	auto linkulum2 = new PlacementParticle(linkulum2Placement, linkulumGeo, linkulumMaterial, 0.999f, 1.5f);
 
-	// Create anchor particles
-	auto linkulum1Anchor = new Todes::Particle
-		(convertVector(linkulum1AnchorPosition)
-		, 0.999f
-		, 0.0f);
-	auto linkulum2Anchor = new Todes::Particle
-		(Todes::Vector3D
-			(linkulum1AnchorPosition.x + linkulumDistance,
-			linkulum1AnchorPosition.y,
-			linkulum1AnchorPosition.z)
-		, 0.999f
-		, 0.0f);
-
-	// Create Cable Contacts
-	auto linkulum1Cable = new Todes::ParticleCable
-	(linkulumLength, 0.5f);
-	linkulum1Cable->setParticles(linkulum1->getParticle(), linkulum1Anchor);
-	auto linkulum2Cable = new Todes::ParticleCable
-	(linkulumLength, 0.5f);
-	linkulum2Cable->setParticles(linkulum2->getParticle(), linkulum2Anchor);
+	// Create Rope Placement Particles
+	auto linkulum1 = new Rope(linkulum1Placement, linkulumGeo, linkulumMaterial, 0.999f, 1.5f);
+	auto linkulum2 = new Rope(linkulum2Placement, linkulumGeo, linkulumMaterial, 0.999f, 1.5f);
+	linkulum1->Init(this, convertVector(linkulum1AnchorPosition), linkulumLength, 0.05f);
+	linkulum2->Init(this, Todes::Vector3D
+		( linkulum1AnchorPosition.x + linkulumDistance
+		, linkulum1AnchorPosition.y
+		, linkulum1AnchorPosition.z), linkulumLength, 0.05f);
 
 	// Add Spring between linked particles
 	m_linkulum1Spring =
@@ -157,8 +140,8 @@ PendulumScene::PendulumScene()
 	// Add Placement Particle and Contact
 	m_particleWorld->addPlacementParticle(linkulum1, { m_linkulum1Spring });
 	m_particleWorld->addPlacementParticle(linkulum2, { m_linkulum2Spring });
-	m_particleWorld->addContacts({ linkulum1Cable });
-	m_particleWorld->addContacts({ linkulum2Cable });
+	m_particleWorld->addContacts({ linkulum1->getContactGenerator() });
+	m_particleWorld->addContacts({ linkulum2->getContactGenerator() });
 #pragma endregion
 
 #pragma region Exercise 8.4
@@ -229,62 +212,33 @@ PendulumScene::PendulumScene()
 	regMaterial(sphereMaterial);
 	auto sphereGeo = new Vektoria::CGeoSphere();
 	sphereGeo->Init(1.5f, sphereMaterial);
-	auto sphere1 = new PlacementParticle(sphere1Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
-	auto sphere2 = new PlacementParticle(sphere2Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
-	auto sphere3 = new PlacementParticle(sphere3Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
-	auto sphere4 = new PlacementParticle(sphere4Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
-	auto sphere5 = new PlacementParticle(sphere5Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
+	auto sphere1 = new Rope(sphere1Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
+	auto sphere2 = new Rope(sphere2Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
+	auto sphere3 = new Rope(sphere3Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
+	auto sphere4 = new Rope(sphere4Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
+	auto sphere5 = new Rope(sphere5Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
 
-	// Create anchor particles
-	auto sphere1Anchor = new Todes::Particle
-	(Todes::Vector3D
-	(centerAnchorPosition.x - sphereRadius * 4.0f,
+	sphere1->Init(this, Todes::Vector3D
+		(centerAnchorPosition.x - sphereRadius * 4.0f,
 		centerAnchorPosition.y,
-		centerAnchorPosition.z)
-		, 0.999f
-		, 0.0f);
-	auto sphere2Anchor = new Todes::Particle
-	(Todes::Vector3D
-	(centerAnchorPosition.x - sphereRadius * 2.0f,
-		centerAnchorPosition.y,
-		centerAnchorPosition.z)
-		, 0.999f
-		, 0.0f);
-	auto sphere3Anchor = new Todes::Particle
-	(convertVector(centerAnchorPosition)
-		, 0.999f
-		, 0.0f);
-	auto sphere4Anchor = new Todes::Particle
-	(Todes::Vector3D
-	(centerAnchorPosition.x + sphereRadius * 2.0f,
-		centerAnchorPosition.y,
-		centerAnchorPosition.z)
-		, 0.999f
-		, 0.0f);
-	auto sphere5Anchor = new Todes::Particle
-	(Todes::Vector3D
-	(centerAnchorPosition.x + sphereRadius * 4.0f,
-		centerAnchorPosition.y,
-		centerAnchorPosition.z)
-		, 0.999f
-		, 0.0f);
+		centerAnchorPosition.z), cableLength, 0.2f);
 
-	// Create Cable Contacts
-	auto sphere1Cable = new Todes::ParticleCable
-	(cableLength, 0.2f);
-	sphere1Cable->setParticles(sphere1->getParticle(), sphere1Anchor);
-	auto sphere2Cable = new Todes::ParticleCable
-	(cableLength, 0.2f);
-	sphere2Cable->setParticles(sphere2->getParticle(), sphere2Anchor);
-	auto sphere3Cable = new Todes::ParticleCable
-	(cableLength, 0.2f);
-	sphere3Cable->setParticles(sphere3->getParticle(), sphere3Anchor);
-	auto sphere4Cable = new Todes::ParticleCable
-	(cableLength, 0.2f);
-	sphere4Cable->setParticles(sphere4->getParticle(), sphere4Anchor);
-	auto sphere5Cable = new Todes::ParticleCable
-	(cableLength, 0.2f);
-	sphere5Cable->setParticles(sphere5->getParticle(), sphere5Anchor);
+	sphere2->Init(this, Todes::Vector3D
+		(centerAnchorPosition.x - sphereRadius * 2.0f,
+		centerAnchorPosition.y,
+		centerAnchorPosition.z), cableLength, 0.2f);
+
+	sphere3->Init(this, convertVector(centerAnchorPosition), cableLength, 0.2f);
+
+	sphere4->Init(this, Todes::Vector3D
+		(centerAnchorPosition.x + sphereRadius * 2.0f,
+		centerAnchorPosition.y,
+		centerAnchorPosition.z), cableLength, 0.2f);
+
+	sphere5->Init(this, Todes::Vector3D
+		(centerAnchorPosition.x + sphereRadius * 4.0f,
+		centerAnchorPosition.y,
+		centerAnchorPosition.z), cableLength, 0.2f);
 
 	// Add Placement Particle and Contact
 	m_particleWorld->addPlacementParticle(sphere1);
@@ -292,7 +246,12 @@ PendulumScene::PendulumScene()
 	m_particleWorld->addPlacementParticle(sphere3);
 	m_particleWorld->addPlacementParticle(sphere4);
 	m_particleWorld->addPlacementParticle(sphere5);
-	m_particleWorld->addContacts({ sphere1Cable, sphere2Cable, sphere3Cable, sphere4Cable, sphere5Cable });
+	m_particleWorld->addContacts(
+		{ sphere1->getContactGenerator()
+		, sphere2->getContactGenerator()
+		, sphere3->getContactGenerator()
+		, sphere4->getContactGenerator()
+		, sphere5->getContactGenerator()});
 
 	// Create Contact between neighbors
 	m_particleWorld->addContacts
