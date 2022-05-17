@@ -42,14 +42,15 @@ public:
 #pragma region Init
 public:
 	void Init
-		(CaveScene* scene
+		( CaveScene* scene
 		, const Todes::Vector3D& anchorPosition
 		, const float& ropeLength
 		, const float& ropeRadius = 0.1f
 		, const float& restitution = 0.3f);
 
 	void Init
-		( const Todes::Vector3D& anchorPosition
+		( CaveScene* scene
+		, const Todes::Vector3D& anchorPosition
 		, const Vektoria::CMaterial& ropeMaterial
 		, const float& ropeLength
 		, const float& ropeRadius = 0.1f
@@ -81,5 +82,6 @@ private:
 	Vektoria::CPlacement m_ropePlacement;
 	Vektoria::CMaterial m_ropeMaterial;
 	Vektoria::CPlacement m_pointingPlacement;
+	Vektoria::CPlacement m_anchorPlacement;
 };
 

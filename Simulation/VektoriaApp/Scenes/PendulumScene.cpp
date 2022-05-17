@@ -13,27 +13,22 @@ PendulumScene::PendulumScene()
 	m_particleWorld(new PlacementParticleWorld)
 {
 #pragma region Exercise 8.1
-	// Create Cabulum Placement
-	auto cabulumPlacement = new Vektoria::CPlacement();
-
 	// Calculate Anchor Position
 	auto cabulumAnchorPosition = Vektoria::CHVector (
 			m_caveDimensions.width * 0.2f,
-			m_caveDimensions.height,
+			m_caveDimensions.height - m_caveDimensions.thickness,
 			-m_caveDimensions.depth * 0.8f);
 
 	// Calculate Length of the Cable
-	auto cabulumLength = m_caveDimensions.height * 0.3f + 0.5f;
+	auto cabulumLength = m_caveDimensions.height * 0.3f;
 
-	// Calculate Position of Particle
-	auto cabulumPosition = Todes::Vector3D(0.0f, -1.0f, 0.0f);
-	cabulumPosition.RotateZ(UM_DEG2RAD(-30.0f));
-	cabulumPosition *= cabulumLength;
-	cabulumPosition += convertVector(cabulumAnchorPosition);
-
-	// Translate Particle
-	cabulumPlacement->TranslateDelta(convertVector(cabulumPosition));
+	// Create Cabulum Placement
+	auto cabulumPlacement = new Vektoria::CPlacement();
+	cabulumPlacement->TranslateYDelta(-cabulumLength);
+	cabulumPlacement->RotateZDelta(UM_DEG2RAD(-30.0f));
+	cabulumPlacement->TranslateDelta(cabulumAnchorPosition);
 	m_pCave->AddPlacement(cabulumPlacement);
+	
 
 	// Create Material and Geo
 	auto cabulumMaterial = new Vektoria::CMaterial();
@@ -52,18 +47,13 @@ PendulumScene::PendulumScene()
 #pragma endregion
 
 #pragma region Exercise 8.2
-	// Create clingy child placement
-	auto clingyChildPlacement = new Vektoria::CPlacement();
-
 	// Calculate distance between child and cabulum
 	float clingyLength = m_caveDimensions.height * 0.1f;
 
-	// And position of clingy child
-	auto clingyChildPosition = Vektoria::CHVector
-		(cabulumPosition.x(), cabulumPosition.y() - clingyLength, cabulumPosition.z());
-
-	// Translate clingy child
-	clingyChildPlacement->TranslateDelta(clingyChildPosition);
+	// Create clingy child placement
+	auto clingyChildPlacement = new Vektoria::CPlacement();
+	clingyChildPlacement->TranslateDelta(cabulumPlacement->GetPos());
+	clingyChildPlacement->TranslateYDelta(-clingyLength);
 	m_pCave->AddPlacement(clingyChildPlacement);
 
 	// Create Material, Geo and Placement Particle
@@ -80,40 +70,34 @@ PendulumScene::PendulumScene()
 #pragma endregion
 
 #pragma region Exercise 8.3
-	// Create linkulum Placement 1 and 2
-	auto linkulum1Placement = new Vektoria::CPlacement();
-	auto linkulum2Placement = new Vektoria::CPlacement();
-
 	// Calculate Anchor Position
 	auto linkulum1AnchorPosition = Vektoria::CHVector(
 		m_caveDimensions.width * 0.7f,
-		m_caveDimensions.height,
+		m_caveDimensions.height - m_caveDimensions.thickness,
 		-m_caveDimensions.depth * 0.5f);
 
 	// Calculate Length of the Cable
-	auto linkulumLength = m_caveDimensions.height * 0.4f +0.4f;
+	auto linkulumLength = m_caveDimensions.height * 0.4f;
 	auto linkulumDistance = m_caveDimensions.width * 0.1f;
 
-	// Calculate Position of Particle1
-	auto linkulum1Position = Todes::Vector3D(0.0f, -linkulumLength, 0.0f);
-	linkulum1Position.RotateZ(UM_DEG2RAD(10.0f));
-	linkulum1Position += convertVector(linkulum1AnchorPosition);
-
-	// Calculate Position of Particle2
-	auto linkulum2Position = Todes::Vector3D(0.0f, -linkulumLength, 0.0f);
-	linkulum2Position.RotateZ(UM_DEG2RAD(15.0f));
-	linkulum2Position += Todes::Vector3D(
-		linkulum1AnchorPosition.x + linkulumDistance,
-		linkulum1AnchorPosition.y,
-		linkulum1AnchorPosition.z);
-	
-	auto linkulumRestLength = (linkulum1Position - linkulum2Position).Length();
-
-	// Translate Particles
-	linkulum1Placement->TranslateDelta(convertVector(linkulum1Position));
-	linkulum2Placement->TranslateDelta(convertVector(linkulum2Position));
+	// Create Placement of Particle1
+	auto linkulum1Placement = new Vektoria::CPlacement();
+	linkulum1Placement->TranslateYDelta(-linkulumLength);
+	linkulum1Placement->RotateZDelta(UM_DEG2RAD(10.0f));
+	linkulum1Placement->TranslateDelta(linkulum1AnchorPosition);
 	m_pCave->AddPlacement(linkulum1Placement);
+
+	// Create Placement of Particle2
+	auto linkulum2Placement = new Vektoria::CPlacement();
+	linkulum2Placement->TranslateYDelta(-linkulumLength);
+	linkulum2Placement->RotateZDelta(UM_DEG2RAD(15.0f));
+	linkulum2Placement->TranslateDelta(Vektoria::CHVector
+		( linkulum1AnchorPosition.x + linkulumDistance
+		, linkulum1AnchorPosition.y
+		, linkulum1AnchorPosition.z));
 	m_pCave->AddPlacement(linkulum2Placement);
+	
+	auto linkulumRestLength = (linkulum1Placement->GetPos() - linkulum2Placement->GetPos()).Length();
 
 	// Create Material and Geo
 	auto linkulumMaterial = new Vektoria::CMaterial();
@@ -146,63 +130,57 @@ PendulumScene::PendulumScene()
 
 #pragma region Exercise 8.4
 	const auto sphereRadius = 1.5f;
-	
-	// Create placements
-	auto sphere1Placement = new Vektoria::CPlacement();
-	auto sphere2Placement = new Vektoria::CPlacement();
-	auto sphere3Placement = new Vektoria::CPlacement();
-	auto sphere4Placement = new Vektoria::CPlacement();
-	auto sphere5Placement = new Vektoria::CPlacement();
 
 	// Create center anchor position
 	auto centerAnchorPosition = Vektoria::CHVector(
 		m_caveDimensions.width * 0.5f,
-		m_caveDimensions.height,
+		m_caveDimensions.height - m_caveDimensions.thickness,
 		-m_caveDimensions.depth * 0.2f);
 
 	// Cable Length
-	auto cableLength = m_caveDimensions.height * 0.8f - sphereRadius;
+	auto cableLength = m_caveDimensions.height * 0.8f;
+	auto sphereHeight = centerAnchorPosition.y - cableLength;
 
-	// Calculate Position of Particle1
-	auto sphere1Position =
-		Vektoria::CHVector(centerAnchorPosition.x - sphereRadius * 4.0f
-						, centerAnchorPosition.y - cableLength
-						, centerAnchorPosition.z);
-	sphere1Placement->TranslateDelta(sphere1Position);
+	// Create Placement of Sphere 1
+	auto sphere1Placement = new Vektoria::CPlacement();
+	sphere1Placement->TranslateDelta(Vektoria::CHVector
+			( centerAnchorPosition.x - sphereRadius * 4.0f
+			, sphereHeight
+			, centerAnchorPosition.z));
 	m_pCave->AddPlacement(sphere1Placement);
 
-	// Calculate Position of Particle2
-	auto sphere2Position =
-		Vektoria::CHVector(centerAnchorPosition.x - sphereRadius * 2.0f
-						, centerAnchorPosition.y - cableLength
-						, centerAnchorPosition.z);
-	sphere2Placement->TranslateDelta(sphere2Position);
+	// Create Placement of Sphere 2
+	auto sphere2Placement = new Vektoria::CPlacement();
+	sphere2Placement->TranslateDelta(Vektoria::CHVector
+			( centerAnchorPosition.x - sphereRadius * 2.0f
+			, sphereHeight
+			, centerAnchorPosition.z));
 	m_pCave->AddPlacement(sphere2Placement);
 
-	// Calculate Position of Particle3
-	auto sphere3Position =
-		Vektoria::CHVector(centerAnchorPosition.x
-			, centerAnchorPosition.y - cableLength
-			, centerAnchorPosition.z);
-	sphere3Placement->TranslateDelta(sphere3Position);
+	// Create Placement of Sphere 3
+	auto sphere3Placement = new Vektoria::CPlacement();
+	sphere3Placement->TranslateDelta(Vektoria::CHVector
+			( centerAnchorPosition.x
+			, sphereHeight
+			, centerAnchorPosition.z));
 	m_pCave->AddPlacement(sphere3Placement);
 
-	// Calculate Position of Particle4
-	auto sphere4Position =
-		Vektoria::CHVector(centerAnchorPosition.x + sphereRadius * 2.0f
-			, centerAnchorPosition.y - cableLength
-			, centerAnchorPosition.z);
-	sphere4Placement->TranslateDelta(sphere4Position);
+	// Create Placement of Sphere 4
+	auto sphere4Placement = new Vektoria::CPlacement();
+	sphere4Placement->TranslateDelta(Vektoria::CHVector
+			( centerAnchorPosition.x + sphereRadius * 2.0f
+			, sphereHeight
+			, centerAnchorPosition.z));
 	m_pCave->AddPlacement(sphere4Placement);
 
-	// Calculate Position of Particle5
-	auto sphere5Position = Todes::Vector3D(0.0f, -cableLength-sphereRadius, 0.0f);
-	sphere5Position.RotateZ(UM_DEG2RAD(40.0f));
-	sphere5Position += Todes::Vector3D(
-			centerAnchorPosition.x + sphereRadius * 4.0f
+	// Create Placement of Sphere 5
+	auto sphere5Placement = new Vektoria::CPlacement();
+	sphere5Placement->TranslateYDelta(-cableLength);
+	sphere5Placement->RotateZDelta(UM_DEG2RAD(40.0f));
+	sphere5Placement->TranslateDelta(Vektoria::CHVector
+			( centerAnchorPosition.x + sphereRadius * 4.0f
 			, centerAnchorPosition.y
-			, centerAnchorPosition.z);
-	sphere5Placement->TranslateDelta(convertVector(sphere5Position));
+			, centerAnchorPosition.z));
 	m_pCave->AddPlacement(sphere5Placement);
 
 	// Create Material, Geo and Placement Particle

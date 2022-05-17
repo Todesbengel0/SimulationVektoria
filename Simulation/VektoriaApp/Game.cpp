@@ -90,7 +90,7 @@ void CGame::Tick(float fTime, float fTimeDelta)
 	// Prevent very high framerates, that can cause hardware damage
 	// Comment out, if you have low FPS / reliable hardware
 	// Can be removed, once Vektoria::CRoot::SetFrameRateMax() starts working properly
-//	Sleep(1u);
+	Sleep(1u);
 }
 
 void CGame::Fini()

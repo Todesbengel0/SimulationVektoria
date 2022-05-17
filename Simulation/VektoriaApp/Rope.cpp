@@ -32,6 +32,9 @@ Rope::~Rope()
 
 void Rope::Init(CaveScene* scene, const Todes::Vector3D& anchorPosition, const float& ropeLength, const float& ropeRadius /*= 0.1f*/, const float& restitution /*= 0.5f*/)
 {	
+	m_anchorPlacement.TranslateDelta(convertVector(anchorPosition));
+	scene->getCave()->AddPlacement(&m_anchorPlacement);
+
 	m_ropeMaterial.LoadPreset((char*)"PhongYellow");
 	scene->regMaterial(&m_ropeMaterial);
 
@@ -40,8 +43,11 @@ void Rope::Init(CaveScene* scene, const Todes::Vector3D& anchorPosition, const f
 	InitRope(ropeRadius, ropeLength);
 }
 
-void Rope::Init(const Todes::Vector3D& anchorPosition, const Vektoria::CMaterial& ropeMaterial, const float& ropeLength, const float& ropeRadius /*= 0.1f*/, const float& restitution /*= 0.5f*/)
+void Rope::Init(CaveScene* scene, const Todes::Vector3D& anchorPosition, const Vektoria::CMaterial& ropeMaterial, const float& ropeLength, const float& ropeRadius /*= 0.1f*/, const float& restitution /*= 0.5f*/)
 {
+	m_anchorPlacement.TranslateDelta(convertVector(anchorPosition));
+	scene->getCave()->AddPlacement(&m_anchorPlacement);
+
 	m_ropeMaterial = ropeMaterial;
 
 	InitContact(anchorPosition, ropeLength, restitution);
@@ -59,14 +65,16 @@ void Rope::InitContact(const Todes::Vector3D& anchorPosition, const float& ropeL
 
 void Rope::InitRope(const float& ropeRadius, const float& ropeLength)
 {
-	m_pointingPlacement.TranslateDelta(convertVector(
-		m_ropeContact->getFirst()->getPosition()
-			- m_ropeContact->getFirst()->getPosition(), 1.0f));
+	m_placement->AddPlacement(&m_pointingPlacement);
+	m_pointingPlacement.TranslateYDelta(
+		(m_ropeContact->getFirst()->getPosition()
+		- m_ropeContact->getSecond()->getPosition()).y());
+	m_pointingPlacement.RotateXDelta(-PI);
 
 	m_ropeGeo.Init(ropeRadius, ropeRadius, ropeLength, &m_ropeMaterial);
 
 	m_ropePlacement.AddGeo(&m_ropeGeo);
-	m_placement->AddPlacement(&m_ropePlacement);
+	m_anchorPlacement.AddPlacement(&m_ropePlacement);
 	m_ropePlacement.SetPointing(&m_pointingPlacement);
 }
 
