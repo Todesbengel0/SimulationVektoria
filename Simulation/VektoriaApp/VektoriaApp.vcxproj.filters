@@ -111,7 +111,7 @@
     <ClInclude Include="Scenes\PendulumScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Rope.h">
+    <ClInclude Include="Pendulum.h">
       <Filter>TodesPhysicInterfaces</Filter>
     </ClInclude>
   </ItemGroup>
@@ -188,7 +188,7 @@
     <ClCompile Include="Scenes\PendulumScene.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="Rope.cpp">
+    <ClCompile Include="Pendulum.cpp">
       <Filter>TodesPhysicInterfaces</Filter>
     </ClCompile>
   </ItemGroup>

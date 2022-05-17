@@ -6,7 +6,7 @@
 #include "ParticleCable.h"
 #include "ParticleSpring.h"
 #include "ParticleCollision.h"
-#include "Rope.h"
+#include "Pendulum.h"
 
 PendulumScene::PendulumScene()
 	: CaveScene(-9.807f, 10.0f, 50.0f, 30.0f),
@@ -37,8 +37,8 @@ PendulumScene::PendulumScene()
 	auto cabulumGeo = new Vektoria::CGeoSphere();
 	cabulumGeo->Init(0.5f, cabulumMaterial);
 
-	// Create Rope Placement Particle
-	auto cabulum = new Rope(cabulumPlacement, cabulumGeo, cabulumMaterial, 0.999f, 2.0f);
+	// Create Pendulum Placement Particle
+	auto cabulum = new Pendulum(cabulumPlacement, cabulumGeo, cabulumMaterial, 0.999f, 1.0f);
 	cabulum->Init(this, convertVector(cabulumAnchorPosition), cabulumLength);
 
 	// Add Placement Particle and Contact
@@ -67,6 +67,32 @@ PendulumScene::PendulumScene()
 	// Add Spring between child and cabulum
 	auto cabulumSpring = new Todes::ParticleSpring(cabulum->getParticle(), 5.0f, clingyLength);
 	m_particleWorld->addPlacementParticle(clingyChild, { cabulumSpring });
+#pragma endregion
+
+#pragma region Double_Pendulum
+// 	// Calculate distance between doubulum and cabulum
+// 	float doubulumLength = m_caveDimensions.height * 0.2f;
+// 
+// 	// Create doubulum placement
+// 	auto doubulumPlacement = new Vektoria::CPlacement();
+// 	doubulumPlacement->TranslateDelta(cabulumPlacement->GetPos());
+// 	doubulumPlacement->TranslateYDelta(-doubulumLength);
+// 	m_pCave->AddPlacement(doubulumPlacement);
+// 	
+// 	// Create Material and Geo
+// 	auto doubulumMaterial = new Vektoria::CMaterial();
+// 	doubulumMaterial->LoadPreset((char*)"MetalAlu");
+// 	regMaterial(doubulumMaterial);
+// 	auto doubulumGeo = new Vektoria::CGeoSphere();
+// 	doubulumGeo->Init(0.15f, doubulumMaterial);
+// 
+// 	// Create doubulum Placement Particles
+// 	auto doubulum = new Pendulum(doubulumPlacement, doubulumGeo, doubulumMaterial, 0.999f, 20.0f);
+// 	doubulum->Init(this, cabulum, doubulumLength, 0.02f, 0.8f);
+// 
+// 	// Add Placement Particle and Contact
+// 	m_particleWorld->addPlacementParticle(doubulum);
+// 	m_particleWorld->addContacts({ doubulum->getContactGenerator() });
 #pragma endregion
 
 #pragma region Exercise 8.3
@@ -106,9 +132,9 @@ PendulumScene::PendulumScene()
 	auto linkulumGeo = new Vektoria::CGeoSphere();
 	linkulumGeo->Init(0.4f, linkulumMaterial);
 
-	// Create Rope Placement Particles
-	auto linkulum1 = new Rope(linkulum1Placement, linkulumGeo, linkulumMaterial, 0.999f, 1.5f);
-	auto linkulum2 = new Rope(linkulum2Placement, linkulumGeo, linkulumMaterial, 0.999f, 1.5f);
+	// Create Pendulum Placement Particles
+	auto linkulum1 = new Pendulum(linkulum1Placement, linkulumGeo, linkulumMaterial, 0.999f, 1.5f);
+	auto linkulum2 = new Pendulum(linkulum2Placement, linkulumGeo, linkulumMaterial, 0.999f, 1.5f);
 	linkulum1->Init(this, convertVector(linkulum1AnchorPosition), linkulumLength, 0.05f);
 	linkulum2->Init(this, Todes::Vector3D
 		( linkulum1AnchorPosition.x + linkulumDistance
@@ -190,11 +216,11 @@ PendulumScene::PendulumScene()
 	regMaterial(sphereMaterial);
 	auto sphereGeo = new Vektoria::CGeoSphere();
 	sphereGeo->Init(1.5f, sphereMaterial);
-	auto sphere1 = new Rope(sphere1Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
-	auto sphere2 = new Rope(sphere2Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
-	auto sphere3 = new Rope(sphere3Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
-	auto sphere4 = new Rope(sphere4Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
-	auto sphere5 = new Rope(sphere5Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
+	auto sphere1 = new Pendulum(sphere1Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
+	auto sphere2 = new Pendulum(sphere2Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
+	auto sphere3 = new Pendulum(sphere3Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
+	auto sphere4 = new Pendulum(sphere4Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
+	auto sphere5 = new Pendulum(sphere5Placement, sphereGeo, sphereMaterial, 0.999f, 0.5f);
 
 	sphere1->Init(this, Todes::Vector3D
 		(centerAnchorPosition.x - sphereRadius * 4.0f,
