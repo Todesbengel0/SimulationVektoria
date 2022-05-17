@@ -2,11 +2,11 @@
 #include "PendulumScene.h"
 #include "TodesConverter.h"
 #include "Particle.h"
-#include "PlacementParticle.h"
 #include "PlacementParticleWorld.h"
 #include "ParticleCable.h"
 #include "ParticleSpring.h"
 #include "ParticleCollision.h"
+#include "Rope.h"
 
 PendulumScene::PendulumScene()
 	: CaveScene(-9.807f, 10.0f, 50.0f, 30.0f),
@@ -21,41 +21,37 @@ PendulumScene::PendulumScene()
 			m_caveDimensions.width * 0.2f,
 			m_caveDimensions.height,
 			-m_caveDimensions.depth * 0.8f);
+	auto cabulumAnchor = new Vektoria::CPlacement();
+	m_pCave->AddPlacement(cabulumAnchor);
+	cabulumAnchor->Translate(cabulumAnchorPosition);
 
 	// Calculate Length of the Cable
 	auto cabulumLength = m_caveDimensions.height * 0.3f + 0.5f;
 
 	// Calculate Position of Particle
-	auto cabulumPosition = Todes::Vector3D(0.0f, -cabulumLength, 0.0f);
-	cabulumPosition.RotateZ(-UM_DEG2RAD(30.0f));
+	auto cabulumPosition = Todes::Vector3D(0.0f, -1.0f, 0.0f);
+	cabulumPosition.RotateZ(UM_DEG2RAD(-30.0f));
+	cabulumPosition *= cabulumLength;
 	cabulumPosition += convertVector(cabulumAnchorPosition);
 
 	// Translate Particle
 	cabulumPlacement->TranslateDelta(convertVector(cabulumPosition));
 	m_pCave->AddPlacement(cabulumPlacement);
 
-	// Create Material, Geo and Placement Particle
+	// Create Material and Geo
 	auto cabulumMaterial = new Vektoria::CMaterial();
 	cabulumMaterial->LoadPreset((char*)"RubberBlack");
 	regMaterial(cabulumMaterial);
 	auto cabulumGeo = new Vektoria::CGeoSphere();
 	cabulumGeo->Init(0.5f, cabulumMaterial);
-	auto cabulum = new PlacementParticle(cabulumPlacement, cabulumGeo, cabulumMaterial, 0.999f, 2.0f);
 
-	// Create anchor particle
-	auto cabulumAnchor = new Todes::Particle
-	(convertVector(cabulumAnchorPosition)
-		, 0.999f
-		, 0.0f);
-
-	// Create Cable Contact
-	auto cabulumCable = new Todes::ParticleCable
-		(cabulumLength, 0.5f);
-	cabulumCable->setParticles(cabulum->getParticle(), cabulumAnchor);
+	// Create Rope Placement Particle
+	auto cabulum = new Rope(cabulumPlacement, cabulumGeo, cabulumMaterial, 0.999f, 2.0f);
+	cabulum->Init(cabulumAnchor, cabulumLength);
 
 	// Add Placement Particle and Contact
 	m_particleWorld->addPlacementParticle(cabulum);
-	m_particleWorld->addContacts({ cabulumCable });
+	m_particleWorld->addContacts({ cabulum->getContactGenerator() });
 #pragma endregion
 
 #pragma region Exercise 8.2

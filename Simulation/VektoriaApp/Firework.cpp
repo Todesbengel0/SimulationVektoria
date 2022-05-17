@@ -59,12 +59,12 @@ void Firework::update(const float& timeDelta)
 	}
 }
 
-void Firework::update() const
+void Firework::update()
 {
 	PlacementParticle::update();
 }
 
-void Firework::reset() const
+void Firework::reset()
 { }
 
 void Firework::kill()

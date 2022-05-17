@@ -31,10 +31,10 @@ public:
 public:
 	// Updates the firework
 	void update(const float& timeDelta) override;
-	void update() const override;
+	void update() override;
 
 	// We cannot reset a firework
-	void reset() const override;
+	void reset() override;
 	
 	// Kills this firework and shoots its payload
 	void kill() override;

@@ -50,7 +50,7 @@ PlacementParticle::PlacementParticle(Vektoria::CPlacement* placement, const floa
 PlacementParticle::~PlacementParticle()
 { }
 
-void PlacementParticle::update() const
+void PlacementParticle::update()
 {
 	auto pos = convertVector(m_particle->getPosition());
 	m_placement->Translate(pos);
@@ -61,7 +61,7 @@ void PlacementParticle::update(const float& timeDelta)
 	update();
 }
 
-void PlacementParticle::reset() const
+void PlacementParticle::reset()
 {
 	m_particle->reset();
 	update();

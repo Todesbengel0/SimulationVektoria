@@ -111,6 +111,9 @@
     <ClInclude Include="Scenes\PendulumScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Rope.h">
+      <Filter>TodesPhysicInterfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -184,6 +187,9 @@
     </ClCompile>
     <ClCompile Include="Scenes\PendulumScene.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Rope.cpp">
+      <Filter>TodesPhysicInterfaces</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

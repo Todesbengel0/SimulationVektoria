@@ -28,11 +28,11 @@ public:
 
 public:
 	/** Update the scene graph node with the associated particle node. */
-	virtual void update() const;
+	virtual void update();
 	virtual void update(const float& timeDelta);
 
 	// Resets the Placement Particle to the start condition
-	virtual void reset() const;
+	virtual void reset();
 
 	// Kills the Placement Particle
 	virtual void kill();
