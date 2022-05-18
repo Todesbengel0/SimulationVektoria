@@ -348,3 +348,74 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+## Ignore root repo temporary files, build results, and libraries
+
+# Visual Studio cache & temporaries
+.vs/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.csv
+
+#Object logs and temporaries
+*.log
+*.tlog
+
+# Build results
+[Dd]ebug/
+Clones/[Dd]ebug/
+[Dd]ebugPublic/
+Clones/[Dd]ebugPublic/
+[Rr]elease/
+Clones/[Rr]elease/
+[Rr]eleases/
+Clones/[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Files built by Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.pch
+*.pdb
+*.ipdb
+*.pgc
+*.pgd
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*_wpftmp.csproj
+*.log
+*.tlog
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+
+# Vektoria Lib
+[Ll]ib*
+*.obj
+*.tlog
+*.log
