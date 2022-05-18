@@ -68,3 +68,8 @@ bld/
 *.obj
 *.tlog
 *.log
+*.obj
+*.log
+*.tlog
+*.idb
+*.lib
