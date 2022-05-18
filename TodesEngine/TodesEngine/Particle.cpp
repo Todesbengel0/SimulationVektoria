@@ -42,9 +42,14 @@ namespace Todes
 		m_velocity += velocitySummand;
 	}
 
-	void Particle::addAcceleration(const Vector3D& accelerationSummand)
+	void Particle::addCurrentAcceleration(const Vector3D& accelerationSummand)
 	{
-		m_acceleration += accelerationSummand;
+		m_currentAcceleration += accelerationSummand;
+	}
+
+	void Particle::setBaseAcceleration(const Vector3D& acceleration)
+	{
+		m_baseAcceleration = acceleration;
 	}
 
 	void Particle::setPosition(const Vector3D& position)
@@ -84,9 +89,14 @@ namespace Todes
 		return m_velocity;
 	}
 
-	const Todes::Vector3D& Particle::getAcceleration() const
+	const Todes::Vector3D& Particle::getBaseAcceleration() const
 	{
-		return m_acceleration;
+		return m_baseAcceleration;
+	}
+
+	const Todes::Vector3D& Particle::getCurrentAcceleration() const
+	{
+		return m_currentAcceleration;
 	}
 
 	const Vector3D& Particle::getPosition() const
@@ -110,9 +120,9 @@ namespace Todes
 
 		m_position += m_velocity * duration;
 
-		m_acceleration = m_forceAccumulator * m_inverseMass;
+		m_currentAcceleration = m_forceAccumulator * m_inverseMass;
 
-		m_velocity += m_acceleration * duration;
+		m_velocity += m_currentAcceleration * duration;
 
 		m_velocity *= powf(m_damping, duration);
 
@@ -122,7 +132,7 @@ namespace Todes
 	void Particle::reset()
 	{
 		m_velocity = Vector3D();
-		m_acceleration = Vector3D();
+		m_currentAcceleration = Vector3D();
 		m_position = m_initialPosition;
 	}
 }

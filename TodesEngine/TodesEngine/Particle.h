@@ -16,7 +16,8 @@ namespace Todes
 		void sendDeath(const bool& isDead = true);
 		void setVelocity(const Vector3D& velocity);
 		void addVelocity(const Vector3D& velocitySummand);
-		void addAcceleration(const Vector3D& accelerationSummand);
+		void addCurrentAcceleration(const Vector3D& accelerationSummand);
+		void setBaseAcceleration(const Vector3D& acceleration);
 		void setPosition(const Vector3D& position);
 		void translate(const Vector3D& translationVector);
 		float getMass() const;
@@ -24,7 +25,8 @@ namespace Todes
 		const bool& isDead() const;
 		const bool hasFiniteMass() const;
 		const Vector3D& getVelocity() const;
-		const Vector3D& getAcceleration() const;
+		const Vector3D& getBaseAcceleration() const;
+		const Vector3D& getCurrentAcceleration() const;
 		const Vector3D& getPosition() const;
 
 		void clearAccumulator();
@@ -37,7 +39,8 @@ namespace Todes
 		Vector3D m_position;
 		Vector3D m_initialPosition;
 		Vector3D m_velocity;
-		Vector3D m_acceleration;
+		Vector3D m_baseAcceleration;
+		Vector3D m_currentAcceleration;
 
 		Vector3D m_forceAccumulator;
 		float m_damping;
