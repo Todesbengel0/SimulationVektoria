@@ -193,9 +193,11 @@ PendulumScene::PendulumScene()
 
 	// Create Placement of Sphere 4
 	auto sphere4Placement = new Vektoria::CPlacement();
+	sphere4Placement->TranslateYDelta(-cableLength);
+	sphere4Placement->RotateZDelta(UM_DEG2RAD(40.0f));
 	sphere4Placement->TranslateDelta(Vektoria::CHVector
 			( centerAnchorPosition.x + sphereRadius * 2.0f
-			, sphereHeight
+			, centerAnchorPosition.y
 			, centerAnchorPosition.z));
 	m_pCave->AddPlacement(sphere4Placement);
 
