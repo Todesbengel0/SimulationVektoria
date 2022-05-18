@@ -27,8 +27,8 @@ namespace Todes
 
 		assert(contact);
 
-		contact->Init(m_particles[0], m_particles[1]);
 		contact->setContactNormal(calculateContactNormal());
+		contact->Init(m_particles[0], m_particles[1]);
 		contact->setPenetration(penetration);
 		contact->setRestitution(m_restitution);
 	}

@@ -2,4 +2,6 @@
 C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(500,5): warning MSB8004: Das Output-Verzeichnis endet nicht mit einem nachstehenden Schrägstrich. Der Schrägstrich wird in dieser Buildinstanz hinzugefügt, da er für die ordnungsgemäße Auswertung des Output-Verzeichnisses erforderlich ist.
   ParticleContact.cpp
 C:\Users\dan\Documents\SimulationVektoria\TodesEngine\TodesEngine\ParticleContact.cpp(144,7): warning C4804: "<": unsichere Verwendung des Typs "bool" in einer Operation
+  ParticleLink.cpp
+  Code wird generiert...
   TodesEngine.vcxproj -> C:\Users\dan\Documents\SimulationVektoria\TodesEngine\Build\x64\Debug\TodesEngine.lib
