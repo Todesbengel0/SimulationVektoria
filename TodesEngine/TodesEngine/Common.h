@@ -1,5 +1,5 @@
 #pragma once
-#define nearlyEqual(a, b)	float(a - b) < 0.01f && float(a - b) > -0.01f
+#define nearlyEqual(a, b)	(float(a - b) < 0.01f && float(a - b) > -0.01f)
 #define nearZero(a)	a < 0.01f && a > -0.01f
 constexpr auto PI = 3.1415927f;
 constexpr auto TWOPI = 6.283185f;
