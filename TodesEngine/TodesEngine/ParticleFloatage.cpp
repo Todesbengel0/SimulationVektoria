@@ -6,7 +6,7 @@
 namespace Todes
 {
 
-	ParticleFloatage::ParticleFloatage(const float& particleRadius, const float& liquidHeight, const float& liquidDensity /*= 1000.0f*/, const float& liquidViscosity /*= 1.0016f*/, const float& impactConservation /*= 0.7f*/, const float& gravity /*= 9.807f */)
+	ParticleFloatage::ParticleFloatage(const float& particleRadius, const float& liquidHeight, const float& impactConservation /*= 0.7f*/, const float& liquidDensity /*= 1000.0f*/, const float& liquidViscosity /*= 1.0016f*/, const float& gravity /*= 9.807f */)
 		: m_radius(particleRadius)
 		, m_liquidHeight(liquidHeight)
 		, m_liquidDensity(liquidDensity)
@@ -33,7 +33,7 @@ namespace Todes
 			return;
 		}
 
-		if (nearlyEqual(-particle->getAcceleration().y(), m_gravity))
+		if (nearlyEqual(-particle->getCurrentAcceleration().y(), m_gravity))
 		{
 			particle->addForce(Vector3D(0.0f, m_gravity, 0.0f));
 			return;

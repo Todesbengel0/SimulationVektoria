@@ -13,7 +13,7 @@ SimulationScene::SimulationScene()
 	m_cameraPlacement.TranslateZ(8.0f);
 	this->AddPlacement(&m_cameraPlacement);
 
-	this->SetLightAmbient(Vektoria::CColor(0.2f, 0.2f, 0.2f));
+	this->SetLightAmbient(Vektoria::CColor(0.4f, 0.4f, 0.4f));
 }
 
 void SimulationScene::regMaterial(Vektoria::CMaterial* pzm)

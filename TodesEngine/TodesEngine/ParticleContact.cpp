@@ -11,22 +11,23 @@ namespace Todes
 		, m_restitution(1.0f)
 	{ }
 
-	ParticleContact::ParticleContact(Particle* first, Particle* second)
+	ParticleContact::ParticleContact(Particle* first, Particle* second, const Todes::Vector3D& contactNormal)
 		: m_restitution(0.0f)
 		, m_penetration(0.0f)
 	{
-		Init(first, second);
+		Init(first, second, contactNormal);
 	}
 
 	ParticleContact::~ParticleContact()
 		= default;
 
-	void ParticleContact::Init(Particle* first, Particle* second)
+	void ParticleContact::Init(Particle* first, Particle* second, const Todes::Vector3D& contactNormal)
 	{
 		if (first->hasFiniteMass())
 		{
 			m_particles[0] = first;
 			m_particles[1] = second;
+			m_contactNormal = contactNormal;
 			return;
 		}
 
@@ -36,7 +37,7 @@ namespace Todes
 		m_particles[1] = first;
 
 		// We need to flip the contact normal
-		m_contactNormal *= -1;
+		m_contactNormal = -contactNormal;
 	}
 
 	float ParticleContact::CalculateSeparatingVelocity() const
@@ -62,11 +63,6 @@ namespace Todes
 	Particle* ParticleContact::getParticles()
 	{
 		return *m_particles;
-	}
-
-	void ParticleContact::setContactNormal(const Vector3D& normal)
-	{
-		m_contactNormal = normal;
 	}
 
 	const Vector3D& ParticleContact::getContactNormal() const
@@ -125,9 +121,9 @@ namespace Todes
 		// Calculate velocity from Acceleration:
 		// vfa = a.acceleration * timeDelta - b.acceleration * timeDelta
 		// Multiply with contact normal to get the velocity towards the contact normal
-		const auto firstAcceleration = m_particles[0]->getAcceleration() * m_contactNormal;
+		const auto firstAcceleration = m_particles[0]->getCurrentAcceleration() * m_contactNormal;
 		const auto firstVelFromAcc = firstAcceleration * timeDelta;
-		const auto secondAcceleration = m_particles[1]->getAcceleration() * m_contactNormal;
+		const auto secondAcceleration = m_particles[1]->getCurrentAcceleration() * m_contactNormal;
 		const auto secondVelFromAcc = secondAcceleration * timeDelta;
 
 		float velocityFromAcceleration = firstVelFromAcc;
@@ -147,7 +143,7 @@ namespace Todes
 		// But we need to remove the velocity that the contact prevents the particle to have
 
 		// If we were to check the Acceleration again, we want it to be correct
-		m_particles[0]->addAcceleration(-firstAcceleration * m_contactNormal);
+		m_particles[0]->addCurrentAcceleration(-firstAcceleration * m_contactNormal);
 
 		// We use the velocity that creates a lesser change to the velocity
 		m_particles[0]->addVelocity(-std::max(firstVelocity, firstVelFromAcc) * m_contactNormal);
@@ -155,7 +151,7 @@ namespace Todes
 		if (m_particles[1]->hasFiniteMass())
 		{
 			// We do the same for the second particle
-			m_particles[1]->addAcceleration(-secondAcceleration * m_contactNormal);
+			m_particles[1]->addCurrentAcceleration(-secondAcceleration * m_contactNormal);
 			m_particles[1]->addVelocity(-std::min(secondVelocity, secondVelFromAcc) * m_contactNormal);
 		}
 
@@ -228,7 +224,7 @@ namespace Todes
 		if (m_penetration <= 0.0001f) return particlesTranslation;
 
 		// If both particles have infinite mass, there's nothing to resolve
-		if (!m_particles[0]->hasFiniteMass() && !m_particles[1]->hasFiniteMass()) return particlesTranslation;
+		if (!m_particles[0]->hasFiniteMass()) return particlesTranslation;
 
 		// Calculate d * n
 		const auto penetrationVector = m_penetration * m_contactNormal;

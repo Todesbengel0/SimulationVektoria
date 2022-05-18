@@ -21,7 +21,8 @@ namespace Todes
 		/// </summary>
 		/// <param name="first">First particle of the contact.</param>
 		/// <param name="second">Second particle of the contact.</param>
-		explicit ParticleContact(Particle* first, Particle* second);
+		/// <param name="contactNormal">Contact Normal of the collision from first particle.</param>
+		explicit ParticleContact(Particle* first, Particle* second, const Todes::Vector3D& contactNormal);
 		~ParticleContact();
 
 		/// <summary>
@@ -29,7 +30,8 @@ namespace Todes
 		/// </summary>
 		/// <param name="first">First particle of the contact.</param>
 		/// <param name="second">Second particle of the contact.</param>
-		void Init(Particle* first, Particle* second);
+		/// <param name="contactNormal">Contact Normal of the collision from first particle.</param>
+		void Init(Particle* first, Particle* second, const Todes::Vector3D& contactNormal);
 
 		/// <summary>
 		/// Calculates and returns the separating velocity.
@@ -47,11 +49,6 @@ namespace Todes
 		/// Returns the contact's particles.
 		/// </summary>
 		Particle* getParticles();
-
-		/// <summary>
-		/// Sets the contact's contact normal.
-		/// </summary>
-		void setContactNormal(const Vector3D& normal);
 
 		/// <summary>
 		/// Returns the current contact normal.

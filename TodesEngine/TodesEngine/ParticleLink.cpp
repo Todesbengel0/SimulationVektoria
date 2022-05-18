@@ -27,8 +27,10 @@ namespace Todes
 
 		assert(contact);
 
-		contact->setContactNormal(calculateContactNormal());
-		contact->Init(m_particles[0], m_particles[1]);
+		// We initialize the contact
+		contact->Init(m_particles[0], m_particles[1], calculateContactNormal());
+
+		// And set the Penetration and the Restitution
 		contact->setPenetration(penetration);
 		contact->setRestitution(m_restitution);
 	}

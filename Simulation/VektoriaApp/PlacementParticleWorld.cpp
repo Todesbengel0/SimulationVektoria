@@ -110,7 +110,7 @@ bool PlacementParticleWorld::deletePlacementParticle(PlacementParticle* placemen
 	m_placementParticles.erase(it);
 	
 	delete particle;
-//	delete placement;
+	delete placement;
 	delete placementParticle;
 
 	return true;

@@ -123,11 +123,11 @@ Vektoria::CDeviceMouse& CGame::getMouse()
 void CGame::initScenes()
 {
 	// ADD NEW SCENES HERE
-	addScene(new FirstScene);
-	addScene(new CanonScene);
-	addScene(new FireworkScene);
-	addScene(new SpringScene);
-	addScene(new TyphoonScene);
+// 	addScene(new FirstScene);
+// 	addScene(new CanonScene);
+// 	addScene(new FireworkScene);
+// 	addScene(new SpringScene);
+// 	addScene(new TyphoonScene);
 	addScene(new PendulumScene);
 }
 
