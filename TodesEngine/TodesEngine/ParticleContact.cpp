@@ -15,8 +15,7 @@ namespace Todes
 		: m_restitution(0.0f)
 		, m_penetration(0.0f)
 	{
-		m_particles[0] = first;
-		m_particles[1] = second;
+		Init(first, second);
 	}
 
 	ParticleContact::~ParticleContact()
@@ -24,8 +23,20 @@ namespace Todes
 
 	void ParticleContact::Init(Particle* first, Particle* second)
 	{
-		m_particles[0] = first;
-		m_particles[1] = second;
+		if (first->hasFiniteMass())
+		{
+			m_particles[0] = first;
+			m_particles[1] = second;
+			return;
+		}
+
+		// If the first particle has infinite mass,
+		// the particles are the wrong way around
+		m_particles[0] = second;
+		m_particles[1] = first;
+
+		// We need to flip the contact normal
+		m_contactNormal *= -1;
 	}
 
 	float ParticleContact::CalculateSeparatingVelocity() const
@@ -100,18 +111,8 @@ namespace Todes
 
 	bool ParticleContact::isResting(const float& timeDelta)
 	{
-		// Checks if the particles are the wrong way around
-		if (!m_particles[0]->hasFiniteMass())
-		{
-			// If both particles have infinite mass, there's nothing to resolve
-			if (!m_particles[1]->hasFiniteMass()) return true;
-
-			auto temp = m_particles[0];
-
-			m_particles[0] = m_particles[1];
-			m_particles[1] = temp;
-			m_contactNormal *= -1;
-		}
+		// If both particles have infinite mass, there's nothing to resolve
+		if (!m_particles[0]->hasFiniteMass()) return true;
 
 		// We calculate the separating velocity
 		// but save ourselves the single velocities
@@ -140,25 +141,25 @@ namespace Todes
 		// Now we need to check if the velocity created from the acceleration
 		// is equal to the separation velocity
 		// (in which case the whole velocity came from this resting contact)
-		bool isResting = nearlyEqual(velocityFromAcceleration, separatingVelocity);
-
-		if (!isResting) return false;
+		if (!nearlyEqual(velocityFromAcceleration, separatingVelocity)) return false;
 
 		// In case of a resting contact, we do not have a separation velocity
 		// But we need to remove the velocity that the contact prevents the particle to have
-		// (This is also true, if the contact is only partially resting)
 
-		// And we only want to remove the part that is greater (less negative)
+		// If we were to check the Acceleration again, we want it to be correct
 		m_particles[0]->addAcceleration(-firstAcceleration * m_contactNormal);
-		m_particles[0]->addVelocity(-std::max(firstVelFromAcc, firstVelocity) * m_contactNormal);
+
+		// We use the velocity that creates a lesser change to the velocity
+		m_particles[0]->addVelocity(-std::max(firstVelocity, firstVelFromAcc) * m_contactNormal);
 
 		if (m_particles[1]->hasFiniteMass())
 		{
+			// We do the same for the second particle
 			m_particles[1]->addAcceleration(-secondAcceleration * m_contactNormal);
-			m_particles[1]->addVelocity(-std::min(secondVelFromAcc, secondVelocity) * m_contactNormal);
+			m_particles[1]->addVelocity(-std::min(secondVelocity, secondVelFromAcc) * m_contactNormal);
 		}
 
-		return isResting;
+		return true;
 	}
 
 	void ParticleContact::ResolveVelocity(const float& timeDelta)
