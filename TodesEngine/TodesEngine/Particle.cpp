@@ -110,8 +110,6 @@ namespace Todes
 
 		m_position += m_velocity * duration;
 
-// 		auto resultingAcceleration = m_acceleration;
-// 		resultingAcceleration += m_forceAccumulator * m_inverseMass;
 		m_acceleration = m_forceAccumulator * m_inverseMass;
 
 		m_velocity += m_acceleration * duration;

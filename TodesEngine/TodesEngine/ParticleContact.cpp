@@ -124,8 +124,6 @@ namespace Todes
 		// Calculate velocity from Acceleration:
 		// vfa = a.acceleration * timeDelta - b.acceleration * timeDelta
 		// Multiply with contact normal to get the velocity towards the contact normal
-		
-		// Acceleration is always 0 in Rumble3D
 		const auto firstAcceleration = m_particles[0]->getAcceleration() * m_contactNormal;
 		const auto firstVelFromAcc = firstAcceleration * timeDelta;
 		const auto secondAcceleration = m_particles[1]->getAcceleration() * m_contactNormal;
@@ -143,6 +141,8 @@ namespace Todes
 		// is equal to the separation velocity
 		// (in which case the whole velocity came from this resting contact)
 		bool isResting = nearlyEqual(velocityFromAcceleration, separatingVelocity);
+
+		if (!isResting) return false;
 
 		// In case of a resting contact, we do not have a separation velocity
 		// But we need to remove the velocity that the contact prevents the particle to have

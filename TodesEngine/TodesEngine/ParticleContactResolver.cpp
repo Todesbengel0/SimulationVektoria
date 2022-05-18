@@ -5,7 +5,6 @@
 
 namespace Todes
 {
-	
 	void ParticleContactResolver::ResolveContacts(FixedSizeContainer<ParticleContact>& contactData, const unsigned int& maxIterations, const float& timeDelta)
 	{
 		const auto& contactCount = contactData.getUsedEntries();

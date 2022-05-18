@@ -23,7 +23,7 @@ namespace Todes
 			const float& particleRadius,
 			const float& liquidHeight,
 			const float& liquidDensity = 1000.0f,
-			const float& liquidViscosity = 0.0010016f,
+			const float& liquidViscosity = 0.0010518f,
 			const float& impactConservation = 0.7f,
 			const float& gravity = 9.807f
 		);
