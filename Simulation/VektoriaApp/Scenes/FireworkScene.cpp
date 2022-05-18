@@ -19,6 +19,11 @@ void FireworkScene::registerFirework(Firework* firework) const
 	m_particleWorld->addPlacementParticle(firework, { m_gravity });
 }
 
+void FireworkScene::removeFirework(Firework* firework) const
+{
+	m_pCave->SubPlacement(firework->getPlacement());
+}
+
 FireworkScene::FireworkScene()
 	: CaveScene(-9.807f, 25.0f, 40.0f, 20.0f, 30.0f),
 	m_particleWorld(new PlacementParticleWorld),
@@ -82,14 +87,14 @@ void FireworkScene::spawn()
 	{
 		0.5f /* ageMin */
 		, Todes::Random::Float(0.5f, 0.8f) /* ageMax */
-		, 10 /* countMin */
-		, Todes::Random::Size_t(10, 25) /* countMax */
+		, 15 /* countMin */
+		, Todes::Random::Size_t(15, 35) /* countMax */
 		, 0.1f /* massMin */
 		, Todes::Random::Float(0.1f, 5.0f) /* massMax */
-		, 0.1f /* sizeMin */
-		, Todes::Random::Float(0.1f, 0.3f) /* sizeMax */
+		, 0.05f /* sizeMin */
+		, Todes::Random::Float(0.2f, 0.3f) /* sizeMax */
 		, 5.0f /* velocityMin */
-		, (muzzleVelocity - 5.0f) * 0.3f + 5.0f /* velocityMax */
+		, (muzzleVelocity - 5.0f) * 0.2f + 5.0f /* velocityMax */
 	};
 
 	m_fireworkMaterial->RotateHue(UM_DEG2RAD(Todes::Random::Float(0.0f, 360.0f)));

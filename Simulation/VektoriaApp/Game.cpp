@@ -61,10 +61,10 @@ void CGame::Init(HWND hwnd, void(*procOS)(HWND hwnd, unsigned int uWndFlags), Ve
 	// Hänge den Viewport an den Frame:
 	m_zf.AddViewport(&m_zv);
  
-// 	m_zv.SetBloomOn();
-// 	m_zv.SetBloomStrengthNear(6.0f);
-// 	m_zv.SetBloomStrengthFar(3.0f);
-// 	m_zv.SetBloomWidth(1.5f);
+	m_zv.SetBloomOn();
+	m_zv.SetBloomStrengthNear(6.0f);
+	m_zv.SetBloomStrengthFar(3.0f);
+	m_zv.SetBloomWidth(1.5f);
 
 	// Init devices
 	m_zf.AddDeviceKeyboard(&m_keyboard);
@@ -125,10 +125,10 @@ void CGame::initScenes()
 	// ADD NEW SCENES HERE
 // 	addScene(new FirstScene);
 // 	addScene(new CanonScene);
-// 	addScene(new FireworkScene);
+	addScene(new FireworkScene);
 // 	addScene(new SpringScene);
 // 	addScene(new TyphoonScene);
-	addScene(new PendulumScene);
+// 	addScene(new PendulumScene);
 }
 
 void CGame::addScene(SimulationScene* scene)

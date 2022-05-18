@@ -135,5 +135,6 @@ void Firework::destroy()
 //	m_geoPlacement->SubAll();
 	m_geoPlacement->SubGeo(m_geo);
 	delete m_geoPlacement;
+	m_scene->removeFirework(this);
 	PlacementParticle::destroy();
 }

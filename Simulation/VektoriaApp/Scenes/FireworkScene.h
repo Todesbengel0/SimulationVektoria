@@ -21,6 +21,7 @@ public:
 	PlacementParticleWorld* getWorld() const;
 
 	void registerFirework(Firework* firework) const;
+	void removeFirework(Firework* firework) const;
 
 protected:
 	PlacementParticleWorld* m_particleWorld;
