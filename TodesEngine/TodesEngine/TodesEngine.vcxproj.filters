@@ -105,14 +105,14 @@
     <ClInclude Include="ParticleContactRegistry.h">
       <Filter>ParticleContacts\Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleContactResolver.h">
-      <Filter>ParticleEngine\Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="ParticleCollision.h">
       <Filter>ParticleContacts\Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="Common.h">
       <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleContactResolver.h">
+      <Filter>ParticleContacts\Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -170,10 +170,10 @@
     <ClCompile Include="ParticleContactRegistry.cpp">
       <Filter>ParticleContacts\Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleContactResolver.cpp">
-      <Filter>ParticleEngine\Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="ParticleCollision.cpp">
+      <Filter>ParticleContacts\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleContactResolver.cpp">
       <Filter>ParticleContacts\Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

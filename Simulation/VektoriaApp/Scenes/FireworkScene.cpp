@@ -44,7 +44,7 @@ FireworkScene::FireworkScene()
 	m_ceiling.placement->SwitchOff();
 /*	m_frontWall.placement->SwitchOff();*/
 
-	m_tail = new Vektoria::CTailPlacements(m_pCave, m_tailGeo, 10000, 0.7f);
+	m_tail = new Vektoria::CTailPlacements(m_pCave, m_tailGeo, 15000, 0.7f);
 
 	Todes::Random::seed();
 	m_fireworkMaterial->LoadPreset((char*)"Sun");
@@ -87,8 +87,8 @@ void FireworkScene::spawn()
 	{
 		0.5f /* ageMin */
 		, Todes::Random::Float(0.5f, 0.8f) /* ageMax */
-		, 15 /* countMin */
-		, Todes::Random::Size_t(15, 35) /* countMax */
+		, 10 /* countMin */
+		, Todes::Random::Size_t(10, 30) /* countMax */
 		, 0.1f /* massMin */
 		, Todes::Random::Float(0.1f, 5.0f) /* massMax */
 		, 0.05f /* sizeMin */

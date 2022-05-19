@@ -1,6 +1,5 @@
 #pragma once
 #include "Vector3D.h"
-#define FINITE_INVERSE_MASS 0.001f
 
 namespace Todes
 {

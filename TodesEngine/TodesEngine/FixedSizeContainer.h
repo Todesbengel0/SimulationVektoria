@@ -30,11 +30,6 @@ namespace Todes
 		/// </summary>
 		void reset();
 
-		/**
-		 * \brief Check if no entries are in use.
-		 * \return True if no entries are in use, false otherwise.
-		 */
-
 		/// <summary>
 		/// Checks if the Container is empty.
 		/// </summary>

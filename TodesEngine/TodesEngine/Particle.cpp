@@ -1,5 +1,9 @@
 #include "Particle.h"
 
+#include <cassert>
+
+constexpr auto FINITE_INVERSE_MASS = 0.001f;
+
 namespace Todes
 {
 	Particle::Particle(const Vector3D& position, const float& damping, const float& inverseMass)
@@ -118,13 +122,19 @@ namespace Todes
 	{
 		if (m_isDead || m_inverseMass < FINITE_INVERSE_MASS) return;
 
+		assert(duration > 0.0);
+
+		// Ignore quadratic term, since its effect is marginal
 		m_position += m_velocity * duration;
 
+		// Calculate the acceleration
 		m_currentAcceleration = m_baseAcceleration;
 		m_currentAcceleration += m_forceAccumulator * m_inverseMass;
 
+		// Update the velocity
 		m_velocity += m_currentAcceleration * duration;
 
+		// Apply damping
 		m_velocity *= powf(m_damping, duration);
 
 		clearAccumulator();
