@@ -180,7 +180,7 @@ TyphoonScene::TyphoonScene()
 	m_particleWorld->addPlacementParticle(tennisBall, { m_gravity });
 	m_particleWorld->addContacts
 	({
-		new Todes::ParticleCollision(basketBall->getParticle(), tennisBall->getParticle(), 1.5f, 0.5f)
+		new Todes::ParticleCollision(basketBall->getParticle(), tennisBall->getParticle(), 1.5f, 0.7f)
 	});
 #pragma endregion
 // 	tennisBallPlacement->AddPlacement(&m_cameraPlacement);

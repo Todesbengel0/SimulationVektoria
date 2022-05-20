@@ -1,26 +1,45 @@
-c:\users\dan\documents\simulationvektoria\todesengine\build\x64\debug\todesengine.pdb
-c:\users\dan\documents\simulationvektoria\todesengine\build\x64\debug\todesengine.idb
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\vector3d.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\random.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\physicsenginemodule.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particleworld.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particletyphoon.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlespringlike.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlespring.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlelink.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlegravityforce.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particleforceregistry.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlefloatage.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlecontactresolver.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlecontactregistry.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlecontact.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlecollision.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlecable.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlebungee.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particleanchoredspring.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particleanchoredbungee.obj
-c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particle.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\build\x64\debug\todesengine.pdb
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\build\x64\debug\todesengine.idb
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\vector3d.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\random.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\physicsenginemodule.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particleworld.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particletyphoon.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particlespringlike.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particlespring.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particlelink.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particlegravityforce.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particleforceregistry.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particlefloatage.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particlecontactresolver.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particlecontactregistry.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particlecontact.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particlecollision.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particlecable.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particlebungee.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particleanchoredspring.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particleanchoredbungee.obj
+c:\users\dan\documents\visual studio 2022\simulationvektoria\todesengine\bin\x64\debug\particle.obj
 c:\users\dan\documents\simulationvektoria\todesengine\build\x64\debug\todesengine.lib
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particle.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particleanchoredbungee.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particleanchoredspring.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlebungee.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlecable.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlecontact.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlecontactregistry.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlecontactresolver.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlefloatage.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particleforceregistry.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlegravityforce.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlelink.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlespring.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particlespringlike.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particletyphoon.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\particleworld.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\physicsenginemodule.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\random.obj
+c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\vector3d.obj
 c:\users\dan\documents\simulationvektoria\todesengine\\build\x64\debug\todesengine.pdb
 c:\users\dan\documents\simulationvektoria\todesengine\\bin\x64\debug\todesengine.vcxproj.filelistabsolute.txt
 c:\users\dan\documents\simulationvektoria\todesengine\bin\x64\debug\todesengine.tlog\cl.command.1.tlog

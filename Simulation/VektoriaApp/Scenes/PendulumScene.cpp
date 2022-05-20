@@ -67,32 +67,35 @@ PendulumScene::PendulumScene()
 	// Add Spring between child and cabulum
 	auto cabulumSpring = new Todes::ParticleSpring(cabulum->getParticle(), 5.0f, clingyLength);
 	m_particleWorld->addPlacementParticle(clingyChild, { cabulumSpring });
+//	auto cabulumSpring1 = new Todes::ParticleSpring(clingyChild->getParticle(), 5.0f, clingyLength);
+//	m_particleWorld->addPlacementParticle(cabulum, { cabulumSpring1 });
 #pragma endregion
 
 #pragma region Double_Pendulum
-// 	// Calculate distance between doubulum and cabulum
-// 	float doubulumLength = m_caveDimensions.height * 0.2f;
-// 
-// 	// Create doubulum placement
-// 	auto doubulumPlacement = new Vektoria::CPlacement();
-// 	doubulumPlacement->TranslateDelta(cabulumPlacement->GetPos());
-// 	doubulumPlacement->TranslateYDelta(-doubulumLength);
-// 	m_pCave->AddPlacement(doubulumPlacement);
-// 	
-// 	// Create Material and Geo
-// 	auto doubulumMaterial = new Vektoria::CMaterial();
-// 	doubulumMaterial->LoadPreset((char*)"MetalAlu");
-// 	regMaterial(doubulumMaterial);
-// 	auto doubulumGeo = new Vektoria::CGeoSphere();
-// 	doubulumGeo->Init(0.15f, doubulumMaterial);
-// 
-// 	// Create doubulum Placement Particles
-// 	auto doubulum = new Pendulum(doubulumPlacement, doubulumGeo, doubulumMaterial, 0.999f, 20.0f);
-// 	doubulum->Init(this, cabulum, doubulumLength, 0.02f, 0.8f);
-// 
-// 	// Add Placement Particle and Contact
-// 	m_particleWorld->addPlacementParticle(doubulum);
-// 	m_particleWorld->addContacts({ doubulum->getContactGenerator() });
+	// Calculate distance between doubulum and cabulum
+	float doubulumLength = m_caveDimensions.height * 0.25f;
+
+	// Create doubulum placement
+	auto doubulumPlacement = new Vektoria::CPlacement();
+	doubulumPlacement->TranslateYDelta(-doubulumLength);
+	doubulumPlacement->RotateZDelta(UM_DEG2RAD(-45.0f));
+	doubulumPlacement->TranslateDelta(cabulumPlacement->GetPos());
+	m_pCave->AddPlacement(doubulumPlacement);
+	
+	// Create Material and Geo
+	auto doubulumMaterial = new Vektoria::CMaterial();
+	doubulumMaterial->LoadPreset((char*)"MetalAlu");
+	regMaterial(doubulumMaterial);
+	auto doubulumGeo = new Vektoria::CGeoSphere();
+	doubulumGeo->Init(0.15f, doubulumMaterial);
+
+	// Create doubulum Placement Particles
+	auto doubulum = new Pendulum(doubulumPlacement, doubulumGeo, doubulumMaterial, 0.999f, 20.0f);
+	doubulum->Init(this, cabulum, doubulumLength, 0.02f, 1.0f);
+
+	// Add Placement Particle and Contact
+	m_particleWorld->addPlacementParticle(doubulum);
+	m_particleWorld->addContacts({ doubulum->getContactGenerator() });
 #pragma endregion
 
 #pragma region Exercise 8.3
@@ -143,9 +146,9 @@ PendulumScene::PendulumScene()
 
 	// Add Spring between linked particles
 	m_linkulum1Spring =
-		new Todes::ParticleSpring(linkulum2->getParticle(), 5.0f, linkulumRestLength);
+		new Todes::ParticleSpring(linkulum2->getParticle(), 2.0f, linkulumRestLength);
 	m_linkulum2Spring =
-		new Todes::ParticleSpring(linkulum1->getParticle(), 5.0f, linkulumRestLength);
+		new Todes::ParticleSpring(linkulum1->getParticle(), 2.0f, linkulumRestLength);
 
 	// Add Placement Particle and Contact
 	m_particleWorld->addPlacementParticle(linkulum1, { m_linkulum1Spring });
@@ -169,9 +172,11 @@ PendulumScene::PendulumScene()
 
 	// Create Placement of Sphere 1
 	auto sphere1Placement = new Vektoria::CPlacement();
+	sphere1Placement->TranslateYDelta(-cableLength);
+	sphere1Placement->RotateZDelta(UM_DEG2RAD(-40.0f));
 	sphere1Placement->TranslateDelta(Vektoria::CHVector
 			( centerAnchorPosition.x - sphereRadius * 4.0f
-			, sphereHeight
+			, centerAnchorPosition.y
 			, centerAnchorPosition.z));
 	m_pCave->AddPlacement(sphere1Placement);
 
@@ -262,10 +267,10 @@ PendulumScene::PendulumScene()
 	// Create Contact between neighbors
 	m_particleWorld->addContacts
 	({
-		new Todes::ParticleCollision(sphere1->getParticle(), sphere2->getParticle(), sphereRadius * 2.0f, 0.9f),
-		new Todes::ParticleCollision(sphere2->getParticle(), sphere3->getParticle(), sphereRadius * 2.0f, 0.9f),
-		new Todes::ParticleCollision(sphere3->getParticle(), sphere4->getParticle(), sphereRadius * 2.0f, 0.9f),
-		new Todes::ParticleCollision(sphere4->getParticle(), sphere5->getParticle(), sphereRadius * 2.0f, 0.9f)
+		new Todes::ParticleCollision(sphere1->getParticle(), sphere2->getParticle(), sphereRadius * 2.0f, 0.95f),
+		new Todes::ParticleCollision(sphere2->getParticle(), sphere3->getParticle(), sphereRadius * 2.0f, 0.95f),
+		new Todes::ParticleCollision(sphere3->getParticle(), sphere4->getParticle(), sphereRadius * 2.0f, 0.95f),
+		new Todes::ParticleCollision(sphere4->getParticle(), sphere5->getParticle(), sphereRadius * 2.0f, 0.95f)
 	});
 #pragma endregion
 }
