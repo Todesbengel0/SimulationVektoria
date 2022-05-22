@@ -117,6 +117,9 @@
     <ClInclude Include="ParticleRod.h">
       <Filter>ParticleContacts\Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="ParticlePlanetGravityForce.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector3D.cpp">
@@ -181,6 +184,9 @@
     </ClCompile>
     <ClCompile Include="ParticleRod.cpp">
       <Filter>ParticleContacts\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticlePlanetGravityForce.cpp">
+      <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -14,11 +14,6 @@ namespace Todes
 	class ParticleGravityForce : public IParticleForceGenerator
 	{
 	public:
-		/**
-			* \brief ParticleGravity constructor
-			* \param gravity A constant force
-			*/
-		
 		/// <summary>
 		/// ParticleGravityForce constructor
 		/// </summary>

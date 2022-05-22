@@ -144,6 +144,12 @@ namespace Todes
 		Vector3D& Rotate(const float& rotationAngle, const Vector3D& rotationAxis);
 
 		/// <summary>
+		/// Rotates the Vector to point towards a position
+		/// </summary>
+		/// <param name="position">Position to point towards</param>
+		Vector3D& RotateTo(const Vector3D& position);
+
+		/// <summary>
 		/// Checks if the Vector is a null vector.
 		/// </summary>
 		/// <returns>TRUE: Vector is null vector. FALSE: Vector is not null vector.</returns>

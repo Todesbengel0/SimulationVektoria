@@ -177,6 +177,23 @@ namespace Todes
 		return *this;
 	}
 
+	Vector3D& Vector3D::RotateTo(const Vector3D& position)
+	{
+		auto vecDif = *this - position;
+		auto posDif = vecDif.Length();
+		auto rotAxis = Cross(vecDif.Normalize());
+		auto dot = vecDif * (*this);
+		auto rotAngle = dot == 1.0f ? 0.0f :
+			std::atan2f(rotAxis.Length(), vecDif * tailVec);
+
+		// Rotate Delta From To Version new ?
+		Vektoria::CHMat tailMat;
+
+		tailMat.ScaleDelta(posDif);
+		if (dot != 1.0f)
+			tailMat.RotateDelta(convertVector(rotAxis), rotAngle);
+	}
+
 	bool Vector3D::isNull() const
 	{
 		return m_x == 0.0f && m_y == 0.0f && m_z == 0.0f;
