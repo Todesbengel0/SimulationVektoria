@@ -34,9 +34,15 @@ namespace Todes
 
         void setGravitationStrength(const float& newStrength);
 
+        void setInnerRange(const float& innerRange);
+
+        void setOuterRange(const float& outerRange);
+
     protected:
         Particle* m_centerOfGravity;
         float m_strength;
+        float m_innerRange;
+        float m_outerRange;
     };
 
 }

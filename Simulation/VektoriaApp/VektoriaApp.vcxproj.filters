@@ -114,6 +114,12 @@
     <ClInclude Include="Pendulum.h">
       <Filter>TodesPhysicInterfaces</Filter>
     </ClInclude>
+    <ClInclude Include="Scenes\SpaceshipScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -190,6 +196,9 @@
     </ClCompile>
     <ClCompile Include="Pendulum.cpp">
       <Filter>TodesPhysicInterfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\SpaceshipScene.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

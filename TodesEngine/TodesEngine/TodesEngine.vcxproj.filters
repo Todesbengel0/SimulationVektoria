@@ -118,7 +118,7 @@
       <Filter>ParticleContacts\Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="ParticlePlanetGravityForce.h">
-      <Filter>Headerdateien</Filter>
+      <Filter>ParticleForces\Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -186,7 +186,7 @@
       <Filter>ParticleContacts\Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ParticlePlanetGravityForce.cpp">
-      <Filter>Quelldateien</Filter>
+      <Filter>ParticleForces\Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

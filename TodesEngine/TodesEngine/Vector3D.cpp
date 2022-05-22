@@ -182,16 +182,12 @@ namespace Todes
 		auto vecDif = *this - position;
 		auto posDif = vecDif.Length();
 		auto rotAxis = Cross(vecDif.Normalize());
-		auto dot = vecDif * (*this);
+		auto dot = vecDif * this->Norm();
 		auto rotAngle = dot == 1.0f ? 0.0f :
-			std::atan2f(rotAxis.Length(), vecDif * tailVec);
+			std::atan2f(rotAxis.Length(), vecDif * (*this));
 
-		// Rotate Delta From To Version new ?
-		Vektoria::CHMat tailMat;
-
-		tailMat.ScaleDelta(posDif);
-		if (dot != 1.0f)
-			tailMat.RotateDelta(convertVector(rotAxis), rotAngle);
+		Rotate(rotAngle, rotAxis);
+		return *this;
 	}
 
 	bool Vector3D::isNull() const

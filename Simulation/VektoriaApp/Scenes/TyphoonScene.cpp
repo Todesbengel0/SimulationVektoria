@@ -188,7 +188,9 @@ TyphoonScene::TyphoonScene()
 }
 
 TyphoonScene::~TyphoonScene()
-{ }
+{ 
+	delete m_particleWorld;
+}
 
 void TyphoonScene::update(float timeDelta)
 {

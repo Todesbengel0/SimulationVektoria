@@ -1,13 +1,7 @@
 #include "pch.h"
 #include "Game.h"
 
-#include "Scenes/CanonScene.h"
-#include "Scenes/FirstScene.h"
-#include "Scenes/FireworkScene.h"
-#include "Examples/EmptyScene.h"
-#include "Scenes/SpringScene.h"
-#include "Scenes/TyphoonScene.h"
-#include "Scenes/PendulumScene.h"
+#include "Scenes.h"
 
 // singleton
 CGame& CGame::GetInstance()
@@ -129,6 +123,7 @@ void CGame::initScenes()
 // 	addScene(new SpringScene);
 	addScene(new TyphoonScene);
 	addScene(new PendulumScene);
+	addScene(new SpaceshipScene);
 }
 
 void CGame::addScene(SimulationScene* scene)
