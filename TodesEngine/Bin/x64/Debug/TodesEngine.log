@@ -1,24 +1,4 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(499,5): warning MSB8004: Das Intermediate-Verzeichnis endet nicht mit einem nachstehenden Schrägstrich. Der Schrägstrich wird in dieser Buildinstanz hinzugefügt, da er für die ordnungsgemäße Auswertung des Intermediate-Verzeichnisses erforderlich ist.
 C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(500,5): warning MSB8004: Das Output-Verzeichnis endet nicht mit einem nachstehenden Schrägstrich. Der Schrägstrich wird in dieser Buildinstanz hinzugefügt, da er für die ordnungsgemäße Auswertung des Output-Verzeichnisses erforderlich ist.
-  Particle.cpp
-  ParticleAnchoredBungee.cpp
-  ParticleAnchoredSpring.cpp
-  ParticleBungee.cpp
-  ParticleCable.cpp
-  ParticleCollision.cpp
-  ParticleContact.cpp
-  ParticleContactRegistry.cpp
-  ParticleContactResolver.cpp
-  ParticleFloatage.cpp
-  ParticleForceRegistry.cpp
-  ParticleGravityForce.cpp
-  ParticleLink.cpp
-  ParticleSpring.cpp
-  ParticleSpringLike.cpp
-  ParticleTyphoon.cpp
-  ParticleWorld.cpp
-  PhysicsEngineModule.cpp
-  Random.cpp
-  Vector3D.cpp
-  Code wird generiert...
+  ParticleRod.cpp
   TodesEngine.vcxproj -> C:\Users\dan\Documents\SimulationVektoria\TodesEngine\Build\x64\Debug\TodesEngine.lib

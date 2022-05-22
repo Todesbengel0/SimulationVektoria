@@ -114,6 +114,9 @@
     <ClInclude Include="ParticleContactResolver.h">
       <Filter>ParticleContacts\Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="ParticleRod.h">
+      <Filter>ParticleContacts\Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector3D.cpp">
@@ -174,6 +177,9 @@
       <Filter>ParticleContacts\Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="ParticleContactResolver.cpp">
+      <Filter>ParticleContacts\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleRod.cpp">
       <Filter>ParticleContacts\Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

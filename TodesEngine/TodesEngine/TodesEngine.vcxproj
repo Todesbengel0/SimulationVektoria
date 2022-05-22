@@ -172,6 +172,7 @@
     <ClInclude Include="ParticleForceRegistry.h" />
     <ClInclude Include="ParticleGravityForce.h" />
     <ClInclude Include="ParticleLink.h" />
+    <ClInclude Include="ParticleRod.h" />
     <ClInclude Include="ParticleSpring.h" />
     <ClInclude Include="ParticleSpringLike.h" />
     <ClInclude Include="ParticleTyphoon.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="ParticleForceRegistry.cpp" />
     <ClCompile Include="ParticleGravityForce.cpp" />
     <ClCompile Include="ParticleLink.cpp" />
+    <ClCompile Include="ParticleRod.cpp" />
     <ClCompile Include="ParticleSpring.cpp" />
     <ClCompile Include="ParticleSpringLike.cpp" />
     <ClCompile Include="ParticleTyphoon.cpp" />
