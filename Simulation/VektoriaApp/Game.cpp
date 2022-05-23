@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Game.h"
 
-#include "Scenes.h"
+#include "Scenes/Scenes.h"
 
 // singleton
 CGame& CGame::GetInstance()
@@ -124,6 +124,7 @@ void CGame::initScenes()
 	addScene(new TyphoonScene);
 	addScene(new PendulumScene);
 	addScene(new SpaceshipScene);
+	addScene(new SolarSystem);
 }
 
 void CGame::addScene(SimulationScene* scene)

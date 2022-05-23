@@ -188,7 +188,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Pendulum.h" />
-    <ClInclude Include="Scenes.h" />
+    <ClInclude Include="Scenes\Scenes.h" />
     <ClInclude Include="Scenes\PendulumScene.h" />
     <ClInclude Include="PhysicInterfaces\Converter.h" />
     <ClInclude Include="PhysicInterfaces\ParticlePlacement.h" />
@@ -207,6 +207,7 @@
     <ClInclude Include="Scenes\TyphoonScene.h" />
     <ClInclude Include="SimulationScene.h" />
     <ClInclude Include="Scenes\SpaceshipScene.h" />
+    <ClInclude Include="Scenes\SolarSystem.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TodesConverter.h" />
   </ItemGroup>
@@ -241,6 +242,7 @@
     <ClCompile Include="Scenes\TyphoonScene.cpp" />
     <ClCompile Include="SimulationScene.cpp" />
     <ClCompile Include="Scenes\SpaceshipScene.cpp" />
+    <ClCompile Include="Scenes\SolarSystem.cpp" />
     <ClCompile Include="VektoriaApp.cpp" />
   </ItemGroup>
   <ItemGroup>

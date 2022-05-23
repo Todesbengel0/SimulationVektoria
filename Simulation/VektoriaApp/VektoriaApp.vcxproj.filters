@@ -117,7 +117,10 @@
     <ClInclude Include="Scenes\SpaceshipScene.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Scenes.h">
+    <ClInclude Include="Scenes\Scenes.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\SolarSystem.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
@@ -198,6 +201,9 @@
       <Filter>TodesPhysicInterfaces</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\SpaceshipScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\SolarSystem.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,9 +1,0 @@
-#pragma once
-#include "Scenes/CanonScene.h"
-#include "Scenes/FirstScene.h"
-#include "Scenes/FireworkScene.h"
-#include "Examples/EmptyScene.h"
-#include "Scenes/SpringScene.h"
-#include "Scenes/TyphoonScene.h"
-#include "Scenes/PendulumScene.h"
-#include "Scenes/SpaceshipScene.h"

@@ -1,0 +1,10 @@
+#pragma once
+#include "CanonScene.h"
+#include "FirstScene.h"
+#include "FireworkScene.h"
+#include "Examples/EmptyScene.h"
+#include "SpringScene.h"
+#include "TyphoonScene.h"
+#include "PendulumScene.h"
+#include "SpaceshipScene.h"
+#include "SolarSystem.h"
