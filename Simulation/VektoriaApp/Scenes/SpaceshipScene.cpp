@@ -48,8 +48,8 @@ SpaceshipScene::SpaceshipScene()
 //		m_particleWorld->addPlacementParticle(planet);
 
 		auto gravity = new Todes::ParticlePlanetGravityForce(planet->getParticle(), radius * 0.2f);
-//		gravity->setInnerRange(radius * 2.0f);
-//		gravity->setOuterRange(radius * 500.0f);
+		gravity->setInnerRange(radius * 2.0f);
+		gravity->setOuterRange(radius * 500.0f);
 
 		m_particleWorld->addForces(spaceship, { gravity });
 	}
