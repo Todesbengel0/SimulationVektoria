@@ -40,6 +40,15 @@
     <Filter Include="ParticleContacts\Quelldateien">
       <UniqueIdentifier>{fb9ac715-b64c-4a36-993b-6b0b539b6228}</UniqueIdentifier>
     </Filter>
+    <Filter Include="RigidBodyCollision">
+      <UniqueIdentifier>{55db0c63-743e-44e6-8897-4b9f5ab29608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RigidBodyCollision\Headerdateien">
+      <UniqueIdentifier>{7fa0f59b-9648-45e6-b4a2-09023244f463}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="RigidBodyCollision\Quelldateien">
+      <UniqueIdentifier>{305878f4-5dff-4fa7-84c2-c11a436534d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Vector3D.h">
@@ -120,6 +129,27 @@
     <ClInclude Include="ParticlePlanetGravityForce.h">
       <Filter>ParticleForces\Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="ParticlePlaneContact.h">
+      <Filter>ParticleContacts\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>RigidBodyCollision\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionObject.h">
+      <Filter>RigidBodyCollision\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionPrimitive.h">
+      <Filter>RigidBodyCollision\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionPrimitiveType.h">
+      <Filter>RigidBodyCollision\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionBox.h">
+      <Filter>RigidBodyCollision\Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionSphere.h">
+      <Filter>RigidBodyCollision\Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Vector3D.cpp">
@@ -187,6 +217,24 @@
     </ClCompile>
     <ClCompile Include="ParticlePlanetGravityForce.cpp">
       <Filter>ParticleForces\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticlePlaneContact.cpp">
+      <Filter>ParticleContacts\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>RigidBodyCollision\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionObject.cpp">
+      <Filter>RigidBodyCollision\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionPrimitive.cpp">
+      <Filter>RigidBodyCollision\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionBox.cpp">
+      <Filter>RigidBodyCollision\Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionSphere.cpp">
+      <Filter>RigidBodyCollision\Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

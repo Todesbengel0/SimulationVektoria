@@ -40,8 +40,8 @@ SpaceshipScene::SpaceshipScene()
 	for (std::size_t i = 0; i < 2000; ++i)
 	{
 		const float radius = (i + 1.0f) * 0.25f;
-//		const float t = i * HALFPI * 0.3f;
-		const float t = Todes::Random::FloatNorm() * TWOPI;
+		const float t = i * HALFPI * 0.3f;
+//		const float t = Todes::Random::FloatNorm() * TWOPI;
 		const float r = 15.0f + i;
 		Vektoria::CHVector position = Vektoria::CHVector(r * std::cosf(t), r * std::sinf(t), - radius * 1000.0f, 1.0f);
 		auto planet = createPlanet(position, radius);
