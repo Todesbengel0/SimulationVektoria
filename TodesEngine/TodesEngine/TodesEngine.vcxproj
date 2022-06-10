@@ -155,11 +155,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="CollisionBox.h" />
-    <ClInclude Include="CollisionObject.h" />
-    <ClInclude Include="CollisionPrimitive.h" />
-    <ClInclude Include="CollisionPrimitiveType.h" />
-    <ClInclude Include="CollisionSphere.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="FixedSizeContainer.h" />
     <ClInclude Include="IParticleForceGenerator.h" />
@@ -177,7 +172,6 @@
     <ClInclude Include="ParticleForceRegistry.h" />
     <ClInclude Include="ParticleGravityForce.h" />
     <ClInclude Include="ParticleLink.h" />
-    <ClInclude Include="ParticlePlaneContact.h" />
     <ClInclude Include="ParticlePlanetGravityForce.h" />
     <ClInclude Include="ParticleRod.h" />
     <ClInclude Include="ParticleSpring.h" />
@@ -186,17 +180,12 @@
     <ClInclude Include="ParticleWorld.h" />
     <ClInclude Include="PhysicsEngineModule.h" />
     <ClInclude Include="Random.h" />
-    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="Vector3D.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FixedSizeContainer.inl">
       <FileType>Document</FileType>
     </None>
-    <ClCompile Include="CollisionBox.cpp" />
-    <ClCompile Include="CollisionObject.cpp" />
-    <ClCompile Include="CollisionPrimitive.cpp" />
-    <ClCompile Include="CollisionSphere.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleAnchoredBungee.cpp" />
     <ClCompile Include="ParticleAnchoredSpring.cpp" />
@@ -210,7 +199,6 @@
     <ClCompile Include="ParticleForceRegistry.cpp" />
     <ClCompile Include="ParticleGravityForce.cpp" />
     <ClCompile Include="ParticleLink.cpp" />
-    <ClCompile Include="ParticlePlaneContact.cpp" />
     <ClCompile Include="ParticlePlanetGravityForce.cpp" />
     <ClCompile Include="ParticleRod.cpp" />
     <ClCompile Include="ParticleSpring.cpp" />
@@ -219,7 +207,6 @@
     <ClCompile Include="ParticleWorld.cpp" />
     <ClCompile Include="PhysicsEngineModule.cpp" />
     <ClCompile Include="Random.cpp" />
-    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="Vector3D.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

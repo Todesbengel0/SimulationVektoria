@@ -87,8 +87,8 @@ void FireworkScene::spawn()
 	{
 		0.5f /* ageMin */
 		, Todes::Random::Float(0.5f, 0.8f) /* ageMax */
-		, 5 /* countMin */
-		, Todes::Random::Size_t(5, 10) /* countMax */
+		, 10 /* countMin */
+		, Todes::Random::Size_t(10, 30) /* countMax */
 		, 0.1f /* massMin */
 		, Todes::Random::Float(0.1f, 5.0f) /* massMax */
 		, 0.05f /* sizeMin */
