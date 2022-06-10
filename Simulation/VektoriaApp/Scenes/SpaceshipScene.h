@@ -19,5 +19,6 @@ private:
 	PlacementParticleWorld* m_particleWorld;
 	Vektoria::CGeoSphere m_planetGeo;
 	Vektoria::CMaterial m_planetMaterial;
+	const float m_gravityConstant;
 };
 

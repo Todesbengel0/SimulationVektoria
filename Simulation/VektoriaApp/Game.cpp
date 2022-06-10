@@ -124,7 +124,7 @@ void CGame::initScenes()
 //	addScene(new TyphoonScene);
 //	addScene(new PendulumScene);
 	addScene(new SpaceshipScene);
-	addScene(new SolarSystem);
+//	addScene(new SolarSystem);
 }
 
 void CGame::addScene(SimulationScene* scene)

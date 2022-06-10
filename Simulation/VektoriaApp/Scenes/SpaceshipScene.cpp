@@ -9,6 +9,7 @@
 
 SpaceshipScene::SpaceshipScene()
 	: m_particleWorld(new PlacementParticleWorld)
+	, m_gravityConstant(1.0f)
 {
 	Todes::Random::seed();
 
@@ -32,7 +33,7 @@ SpaceshipScene::SpaceshipScene()
 	geoPlacement->AddGeo(spaceshipGeo);
 
 	PlacementParticle* spaceship = new PlacementParticle(spaceshipPlacement, 0.999f, 0.001f);
-	spaceship->getParticle()->setVelocity(Todes::Vector3D(0.0f, 0.0f, -100.0f));
+	spaceship->getParticle()->setVelocity(Todes::Vector3D(0.0f, 0.0f, -250.0f));
 
 	m_particleWorld->addPlacementParticle(spaceship);
 
@@ -47,7 +48,7 @@ SpaceshipScene::SpaceshipScene()
 		auto planet = createPlanet(position, radius);
 //		m_particleWorld->addPlacementParticle(planet);
 
-		auto gravity = new Todes::ParticlePlanetGravityForce(planet->getParticle(), radius * 0.2f);
+		auto gravity = new Todes::ParticlePlanetGravityForce(planet->getParticle(), m_gravityConstant);
 		gravity->setInnerRange(radius * 2.0f);
 		gravity->setOuterRange(radius * 500.0f);
 
