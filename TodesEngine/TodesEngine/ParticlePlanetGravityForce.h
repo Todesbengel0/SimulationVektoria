@@ -16,8 +16,14 @@ namespace Todes
         /// ParticlePlanetGravityForce constructor
         /// </summary>
         /// <param name="centerOfGravity">Particle which is the center of gravity</param>
-        /// <param name="gravitationStrength">Strength of the force towards center of gravity</param>
-        explicit ParticlePlanetGravityForce(Particle* centerOfGravity, const float& gravitationStrength);
+        explicit ParticlePlanetGravityForce(Particle* centerOfGravity);
+
+        /// <summary>
+        /// ParticlePlanetGravityForce constructor
+        /// </summary>
+        /// <param name="centerOfGravity">Particle which is the center of gravity</param>
+        /// <param name="gravitationConstant">Constant Factor of the force towards center of gravity</param>
+        explicit ParticlePlanetGravityForce(Particle* centerOfGravity, const float& gravitationConstant);
         ~ParticlePlanetGravityForce();
 
 		/// <summary>
@@ -30,9 +36,7 @@ namespace Todes
 
         void setCenterOfGravity(Particle* newCenter);
 
-        const float& getGravitationStrength() const;
-
-        void setGravitationStrength(const float& newStrength);
+        const float getGravitationConstant() const;
 
         void setInnerRange(const float& innerRange);
 
@@ -40,9 +44,9 @@ namespace Todes
 
     protected:
         Particle* m_centerOfGravity;
-        float m_strength;
-        float m_innerRange;
-        float m_outerRange;
+        const float m_inverseConstant;
+        float m_innerRangeSq;
+        float m_outerRangeSq;
     };
 
 }

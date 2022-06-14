@@ -122,7 +122,7 @@ void CGame::initScenes()
 //	addScene(new FireworkScene);
 // 	addScene(new SpringScene);
 //	addScene(new TyphoonScene);
-	addScene(new PendulumScene);
+//	addScene(new PendulumScene);
 	addScene(new SpaceshipScene);
 //	addScene(new SolarSystem);
 }
