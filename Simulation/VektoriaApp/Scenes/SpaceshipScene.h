@@ -13,7 +13,7 @@ public:
 	void update(float timeDelta) override;
 	void reset() override;
 
-	PlacementParticle* createPlanet(const Vektoria::CHVector& position, const float& radius);
+	PlacementParticle* createPlanet(const Vektoria::CHVector& position, const float& radius, const float& inverseMass);
 
 private:
 	PlacementParticleWorld* m_particleWorld;

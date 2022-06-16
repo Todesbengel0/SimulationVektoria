@@ -6,6 +6,7 @@
 #include "PlacementParticleWorld.h"
 #include "ParticlePlanetGravityForce.h"
 #include "Random.h"
+constexpr auto FOURTHIRDPI = 4.18879020479f;
 
 SpaceshipScene::SpaceshipScene()
 	: m_particleWorld(new PlacementParticleWorld)
@@ -32,9 +33,11 @@ SpaceshipScene::SpaceshipScene()
 	geoPlacement->AddGeo(spaceshipGeo);
 
 	PlacementParticle* spaceship = new PlacementParticle(spaceshipPlacement, 0.999f, 0.001f);
-	spaceship->getParticle()->setVelocity(Todes::Vector3D(0.0f, 0.0f, -100.0f));
+	spaceship->getParticle()->setVelocity(Todes::Vector3D(0.0f, 0.0f, -250.0f));
 
 	m_particleWorld->addPlacementParticle(spaceship);
+
+	const float planetDensity = 55100000.0f;
 
 	// Create Planets
 	for (std::size_t i = 0; i < 2000; ++i)
@@ -43,13 +46,14 @@ SpaceshipScene::SpaceshipScene()
 //		const float t = i * HALFPI * 0.3f;
 		const float t = Todes::Random::FloatNorm() * TWOPI;
 		const float r = 15.0f + i;
+		const float inverseMass = 1.0f / (FOURTHIRDPI * r * r * r * planetDensity);
 		Vektoria::CHVector position = Vektoria::CHVector(r * std::cosf(t), r * std::sinf(t), - radius * 1000.0f, 1.0f);
-		auto planet = createPlanet(position, radius);
+		auto planet = createPlanet(position, radius, inverseMass);
 //		m_particleWorld->addPlacementParticle(planet);
 
-		auto gravity = new Todes::ParticlePlanetGravityForce(planet->getParticle(), radius * 0.2f);
-//		gravity->setInnerRange(radius * 2.0f);
-//		gravity->setOuterRange(radius * 500.0f);
+		auto gravity = new Todes::ParticlePlanetGravityForce(planet->getParticle());
+//		gravity->setInnerRange(radius);
+		gravity->setOuterRange(radius * 500.0f);
 
 		m_particleWorld->addForces(spaceship, { gravity });
 	}
@@ -74,7 +78,7 @@ void SpaceshipScene::reset()
 	m_particleWorld->reset();
 }
 
-PlacementParticle* SpaceshipScene::createPlanet(const Vektoria::CHVector& position, const float& radius)
+PlacementParticle* SpaceshipScene::createPlanet(const Vektoria::CHVector& position, const float& radius, const float& inverseMass)
 {
 	// Create Planet Placement
 	Vektoria::CPlacement* planetPlacement = new Vektoria::CPlacement();
@@ -83,6 +87,6 @@ PlacementParticle* SpaceshipScene::createPlanet(const Vektoria::CHVector& positi
 	planetPlacement->TranslateDelta(position);
 
 	// Create Placement Particle
-	PlacementParticle* particle = new PlacementParticle(planetPlacement, &m_planetGeo, &m_planetMaterial, 0.999f, 0.0f);
+	PlacementParticle* particle = new PlacementParticle(planetPlacement, &m_planetGeo, &m_planetMaterial, 0.999f, inverseMass);
 	return particle;
 }

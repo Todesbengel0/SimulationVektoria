@@ -1,12 +1,19 @@
 #include "ParticlePlanetGravityForce.h"
 #include "Particle.h"
+#include <cassert>
 
 namespace Todes
 {
 
 	ParticlePlanetGravityForce::ParticlePlanetGravityForce(Particle* centerOfGravity, const float& gravitationStrength)
-		: m_centerOfGravity(centerOfGravity), m_strength(gravitationStrength)
-		, m_innerRange(0.0f), m_outerRange(0.0f)
+		: m_centerOfGravity(centerOfGravity), m_inverseConstant(1.0f / gravitationStrength)
+		, m_innerRangeSq(0.0f), m_outerRangeSq(0.0f)
+	{ }
+
+	ParticlePlanetGravityForce::ParticlePlanetGravityForce(Particle* centerOfGravity)
+		: m_centerOfGravity(centerOfGravity)
+		, m_inverseConstant(14983518130.1f)
+		, m_innerRangeSq(0.0f), m_outerRangeSq(0.0f)
 	{ }
 
 	ParticlePlanetGravityForce::~ParticlePlanetGravityForce()
@@ -17,20 +24,17 @@ namespace Todes
 		if (!particle->hasFiniteMass()) return;
 
 		auto gravity = m_centerOfGravity->getPosition() - particle->getPosition();
-		auto length = gravity.Length();
+		auto distanceSquared = gravity.LengthSq();
 		gravity.Normalize();
-		gravity *= m_strength;
 
-		if (m_outerRange > 0.0f)
-		{
-			if (length > m_outerRange) return;
+		if (m_outerRangeSq > 0.0f && distanceSquared > m_outerRangeSq) return;
+		
+		if (distanceSquared < m_innerRangeSq) distanceSquared = m_innerRangeSq;
 
-			if (length > m_innerRange) gravity *= 1.0f - (length - m_innerRange) / (m_outerRange - m_innerRange);
-		}
+		auto inverseForce = particle->getInverseMass() * m_centerOfGravity->getInverseMass()
+			* m_inverseConstant * distanceSquared;
 
-		else if (m_innerRange > 0.0f && length > m_innerRange) return;
-
-		particle->addForce(gravity * particle->getMass());
+		particle->addForce(gravity / inverseForce);
 	}
 
 	Particle* ParticlePlanetGravityForce::getCenterOfGravity()
@@ -43,24 +47,20 @@ namespace Todes
 		m_centerOfGravity = newCenter;
 	}
 
-	const float& ParticlePlanetGravityForce::getGravitationStrength() const
+	const float ParticlePlanetGravityForce::getGravitationConstant() const
 	{
-		return m_strength;
-	}
-
-	void ParticlePlanetGravityForce::setGravitationStrength(const float& newStrength)
-	{
-		m_strength = newStrength;
+		assert(m_inverseConstant > 0.0f);
+		return 1.0f / m_inverseConstant;
 	}
 
 	void ParticlePlanetGravityForce::setInnerRange(const float& innerRange)
 	{
-		m_innerRange = innerRange;
+		m_innerRangeSq = innerRange * innerRange;
 	}
 
 	void ParticlePlanetGravityForce::setOuterRange(const float& outerRange)
 	{
-		m_outerRange = outerRange;
+		m_outerRangeSq = outerRange * outerRange;
 	}
 
 }
