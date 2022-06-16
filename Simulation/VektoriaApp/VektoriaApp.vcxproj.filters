@@ -126,6 +126,12 @@
     <ClInclude Include="Scenes\TrapShooting.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="ClayPigeon.h">
+      <Filter>TodesPhysicInterfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="ClayPiece.h">
+      <Filter>TodesPhysicInterfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -211,6 +217,12 @@
     </ClCompile>
     <ClCompile Include="Scenes\TrapShooting.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="ClayPigeon.cpp">
+      <Filter>TodesPhysicInterfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="ClayPiece.cpp">
+      <Filter>TodesPhysicInterfaces</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

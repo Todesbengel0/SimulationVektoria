@@ -111,7 +111,10 @@ Vektoria::CPlacement* PlacementParticle::getPlacement() const
 
 void PlacementParticle::setGeo(Vektoria::CGeo* geo)
 {
+	if (m_geo)
+		m_placement->SubGeo(m_geo);
 	m_geo = geo;
+	m_placement->AddGeo(m_geo);
 }
 
 Vektoria::CGeo* PlacementParticle::getGeo() const

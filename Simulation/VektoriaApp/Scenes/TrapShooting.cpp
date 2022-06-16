@@ -13,6 +13,7 @@ TrapShooting::TrapShooting()
 	: CaveScene(-9.897f, 40.0f, 50.0f, 20.0f, 25.0f, 0.1f)
 	, m_particleWorld(new PlacementParticleWorld)
 	, m_ballRadius(0.2f)
+	, m_timeSinceBirth(0.0f)
 {
 	setWASDCam(false);
 	Todes::Random::seed();
@@ -43,6 +44,16 @@ TrapShooting::TrapShooting()
 	regMaterial(m_materialBall);
 	m_geoBall->Init(m_ballRadius, m_materialBall);
 #pragma endregion
+
+#pragma region Pigeon
+	m_materialPigeon = new Vektoria::CMaterial();
+	m_materialPigeon->LoadPreset((char*)"MarbleWhite");
+	regMaterial(m_materialPigeon);
+	m_geoPigeon = new Vektoria::CGeoSphere();
+	m_geoPigeon->Init(1.0f, m_materialPigeon);
+
+	createPigeon();
+#pragma endregion
 }
 
 void TrapShooting::update(float timeDelta)
@@ -50,6 +61,16 @@ void TrapShooting::update(float timeDelta)
 	m_particleWorld->update(timeDelta);
 	moveCanon(timeDelta);
 	checkBalls();
+
+	checkPigeons();
+
+	m_timeSinceBirth += timeDelta;
+
+	if (m_timeSinceBirth > 5.0f && m_pigeons.size() < 5)
+	{
+		m_timeSinceBirth = 0.0f;
+		createPigeon();
+	}
 }
 
 void TrapShooting::spawn()
@@ -138,14 +159,65 @@ void TrapShooting::checkBalls()
 			&& ((*firstBall)->getPlacement()->GetPos().y + m_ballRadius >= 0.0f))
 			return;
 
+		m_pCave->SubPlacement((*firstBall)->getPlacement());
 		(*firstBall)->getPlacement()->SwitchOff();
 		(*firstBall)->destroy();
 		m_balls.erase(firstBall);
 	}
 }
 
+void TrapShooting::checkPigeons()
+{
+	for (const auto ball : m_balls)
+	{
+		const auto& position = ball->getParticle()->getPosition();
+
+		if (position.z() > 0.0f
+			|| position.x() < 0.0f || position.x() > m_caveDimensions.width
+			|| position.y() > m_caveDimensions.height)
+			continue;
+
+		for (std::size_t i = 0; i < m_pigeons.size(); ++i)
+		{
+			const auto distanceSq = (position - m_pigeons[i]->getParticle()->getPosition()).LengthSq();
+			auto radiusSum = m_ballRadius + m_pigeons[i]->getRadius();
+
+			if (distanceSq <= radiusSum * radiusSum)
+			{
+				// Destroy Pigeon
+				m_pCave->SubPlacement(m_pigeons[i]->getPlacement());
+				m_pigeons[i]->kill();
+				m_pigeons.erase(m_pigeons.begin() + i);
+				--i;
+			}
+		}
+	}
+}
+
+void TrapShooting::createPigeon()
+{
+	auto placement = new Vektoria::CPlacement();
+	m_pCave->AddPlacement(placement);
+
+	float radius = Todes::Random::Float(0.4f, 0.8f);
+	placement->TranslateDelta(convertVector(Todes::Random::Vec3D(Todes::Vector3D(m_caveDimensions.thickness, 15.0f, -m_caveDimensions.depth + m_caveDimensions.thickness), Todes::Vector3D(m_caveDimensions.width - m_caveDimensions.thickness, 15.0f, -m_caveDimensions.thickness))));
+
+	auto pigeon = new ClayPigeon(placement, radius, this, m_geoPigeon, m_materialPigeon);
+	m_particleWorld->addPlacementParticle(pigeon);
+	m_pigeons.push_back(pigeon);
+
+	auto velocity = Todes::Random::Float(1.0f, 5.0f);
+	auto force = Todes::Random::Vec3D(1.0f);
+	force.y(0.0f);
+	force.Normalize();
+	force *= velocity;
+
+	pigeon->getParticle()->setVelocity(force);
+}
+
 void TrapShooting::registerClayPiece(ClayPiece* piece)
 {
 	m_pCave->AddPlacement(piece->getPlacement());
+	piece->setGeo(m_geoPigeon);
 	m_particleWorld->addPlacementParticle(piece, { m_gravity });
 }

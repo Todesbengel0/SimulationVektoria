@@ -179,6 +179,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CGeoTail.h" />
+    <ClInclude Include="ClayPiece.h" />
+    <ClInclude Include="ClayPigeon.h" />
     <ClInclude Include="CTailPlacements.h" />
     <ClInclude Include="DefaultScene.h" />
     <ClInclude Include="Examples\EmptyScene.h" />
@@ -214,6 +216,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CGeoTail.cpp" />
+    <ClCompile Include="ClayPiece.cpp" />
+    <ClCompile Include="ClayPigeon.cpp" />
     <ClCompile Include="CTailPlacements.cpp" />
     <ClCompile Include="DefaultScene.cpp" />
     <ClCompile Include="Examples\EmptyScene.cpp" />

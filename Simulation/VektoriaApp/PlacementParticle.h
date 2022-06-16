@@ -57,7 +57,7 @@ public:
 	Vektoria::CPlacement* getPlacement() const;
 
 	/** Set the current geo. */
-	void setGeo(Vektoria::CGeo* geo);
+	virtual void setGeo(Vektoria::CGeo* geo);
 	/** Get the current geo. */
 	Vektoria::CGeo* getGeo() const;
 

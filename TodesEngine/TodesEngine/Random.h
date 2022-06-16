@@ -109,7 +109,7 @@ namespace Todes
 		/// Calculates a random Vector 3D rotated around a given axis.
 		/// </summary>
 		/// <param name="length">Length of the random Vector.</param>
-		/// <param name="axis">Axis around which to rotate the Vector randomly.</paran>
+		/// <param name="axis">Axis around which to rotate the Vector randomly.</param>
 		/// <returns>Random Vector 3D</returns>
 		static Vector3D Vec3D(const float& length, const Vector3D& axis);
 

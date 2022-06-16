@@ -17,29 +17,32 @@ public:
 	};
 
 public:
-	ClayPigeon(Vektoria::CPlacement* placement, Vektoria::CPlacement* payloadPlacement, TrapShooting* scene,
+	ClayPigeon(Vektoria::CPlacement* placement,
+		const float& radius, TrapShooting* scene,
 		Vektoria::CGeo* geo, Vektoria::CMaterial* material);
 
 public:
-	// Updates the firework
+	// Updates the pigeon
 	void update(const float& timeDelta) override;
 	void update() override;
 
-	// We cannot reset a firework
+	// We cannot reset a pigeon
 	void reset() override;
 
-	// Kills this firework and shoots its payload
+	// Kills this pigeon and shoots its payload
 	void kill() override;
 
-	// We cannot revive a firework
+	// We cannot revive a clay pigeon
 	void revive() const override;
 
-	// Destroys the firework
 	void destroy() override;
 
+	const float& getRadius() const;
+
 protected:
+	const float m_radius;
 	const PayloadBounds m_payloadBounds;
-	Vektoria::CPlacement* m_payloadPlacement;
+	Vektoria::CPlacement* m_geoPlacement;
 	TrapShooting* m_scene;
 };
 

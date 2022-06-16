@@ -106,7 +106,7 @@ bool PlacementParticleWorld::deletePlacementParticle(PlacementParticles::iterato
 	m_placementParticles.erase(placementParticleIt);
 	
 	delete particle;
-//	delete placement;
+	delete placement;
 	delete placementParticle;
 
 	return true;

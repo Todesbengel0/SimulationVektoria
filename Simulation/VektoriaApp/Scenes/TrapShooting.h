@@ -1,6 +1,8 @@
 #pragma once
 #include "CaveScene.h"
 
+class PlacementParticleWorld;
+class PlacementParticle;
 class ClayPigeon;
 class ClayPiece;
 
@@ -25,12 +27,18 @@ public:
 
 	void moveCanon(const float& timeDelta);
 	void checkBalls();
+	void checkPigeons();
+	void createPigeon();
 
 	void registerClayPiece(ClayPiece* piece);
 
 private:
 	PlacementParticleWorld* m_particleWorld;
 	std::vector<PlacementParticle*> m_balls;
+	std::vector<ClayPigeon*> m_pigeons;
+	Vektoria::CGeoSphere* m_geoPigeon;
+	Vektoria::CMaterial* m_materialPigeon;
+	float m_timeSinceBirth;
 	const float m_ballRadius;
 	Vektoria::CGeoSphere* m_geoBall;
 	Vektoria::CMaterial* m_materialBall;
