@@ -11,10 +11,10 @@ class TrapShooting : public CaveScene
 {
 public:
 	struct Canon {
-		Vektoria::CPlacement* transPlacement = new Vektoria::CPlacement();
-		Vektoria::CPlacement* rotPlacement = new Vektoria::CPlacement();
-		Vektoria::CMaterial* material = new Vektoria::CMaterial();
-		Vektoria::CGeoCylinder* geo = new Vektoria::CGeoCylinder();
+		Vektoria::CPlacement* transPlacement;
+		Vektoria::CPlacement* rotPlacement;
+		Vektoria::CMaterial* material;
+		Vektoria::CGeoCylinder* geo;
 		float height = 8.0f;
 		float movementSpeed = 10.0f;
 		float rotationSpeed = 0.4f;
@@ -40,6 +40,7 @@ private:
 	Vektoria::CGeoSphere* m_geoPigeon;
 	Vektoria::CMaterial* m_materialPigeon;
 	float m_timeSinceBirth;
+	bool m_spawn;
 
 	std::vector<PlacementParticle*> m_balls;
 	const float m_ballRadius;

@@ -15,20 +15,25 @@ TrapShooting::TrapShooting()
 	, m_ballRadius(0.2f)
 	, m_timeSinceBirth(0.0f)
 	, m_score(5.0)
+	, m_spawn(true)
 {
 	setWASDCam(false);
 	Todes::Random::seed();
 
 #pragma region Canon
+	m_canon.transPlacement = new Vektoria::CPlacement();
 	m_pCave->AddPlacement(m_canon.transPlacement);
 	m_canon.transPlacement->TranslateXDelta(20.0f);
 	m_canon.transPlacement->TranslateYDelta(10.0f - m_canon.height * 0.5f);
 	m_canon.transPlacement->TranslateZDelta(15.0f);
 
+	m_canon.rotPlacement = new Vektoria::CPlacement();
 	m_canon.transPlacement->AddPlacement(m_canon.rotPlacement);
 	m_canon.rotPlacement->TranslateY(m_canon.height * 0.5f);
 	m_canon.rotPlacement->RotateXDelta(UM_DEG2RAD(-45.0f));
 
+	m_canon.material = new Vektoria::CMaterial();
+	m_canon.geo = new Vektoria::CGeoCylinder();
 	m_canon.material->LoadPreset((char*)"MetalRustyFlaking");
 	regMaterial(m_canon.material);
 	m_canon.geo->Init(3.0f, 1.2f, m_canon.height, m_canon.material);
@@ -83,7 +88,7 @@ void TrapShooting::update(float timeDelta)
 
 	m_timeSinceBirth += timeDelta;
 
-	if (m_timeSinceBirth > 5.0f && m_pigeons.size() < 5)
+	if (m_spawn && m_timeSinceBirth > 5.0f)
 	{
 		m_timeSinceBirth = 0.0f;
 		createPigeon();
@@ -210,6 +215,8 @@ void TrapShooting::checkPigeons()
 				m_pigeons[i]->kill();
 				m_pigeons.erase(m_pigeons.begin() + i);
 				--i;
+
+				m_spawn = true;
 			}
 		}
 	}
@@ -227,13 +234,15 @@ void TrapShooting::createPigeon()
 	m_particleWorld->addPlacementParticle(pigeon);
 	m_pigeons.push_back(pigeon);
 
-	auto velocity = Todes::Random::Float(1.0f, 5.0f);
+	auto velocity = Todes::Random::Float(1.5f, 5.0f);
 	auto force = Todes::Random::Vec3D(1.0f);
 	force.y(0.0f);
 	force.Normalize();
 	force *= velocity;
 
 	pigeon->getParticle()->setVelocity(force);
+
+	if (m_pigeons.size() == 5) m_spawn = false;
 }
 
 void TrapShooting::registerClayPiece(ClayPiece* piece)

@@ -37,14 +37,29 @@ void ClayPigeon::update()
 	const auto position = m_placement->GetPos();
 	auto velocity = m_particle->getVelocity();
 
-	if (position.z + m_radius > -bounds.thickness || position.z - m_radius < -bounds.depth + bounds.thickness)
+	float X = position.x;
+	float Y = position.y;
+	float Z = position.z;
+
+	if (Z + m_radius > -bounds.thickness || Z - m_radius < -bounds.depth + bounds.thickness)
+	{
 		velocity.z(-velocity.z());
-	if (position.y - m_radius < bounds.thickness || position.y + m_radius > bounds.height - bounds.thickness)
+		Z = std::clamp(Z, -bounds.depth + bounds.thickness + m_radius, bounds.thickness - m_radius);
+	}
+	if (Y - m_radius < bounds.thickness || Y + m_radius > bounds.height - bounds.thickness)
+	{
 		velocity.y(-velocity.y());
-	if (position.x - m_radius < bounds.thickness || position.x + m_radius > bounds.width - bounds.thickness)
+		Y = std::clamp(Y, bounds.thickness + m_radius, bounds.height - bounds.thickness - m_radius);
+	}
+	if (X - m_radius < bounds.thickness || X + m_radius > bounds.width - bounds.thickness)
+	{
 		velocity.x(-velocity.x());
+		X = std::clamp(X, bounds.thickness + m_radius, bounds.width - bounds.thickness - m_radius);
+	}
 
 	m_particle->setVelocity(velocity);
+
+	m_particle->setPosition(Todes::Vector3D(X, Y, Z));
 }
 
 void ClayPigeon::reset()
