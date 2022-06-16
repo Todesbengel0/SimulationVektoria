@@ -33,6 +33,8 @@ public:
 	Vektoria::CDeviceKeyboard& getKeyboard();
 	/** Get the mouse */
 	Vektoria::CDeviceMouse& getMouse();
+	/** Get the viewport*/
+	Vektoria::CViewport& getViewport();
 
 private:
 	void initScenes();

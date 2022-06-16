@@ -114,6 +114,11 @@ Vektoria::CDeviceMouse& CGame::getMouse()
 	return m_mouse;
 }
 
+Vektoria::CViewport& CGame::getViewport()
+{
+	return m_zv;
+}
+
 void CGame::initScenes()
 {
 	// ADD NEW SCENES HERE

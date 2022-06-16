@@ -207,6 +207,7 @@
     <ClInclude Include="Scenes\FirstScene.h" />
     <ClInclude Include="Scenes\SpringScene.h" />
     <ClInclude Include="Scenes\TyphoonScene.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="SimulationScene.h" />
     <ClInclude Include="Scenes\SpaceshipScene.h" />
     <ClInclude Include="Scenes\SolarSystem.h" />
@@ -245,6 +246,7 @@
     <ClCompile Include="Scenes\FirstScene.cpp" />
     <ClCompile Include="Scenes\SpringScene.cpp" />
     <ClCompile Include="Scenes\TyphoonScene.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="SimulationScene.cpp" />
     <ClCompile Include="Scenes\SpaceshipScene.cpp" />
     <ClCompile Include="Scenes\SolarSystem.cpp" />

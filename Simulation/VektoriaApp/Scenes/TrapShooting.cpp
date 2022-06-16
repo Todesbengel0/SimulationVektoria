@@ -14,33 +14,30 @@ TrapShooting::TrapShooting()
 	, m_particleWorld(new PlacementParticleWorld)
 	, m_ballRadius(0.2f)
 	, m_timeSinceBirth(0.0f)
+	, m_score(5.0)
 {
 	setWASDCam(false);
 	Todes::Random::seed();
 
 #pragma region Canon
-	m_canon.transPlacement = new Vektoria::CPlacement();
 	m_pCave->AddPlacement(m_canon.transPlacement);
 	m_canon.transPlacement->TranslateXDelta(20.0f);
 	m_canon.transPlacement->TranslateYDelta(10.0f - m_canon.height * 0.5f);
-	m_canon.transPlacement->TranslateZDelta(7.0f);
+	m_canon.transPlacement->TranslateZDelta(15.0f);
 
-	m_canon.rotPlacement = new Vektoria::CPlacement();
 	m_canon.transPlacement->AddPlacement(m_canon.rotPlacement);
 	m_canon.rotPlacement->TranslateY(m_canon.height * 0.5f);
 	m_canon.rotPlacement->RotateXDelta(UM_DEG2RAD(-45.0f));
 
-	m_canon.geo = new Vektoria::CGeoCylinder();
-	m_canon.material = new Vektoria::CMaterial();
 	m_canon.material->LoadPreset((char*)"MetalRustyFlaking");
 	regMaterial(m_canon.material);
-	m_canon.geo->Init(2.5f, 1.5f, m_canon.height, m_canon.material);
+	m_canon.geo->Init(3.0f, 1.2f, m_canon.height, m_canon.material);
 	m_canon.rotPlacement->AddGeo(m_canon.geo);
 
 	// Initialize Geo and Material
 	m_geoBall = new Vektoria::CGeoSphere();
 	m_materialBall = new Vektoria::CMaterial();
-	m_materialBall->LoadPreset((char*)"MarbleWhite");
+	m_materialBall->LoadPreset((char*)"LeatherBlack");
 	regMaterial(m_materialBall);
 	m_geoBall->Init(m_ballRadius, m_materialBall);
 #pragma endregion
@@ -54,12 +51,32 @@ TrapShooting::TrapShooting()
 
 	createPigeon();
 #pragma endregion
+
+#pragma region Score
+	m_scoreMaterial.LoadPreset("SpriteWhite");
+	regMaterial(&m_scoreMaterial);
+	m_scoreWritingFont.LoadPreset("OCRAExtendedBlack");
+	m_scoreWritingFont.SetChromaKeyingOn();
+
+	m_scoreOverlay.Init(&m_scoreMaterial, Vektoria::C2dRect(0.8f, 0.1f, 0.1, 0.05));
+	m_scoreWriting.Init(Vektoria::C2dRect(0.76f, 0.06f, 0.12f, 0.07f), 70, &m_scoreWritingFont);
+
+	m_scoreOverlay.SetLayer(0.2f);
+	m_scoreWriting.SetLayer(0.1f);
+
+	CGame::GetInstance().getViewport().AddOverlay(&m_scoreOverlay);
+	CGame::GetInstance().getViewport().AddWriting(&m_scoreWriting);
+
+	m_scoreWriting.PrintF("Current Score: %5.2f\tHighscore: %5.2f\tTime since Hit: %4.2f", 0.0, 0.0, 0.0f);
+#pragma endregion
 }
 
 void TrapShooting::update(float timeDelta)
 {
 	m_particleWorld->update(timeDelta);
 	moveCanon(timeDelta);
+	m_score.update(timeDelta);
+	m_scoreWriting.PrintF("Current Score: %5.2f\tHighscore: %5.2f\tTime since Hit: %4.2f", m_score.getCurrentScore(), m_score.getHighscore(), m_score.getTimeSinceIncrease());
 	checkBalls();
 
 	checkPigeons();
@@ -100,6 +117,8 @@ void TrapShooting::spawn()
 	Todes::Vector3D shootDirection(convertVector(canonDirection));
 	Todes::Vector3D muzzleForce = shootDirection * (muzzleVelocity / shootDirection.Length());
 	ball->getParticle()->setVelocity(muzzleForce);
+
+	m_score.decrease(2.0);
 }
 
 void TrapShooting::moveCanon(const float& timeDelta)
@@ -184,6 +203,8 @@ void TrapShooting::checkPigeons()
 
 			if (distanceSq <= radiusSum * radiusSum)
 			{
+				m_score.increase(1.0f / m_pigeons[i]->getRadius());
+
 				// Destroy Pigeon
 				m_pCave->SubPlacement(m_pigeons[i]->getPlacement());
 				m_pigeons[i]->kill();
@@ -199,8 +220,8 @@ void TrapShooting::createPigeon()
 	auto placement = new Vektoria::CPlacement();
 	m_pCave->AddPlacement(placement);
 
-	float radius = Todes::Random::Float(0.4f, 0.8f);
-	placement->TranslateDelta(convertVector(Todes::Random::Vec3D(Todes::Vector3D(m_caveDimensions.thickness, 15.0f, -m_caveDimensions.depth + m_caveDimensions.thickness), Todes::Vector3D(m_caveDimensions.width - m_caveDimensions.thickness, 15.0f, -m_caveDimensions.thickness))));
+	float radius = Todes::Random::Float(0.4f, 1.0f);
+	placement->TranslateDelta(convertVector(Todes::Random::Vec3D(Todes::Vector3D(m_caveDimensions.thickness + radius, 15.0f, -m_caveDimensions.depth + m_caveDimensions.thickness + radius), Todes::Vector3D(m_caveDimensions.width - m_caveDimensions.thickness - radius, 15.0f, -m_caveDimensions.thickness - radius))));
 
 	auto pigeon = new ClayPigeon(placement, radius, this, m_geoPigeon, m_materialPigeon);
 	m_particleWorld->addPlacementParticle(pigeon);
