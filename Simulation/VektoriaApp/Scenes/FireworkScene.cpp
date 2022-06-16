@@ -24,27 +24,53 @@ void FireworkScene::removeFirework(Firework* firework) const
 	m_pCave->SubPlacement(firework->getPlacement());
 }
 
-FireworkScene::FireworkScene()
+FireworkScene::FireworkScene(const bool& changeScene /*= true*/, const std::size_t& tailCount /*= 15000*/)
 	: CaveScene(-9.807f, 25.0f, 40.0f, 20.0f, 30.0f),
 	m_particleWorld(new PlacementParticleWorld),
 	m_fireworkMaterial(new Vektoria::CMaterial()),
 	m_tailGeo(new Vektoria::CGeoTail(*m_fireworkMaterial))
 {
-	m_cameraPlacement.TranslateZDelta(20.0f);
-	const auto pos = m_backWall.placement->GetPos();
+	if (changeScene)
+	{
+		m_cameraPlacement.TranslateZDelta(20.0f);
+		const auto pos = m_backWall.placement->GetPos();
 
-	m_backWall.placement->TranslateDelta(pos.x - 100.0f, pos.y - 25.0f, pos.z - 50.0f);
-	auto stars = new Vektoria::CMaterial();
-	stars->LoadPreset((char*)"SkyStarfieldLowRes");
-	regMaterial(stars);
-	m_backWall.geo->Init(409.6f, 102.4f, m_caveDimensions.thickness, stars, false, false, false, false, true, false);
+		m_backWall.placement->TranslateDelta(pos.x - 100.0f, pos.y - 25.0f, pos.z - 50.0f);
+		auto stars = new Vektoria::CMaterial();
+		stars->LoadPreset((char*)"SkyStarfieldLowRes");
+		regMaterial(stars);
+		m_backWall.geo->Init(409.6f, 102.4f, m_caveDimensions.thickness, stars, false, false, false, false, true, false);
 
-	m_leftWall.placement->SwitchOff();
-	m_rightWall.placement->SwitchOff();
-	m_ceiling.placement->SwitchOff();
-/*	m_frontWall.placement->SwitchOff();*/
+		m_leftWall.placement->SwitchOff();
+		m_rightWall.placement->SwitchOff();
+		m_ceiling.placement->SwitchOff();
+	}
 
-	m_tail = new Vektoria::CTailPlacements(m_pCave, m_tailGeo, 15000, 0.7f);
+	if (tailCount > 0)
+		m_tail = new Vektoria::CTailPlacements(m_pCave, m_tailGeo, tailCount, 0.7f);
+	else
+		m_tail = nullptr;
+
+	Todes::Random::seed();
+	m_fireworkMaterial->LoadPreset((char*)"Sun");
+	regMaterial(m_fireworkMaterial);
+	m_fireworkMaterial->SetGlowStrength(3.1f);
+
+	auto geo = new Vektoria::CGeoSphere();
+	geo->Init(1.0f, m_fireworkMaterial);
+	m_fireworkGeo = geo;
+}
+
+FireworkScene::FireworkScene(const std::size_t& tailCount /*= 15000 */, const float& translationZ /*= 10.0f */, const float& caveWidth /*= 30.0f */, const float& caveDepth /*= 20.0f */, const float& caveHeight /*= 20.0f */, const float& wallThickness /*= 0.1f*/)
+	: CaveScene(-9.807f, translationZ, caveWidth, caveDepth, caveHeight, wallThickness)
+	, m_particleWorld(new PlacementParticleWorld)
+	, m_fireworkMaterial(new Vektoria::CMaterial())
+	, m_tailGeo(new Vektoria::CGeoTail(*m_fireworkMaterial))
+{
+	if (tailCount > 0)
+		m_tail = new Vektoria::CTailPlacements(m_pCave, m_tailGeo, tailCount, 0.7f);
+	else
+		m_tail = nullptr;
 
 	Todes::Random::seed();
 	m_fireworkMaterial->LoadPreset((char*)"Sun");
@@ -64,7 +90,9 @@ FireworkScene::~FireworkScene()
 void FireworkScene::update(float timeDelta)
 {
 	m_particleWorld->update(timeDelta);
-	m_tail->update(timeDelta);
+	
+	if (m_tail)
+		m_tail->update(timeDelta);
 }
 
 void FireworkScene::spawn()

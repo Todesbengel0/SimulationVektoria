@@ -25,9 +25,7 @@ public:
 	void spawn() override;
 
 protected:
-	//std::vector<PlacementParticle*> m_ppBalls;
 	PlacementParticleWorld* m_particleWorld;
-//	Todes::Vector3D m_downForce;
 	Vektoria::CGeoSphere* m_geoBall;
 	Vektoria::CMaterial* m_materialBall;
 	Canon m_canon;

@@ -123,6 +123,9 @@
     <ClInclude Include="Scenes\SolarSystem.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Scenes\TrapShooting.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -204,6 +207,9 @@
       <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\SolarSystem.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\TrapShooting.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>

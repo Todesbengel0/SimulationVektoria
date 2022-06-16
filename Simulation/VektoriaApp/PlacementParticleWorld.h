@@ -98,7 +98,7 @@ public:
 	/// </summary>
 	/// <param name="placement">Placement Particle to delete.</param>
 	/// <returns>TRUE: Placement was registered and deleted. FALSE: Placement was not registered.</returns>
-	bool deletePlacementParticle(PlacementParticle* placementParticle);
+	bool deletePlacementParticle(PlacementParticles::iterator placementParticleIt);
 
 	/// <summary>
 	/// Clears the list of Placement Particles.

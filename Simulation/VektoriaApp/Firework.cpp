@@ -29,28 +29,32 @@ void Firework::update(const float& timeDelta)
 	m_age += timeDelta;
 
 	PlacementParticle::update();
-
+	
 	const auto& currPosition = m_particle->getPosition();
 
-	auto vecDif = currPosition - m_prevPosition;
-	auto posDif = vecDif.Length();
-	auto tailVec = Todes::Vector3D(0.0f, 1.0f, 0.0f);
-	auto rotAxis = tailVec.Cross(vecDif.Normalize());
-	auto dot = vecDif * tailVec;
-	auto rotAngle = dot == 1.0f ? 0.0f :
-		std::atan2f(rotAxis.Length(), vecDif * tailVec);
+	if (m_tailPlacements)
+	{
+		auto vecDif = currPosition - m_prevPosition;
+		auto posDif = vecDif.Length();
+		auto tailVec = Todes::Vector3D(0.0f, 1.0f, 0.0f);
+		auto rotAxis = tailVec.Cross(vecDif.Normalize());
+		auto dot = vecDif * tailVec;
+		auto rotAngle = dot == 1.0f ? 0.0f :
+			std::atan2f(rotAxis.Length(), vecDif * tailVec);
 
-	// Rotate Delta From To Version new ?
-	Vektoria::CHMat tailMat;
+		// Rotate Delta From To Version new ?
+		Vektoria::CHMat tailMat;
 
-	tailMat.ScaleDelta(posDif);
-	if (dot != 1.0f)
-		tailMat.RotateDelta(convertVector(rotAxis), rotAngle);
-	tailMat.TranslateDelta(convertVector(m_prevPosition));
+		tailMat.ScaleDelta(posDif);
+		if (dot != 1.0f)
+			tailMat.RotateDelta(convertVector(rotAxis), rotAngle);
+		tailMat.TranslateDelta(convertVector(m_prevPosition));
 
-	m_tailPlacements->PutTail(tailMat);
+		m_tailPlacements->PutTail(tailMat);
+	}
 
 	m_prevPosition = currPosition;
+	
 
 	if (m_age > m_payloadBounds.ageMax)
 	{

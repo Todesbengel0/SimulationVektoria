@@ -12,7 +12,14 @@ class FireworkScene : public CaveScene
 {
 
 public:
-	explicit FireworkScene();
+	explicit FireworkScene(const bool& changeScene = true, const std::size_t& tailCount = 15000);
+	explicit FireworkScene
+		( const std::size_t& tailCount = 15000
+		, const float& translationZ = 10.0f
+		, const float& caveWidth = 30.0f
+		, const float& caveDepth = 20.0f
+		, const float& caveHeight = 20.0f
+		, const float& wallThickness = 0.1f);
 	~FireworkScene();
 
 	void update(float timeDelta) override;

@@ -16,7 +16,7 @@ PlacementParticleWorld::PlacementParticleWorld()
 PlacementParticleWorld::~PlacementParticleWorld()
 {
 	for (std::size_t i = 0; i < m_placementParticles.size(); ++i)
-		deletePlacementParticle(m_placementParticles[i--]);
+		deletePlacementParticle(m_placementParticles.begin() + i--);
 }
 #pragma endregion
 
@@ -93,24 +93,20 @@ bool PlacementParticleWorld::removePlacementParticle(PlacementParticle* placemen
 	return true;
 }
 
-bool PlacementParticleWorld::deletePlacementParticle(PlacementParticle* placementParticle)
+bool PlacementParticleWorld::deletePlacementParticle(PlacementParticles::iterator placementParticleIt)
 {
-	const auto end = m_placementParticles.end();
-	const auto it = std::find(m_placementParticles.begin(), end, placementParticle);
+	auto placementParticle = *placementParticleIt;
 
-	if (it == end)
-		return false;
-
-	auto particle = (*it)->getParticle();
-	auto placement = (*it)->getPlacement();
+	auto particle = placementParticle->getParticle();
+	auto placement = placementParticle->getPlacement();
 	m_world->removeParticle(particle);
 	m_world->getParticleForceRegistry().remove(particle);
 
 	// VEKTORIA
-	m_placementParticles.erase(it);
+	m_placementParticles.erase(placementParticleIt);
 	
 	delete particle;
-	delete placement;
+//	delete placement;
 	delete placementParticle;
 
 	return true;
@@ -136,7 +132,7 @@ void PlacementParticleWorld::update(float timeDelta)
 
 		if (currentPP->isDirty())
 		{
-			deletePlacementParticle(currentPP);
+			deletePlacementParticle(m_placementParticles.begin() + i);
 			--i;
 		}
 	}

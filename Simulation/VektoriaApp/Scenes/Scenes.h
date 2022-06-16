@@ -1,7 +1,7 @@
 #pragma once
 #include "CanonScene.h"
 #include "FirstScene.h"
-#include "FireworkScene.h"
+#include "TrapShooting.h"
 #include "Examples/EmptyScene.h"
 #include "SpringScene.h"
 #include "TyphoonScene.h"
