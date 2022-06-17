@@ -22,21 +22,21 @@ TrapShooting::TrapShooting()
 
 #pragma region Canon
 	m_canon.transPlacement = new Vektoria::CPlacement();
-	m_pCave->AddPlacement(m_canon.transPlacement);
 	m_canon.transPlacement->TranslateXDelta(20.0f);
-	m_canon.transPlacement->TranslateYDelta(10.0f - m_canon.height * 0.5f);
-	m_canon.transPlacement->TranslateZDelta(15.0f);
+	m_canon.transPlacement->TranslateYDelta(5.0f - m_canon.height * 0.5f);
+	m_canon.transPlacement->TranslateZDelta(7.0f);
+	m_pCave->AddPlacement(m_canon.transPlacement);
 
 	m_canon.rotPlacement = new Vektoria::CPlacement();
-	m_canon.transPlacement->AddPlacement(m_canon.rotPlacement);
-	m_canon.rotPlacement->TranslateY(m_canon.height * 0.5f);
+	m_canon.rotPlacement->TranslateYDelta(m_canon.height * 0.5f);
 	m_canon.rotPlacement->RotateXDelta(UM_DEG2RAD(-45.0f));
+	m_canon.transPlacement->AddPlacement(m_canon.rotPlacement);
 
 	m_canon.material = new Vektoria::CMaterial();
 	m_canon.geo = new Vektoria::CGeoCylinder();
 	m_canon.material->LoadPreset((char*)"MetalRustyFlaking");
 	regMaterial(m_canon.material);
-	m_canon.geo->Init(3.0f, 1.2f, m_canon.height, m_canon.material);
+	m_canon.geo->Init(1.8f, 0.7f, m_canon.height, m_canon.material);
 	m_canon.rotPlacement->AddGeo(m_canon.geo);
 
 	// Initialize Geo and Material
@@ -74,6 +74,24 @@ TrapShooting::TrapShooting()
 
 	m_scoreWriting.PrintF("Current Score: %5.2f\tHighscore: %5.2f\tTime since Hit: %4.2f", 0.0, 0.0, 0.0f);
 #pragma endregion
+
+#pragma region Controls
+	m_controlsMaterial.LoadPreset("SpriteBlack");
+	regMaterial(&m_controlsMaterial);
+	m_controlsFont.LoadPreset("OCRAExtendedWhite");
+	m_controlsFont.SetChromaKeyingOn();
+
+	m_controlsOverlay.Init(&m_controlsMaterial, Vektoria::C2dRect(0.8f, 0.05f, 0.1f, 0.9f));
+	m_controlsWriting.Init(Vektoria::C2dRect(0.76f, 0.04f, 0.12f, 0.905f), 100, &m_controlsFont);
+
+	m_controlsOverlay.SetLayer(0.2f);
+	m_controlsWriting.SetLayer(0.1f);
+
+	CGame::GetInstance().getViewport().AddOverlay(&m_controlsOverlay);
+	CGame::GetInstance().getViewport().AddWriting(&m_controlsWriting);
+
+	m_controlsWriting.PrintString("Left: A | Right: D | Up: W | Down: S | Turn Left: Q | Turn Right: E | Move Speed: +- | Rot Speed: ,.");
+#pragma endregion
 }
 
 void TrapShooting::update(float timeDelta)
@@ -102,7 +120,7 @@ void TrapShooting::spawn()
 	m_pCave->AddPlacement(placementBall);
 
 	// Translate to Canon Base
-	auto cp = m_canon.transPlacement->GetPos();
+	const auto cp = m_canon.transPlacement->GetPos();
 	placementBall->TranslateDelta(cp);
 
 	// Get Canon Direction
@@ -144,7 +162,7 @@ void TrapShooting::moveCanon(const float& timeDelta)
 	const auto movementSpeed = m_canon.movementSpeed * timeDelta;
 	const auto rotationSpeed = m_canon.rotationSpeed * timeDelta;
 	
-	Vektoria::CHVector positionalDifference;
+	Vektoria::CHVector positionalDifference = Vektoria::CHVector(0.0f, 0.0f, 0.0f, 0.0f);
 	
 	if (keyboard.KeyPressed(DIK_A))
 		positionalDifference.x -= 1.0f;
@@ -152,7 +170,7 @@ void TrapShooting::moveCanon(const float& timeDelta)
 	if (keyboard.KeyPressed(DIK_D))
 		positionalDifference.x += 1.0f;
 
-	Vektoria::CHVector rotationAxis;
+	Vektoria::CHVector rotationAxis = Vektoria::CHVector(0.0f, 0.0f, 0.0f, 0.0f);
 
 	if (keyboard.KeyPressed(DIK_W))
 		rotationAxis.x += 1.0f;
@@ -208,7 +226,9 @@ void TrapShooting::checkPigeons()
 
 			if (distanceSq <= radiusSum * radiusSum)
 			{
-				m_score.increase(1.0f / m_pigeons[i]->getRadius());
+				const auto velocityMultiplier = m_pigeons[i]->getParticle()->getVelocity().Length() / 5.0f;
+				const auto sizeMultiplier = 1.0f / m_pigeons[i]->getRadius();
+				m_score.increase(velocityMultiplier * sizeMultiplier);
 
 				// Destroy Pigeon
 				m_pCave->SubPlacement(m_pigeons[i]->getPlacement());

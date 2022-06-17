@@ -15,6 +15,9 @@ void Score::update(const float& timeDelta)
 	if (m_currentScore == 0.0 || m_timeRegress == 0.0) return;
 
 	m_currentScore -= m_timeRegress * timeDelta;
+	
+	if (m_currentScore < 0.0)
+		m_currentScore = 0.0;
 }
 
 void Score::increase(const float& multiplier)

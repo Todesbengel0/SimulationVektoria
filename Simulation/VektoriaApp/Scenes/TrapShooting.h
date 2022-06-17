@@ -11,11 +11,11 @@ class TrapShooting : public CaveScene
 {
 public:
 	struct Canon {
-		Vektoria::CPlacement* transPlacement;
-		Vektoria::CPlacement* rotPlacement;
-		Vektoria::CMaterial* material;
-		Vektoria::CGeoCylinder* geo;
-		float height = 8.0f;
+		Vektoria::CPlacement* transPlacement = nullptr;
+		Vektoria::CPlacement* rotPlacement = nullptr;
+		Vektoria::CMaterial* material = nullptr;
+		Vektoria::CGeoCylinder* geo = nullptr;
+		float height = 4.0f;
 		float movementSpeed = 10.0f;
 		float rotationSpeed = 0.4f;
 	};
@@ -56,4 +56,9 @@ private:
 	Vektoria::CMaterial m_scoreMaterial;
 	Vektoria::CWriting m_scoreWriting;
 	Vektoria::CWritingFont m_scoreWritingFont;
+
+	Vektoria::COverlay m_controlsOverlay;
+	Vektoria::CMaterial m_controlsMaterial;
+	Vektoria::CWriting m_controlsWriting;
+	Vektoria::CWritingFont m_controlsFont;
 };

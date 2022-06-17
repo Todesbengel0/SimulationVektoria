@@ -10,8 +10,8 @@ public:
 	{
 		const std::size_t countMin = 20;
 		const std::size_t countMax = 50;
-		const float sizeMin = 0.05f;
-		const float sizeMax = 0.2f;
+		const float sizeMin = 0.01f;
+		const float sizeMax = 0.05f;
 		const float velocityMin = 2.0f;
 		const float velocityMax = 5.0f;
 	};

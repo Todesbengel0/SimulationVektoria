@@ -23,7 +23,6 @@ void ClayPiece::update()
 
 	if (position.y - m_radius < m_bounds.thickness)
 	{
-		m_placement->TranslateY((m_radius + m_bounds.thickness) - position.y);
 		kill();
 		return;
 	}
