@@ -21,9 +21,19 @@ public:
 		float rotationSpeed = 0.4f;
 		bool inverted = false;
 	};
+	struct PigeonArray {
+		const unsigned int count = 5;
+		ClayPigeon** pigeons = new ClayPigeon*[count];
+		Vektoria::CGeoSphere** geos = new Vektoria::CGeoSphere*[count];
+		Vektoria::CMaterial** materials = new Vektoria::CMaterial*[count];
+		float spawnTimeDelta = 0.0f;
+		unsigned int currentCount = 0;
+		bool spawn = true;
+	};
 
 public:
 	TrapShooting();
+	~TrapShooting();
 
 	void update(float timeDelta) override;
 	void spawn() override;
@@ -38,11 +48,9 @@ public:
 private:
 	PlacementParticleWorld* m_particleWorld;
 
-	std::vector<ClayPigeon*> m_pigeons;
-	Vektoria::CGeoSphere* m_geoPigeon;
-	Vektoria::CMaterial* m_materialPigeon;
-	float m_timeSinceBirth;
-	bool m_spawn;
+	PigeonArray m_pigeons;
+	Vektoria::CGeoSphere* m_clayPieceGeo;
+	Vektoria::CMaterial* m_clayPieceMaterial;
 
 	Mockingbird* m_mockingbird;
 

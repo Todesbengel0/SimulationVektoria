@@ -14,9 +14,7 @@ TrapShooting::TrapShooting()
 	: CaveScene(-9.897f, 40.0f, 50.0f, 20.0f, 25.0f, 0.1f)
 	, m_particleWorld(new PlacementParticleWorld)
 	, m_ballRadius(0.2f)
-	, m_timeSinceBirth(0.0f)
 	, m_score(5.0)
-	, m_spawn(true)
 {
 	setWASDCam(false);
 	Todes::Random::seed();
@@ -49,11 +47,22 @@ TrapShooting::TrapShooting()
 #pragma endregion
 
 #pragma region Pigeon
-	m_materialPigeon = new Vektoria::CMaterial();
-	m_materialPigeon->LoadPreset((char*)"MarbleWhite");
-	regMaterial(m_materialPigeon);
-	m_geoPigeon = new Vektoria::CGeoSphere();
-	m_geoPigeon->Init(1.0f, m_materialPigeon);
+	m_clayPieceMaterial = new Vektoria::CMaterial();
+	m_clayPieceMaterial->LoadPreset((char*)"PhongGrey");
+	regMaterial(m_clayPieceMaterial);
+	m_clayPieceGeo = new Vektoria::CGeoSphere();
+	m_clayPieceGeo->Init(1.0f, m_clayPieceMaterial);
+
+	for (unsigned int i = 0; i < m_pigeons.count; ++i)
+	{
+		m_pigeons.materials[i] = new Vektoria::CMaterial();
+		m_pigeons.materials[i]->LoadPreset((char*)"PhongGrey");
+		regMaterial(m_pigeons.materials[i]);
+		m_pigeons.geos[i] = new Vektoria::CGeoSphere();
+		m_pigeons.geos[i]->Init(1.0f, m_pigeons.materials[i]);
+
+		m_pigeons.pigeons[i] = nullptr;
+	}
 
 	createPigeon();
 #pragma endregion
@@ -119,6 +128,21 @@ TrapShooting::TrapShooting()
 #pragma endregion
 }
 
+TrapShooting::~TrapShooting()
+{
+	delete m_particleWorld;
+
+	delete m_geoBall;
+	delete m_materialBall;
+
+	delete m_clayPieceGeo;
+	delete m_clayPieceMaterial;
+
+	delete[] m_pigeons.geos;
+	delete[] m_pigeons.materials;
+	delete[] m_pigeons.pigeons;
+}
+
 void TrapShooting::update(float timeDelta)
 {
 	m_particleWorld->update(timeDelta);
@@ -129,11 +153,11 @@ void TrapShooting::update(float timeDelta)
 
 	checkPigeons();
 
-	m_timeSinceBirth += timeDelta;
+	m_pigeons.spawnTimeDelta += timeDelta;
 
-	if (m_spawn && m_timeSinceBirth > 5.0f)
+	if (m_pigeons.spawn && m_pigeons.spawnTimeDelta > 5.0f)
 	{
-		m_timeSinceBirth = 0.0f;
+		m_pigeons.spawnTimeDelta = 0.0f;
 		createPigeon();
 	}
 }
@@ -247,24 +271,26 @@ void TrapShooting::checkPigeons()
 			|| position.y() > m_caveDimensions.height)
 			continue;
 
-		for (std::size_t i = 0; i < m_pigeons.size(); ++i)
+		for (std::size_t i = 0; i < m_pigeons.count; ++i)
 		{
-			const auto distanceSq = (position - m_pigeons[i]->getParticle()->getPosition()).LengthSq();
-			auto radiusSum = m_ballRadius + m_pigeons[i]->getRadius();
+			if (!m_pigeons.pigeons[i]) continue;
+
+			const auto distanceSq = (position - m_pigeons.pigeons[i]->getParticle()->getPosition()).LengthSq();
+			auto radiusSum = m_ballRadius + m_pigeons.pigeons[i]->getRadius();
 
 			if (distanceSq <= radiusSum * radiusSum)
 			{
-				const auto velocityMultiplier = m_pigeons[i]->getParticle()->getVelocity().Length() / 5.0f;
-				const auto sizeMultiplier = 1.0f / m_pigeons[i]->getRadius();
+				const auto velocityMultiplier = m_pigeons.pigeons[i]->getParticle()->getVelocity().Length() / 5.0f;
+				const auto sizeMultiplier = 1.0f / m_pigeons.pigeons[i]->getRadius();
 				m_score.increase(velocityMultiplier * sizeMultiplier);
 
 				// Destroy Pigeon
-				m_pCave->SubPlacement(m_pigeons[i]->getPlacement());
-				m_pigeons[i]->kill();
-				m_pigeons.erase(m_pigeons.begin() + i);
-				--i;
+				m_pCave->SubPlacement(m_pigeons.pigeons[i]->getPlacement());
+				m_pigeons.pigeons[i]->kill();
+				m_pigeons.pigeons[i] = nullptr;
 
-				m_spawn = true;
+				--m_pigeons.currentCount;
+				m_pigeons.spawn = true;
 			}
 		}
 
@@ -277,7 +303,9 @@ void TrapShooting::checkPigeons()
 
 				if (distanceSq <= radiusSum * radiusSum)
 				{
-					m_score.increase(5.0);
+					const auto velocityMultiplier = m_mockingbird->getParticle()->getVelocity().Length();
+
+					m_score.increase(velocityMultiplier);
 
 					m_mockingbird->kill();
 				}
@@ -288,15 +316,22 @@ void TrapShooting::checkPigeons()
 
 void TrapShooting::createPigeon()
 {
+	unsigned int i = 0;
+	for (; i < m_pigeons.count; ++i)
+		if (!m_pigeons.pigeons[i])
+			break;
+
+	if (i == m_pigeons.count) return;
+
 	auto placement = new Vektoria::CPlacement();
 	m_pCave->AddPlacement(placement);
 
 	float radius = Todes::Random::Float(0.4f, 1.0f);
 	placement->TranslateDelta(convertVector(Todes::Random::Vec3D(Todes::Vector3D(m_caveDimensions.thickness + radius, 10.0f, -m_caveDimensions.depth + m_caveDimensions.thickness + radius), Todes::Vector3D(m_caveDimensions.width - m_caveDimensions.thickness - radius, 20.0f, -m_caveDimensions.thickness - radius))));
 
-	auto pigeon = new ClayPigeon(placement, radius, this, m_geoPigeon, m_materialPigeon);
+	auto pigeon = new ClayPigeon(placement, radius, this, m_pigeons.geos[i], m_pigeons.materials[i]);
 	m_particleWorld->addPlacementParticle(pigeon);
-	m_pigeons.push_back(pigeon);
+	m_pigeons.pigeons[i] = pigeon;
 
 	auto velocity = Todes::Random::Float(1.5f, 5.0f);
 	auto force = Todes::Random::Vec3D(1.0f);
@@ -306,12 +341,12 @@ void TrapShooting::createPigeon()
 
 	pigeon->getParticle()->setVelocity(force);
 
-	if (m_pigeons.size() == 5) m_spawn = false;
+	if (++m_pigeons.currentCount == m_pigeons.count) m_pigeons.spawn = false;
 }
 
 void TrapShooting::registerClayPiece(ClayPiece* piece)
 {
 	m_pCave->AddPlacement(piece->getPlacement());
-	piece->setGeo(m_geoPigeon);
+	piece->setGeo(m_clayPieceGeo);
 	m_particleWorld->addPlacementParticle(piece, { m_gravity });
 }

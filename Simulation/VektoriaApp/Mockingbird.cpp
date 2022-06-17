@@ -29,10 +29,6 @@ void Mockingbird::update()
 
 	PlacementParticle::update();
 
-	auto scale = m_particle->getPosition().z() * TWOPI / (m_bounds.zMin - m_bounds.zMax);
-	m_material->Scale(scale, scale, scale);
-	//	m_material->RotateHue(scale);
-
 	const auto position = m_placement->GetPos();
 	auto velocity = m_particle->getVelocity();
 
@@ -59,6 +55,9 @@ void Mockingbird::update()
 	m_particle->setVelocity(velocity);
 
 	m_particle->setPosition(Todes::Vector3D(X, Y, Z));
+
+	auto scale = Z / (m_bounds.zMin - m_bounds.zMax);
+	m_material->Scale(scale, scale, scale);
 }
 
 void Mockingbird::update(const float& timeDelta)
@@ -159,7 +158,7 @@ void Mockingbird::replace()
 			, Todes::Vector3D(m_bounds.xMax, m_bounds.anchorHeight, m_bounds.zMax)));
 
 		anchoredSpring->setRestLength((anchoredSpring->getOtherEnd() - loosePosition).Length()
-			* Todes::Random::Float(0.90f, 0.98f));
+			* Todes::Random::Float(0.9f, 0.98f));
 	}
 
 
