@@ -21,7 +21,6 @@ namespace Todes
 		ParticleSpring(Particle* other, const float& springConstant, const float& restLength);
 		~ParticleSpring();
 
-	protected:
 		const Vector3D& getOtherEnd() const override;
 
 	protected:

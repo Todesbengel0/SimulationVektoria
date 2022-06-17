@@ -188,6 +188,7 @@
     <ClInclude Include="Firework.h" />
     <ClInclude Include="ForceDefines.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Mockingbird.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Pendulum.h" />
     <ClInclude Include="Scenes\Scenes.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="Examples\FallingCubeScene.cpp" />
     <ClCompile Include="Firework.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Mockingbird.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

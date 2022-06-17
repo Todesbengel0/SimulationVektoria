@@ -8,6 +8,7 @@
 #include "Random.h"
 #include "ClayPiece.h"
 #include "ClayPigeon.h"
+#include "Mockingbird.h"
 
 TrapShooting::TrapShooting()
 	: CaveScene(-9.897f, 40.0f, 50.0f, 20.0f, 25.0f, 0.1f)
@@ -57,6 +58,31 @@ TrapShooting::TrapShooting()
 	createPigeon();
 #pragma endregion
 
+#pragma region Mockingbird
+	auto mockingPlacement = new Vektoria::CPlacement();
+	m_pCave->AddPlacement(mockingPlacement);
+	auto mockingMaterial = new Vektoria::CMaterial();
+	mockingMaterial->LoadPreset((char*)"PhongBlue");
+	regMaterial(mockingMaterial);
+	auto mockingGeo = new Vektoria::CGeoSphere();
+	mockingGeo->Init(0.3f, mockingMaterial);
+
+	m_mockingbird = new Mockingbird(mockingPlacement, mockingGeo, mockingMaterial, this
+		, Mockingbird::Bounds
+		{ m_caveDimensions.thickness + 0.6f, m_caveDimensions.width - m_caveDimensions.thickness - 0.6f
+		, -m_caveDimensions.depth + m_caveDimensions.thickness + 0.6f, -m_caveDimensions.thickness - 0.6f
+		, m_caveDimensions.height - m_caveDimensions.thickness, m_caveDimensions.height * 0.6f, m_caveDimensions.height * 0.8f
+		, m_caveDimensions.height * 0.15f }, 0.3f);
+	m_particleWorld->addPlacementParticle(m_mockingbird);
+	auto looseparticle = new PlacementParticle(new Vektoria::CPlacement(), m_mockingbird->getLooseAnchor());
+	m_particleWorld->addPlacementParticle(looseparticle);
+	m_particleWorld->addForces(m_mockingbird, { m_mockingbird->getLooseForce() });
+	const auto& forces = m_mockingbird->getAnchoredForces();
+	for (auto force : forces)
+		m_particleWorld->addForces(looseparticle, { force });
+
+#pragma endregion
+
 #pragma region Score
 	m_scoreMaterial.LoadPreset("SpriteWhite");
 	regMaterial(&m_scoreMaterial);
@@ -84,8 +110,7 @@ TrapShooting::TrapShooting()
 	m_controlsOverlay.Init(&m_controlsMaterial, Vektoria::C2dRect(0.8f, 0.05f, 0.1f, 0.9f));
 	m_controlsWriting.Init(Vektoria::C2dRect(0.76f, 0.04f, 0.12f, 0.905f), 100, &m_controlsFont);
 
-	m_controlsOverlay.SetLayer(0.2f);
-	m_controlsWriting.SetLayer(0.1f);
+	m_controlsOverlay.SetLayer (0.1f);
 
 	CGame::GetInstance().getViewport().AddOverlay(&m_controlsOverlay);
 	CGame::GetInstance().getViewport().AddWriting(&m_controlsWriting);
@@ -159,6 +184,9 @@ void TrapShooting::moveCanon(const float& timeDelta)
 	m_canon.movementSpeed = std::fmaxf(0.0f, m_canon.movementSpeed);
 	m_canon.rotationSpeed = std::clamp(m_canon.rotationSpeed, 0.0f, TWOPI);
 
+	if (keyboard.KeyDown(DIK_I))
+		m_canon.inverted = !m_canon.inverted;
+
 	const auto movementSpeed = m_canon.movementSpeed * timeDelta;
 	const auto rotationSpeed = m_canon.rotationSpeed * timeDelta;
 	
@@ -173,10 +201,10 @@ void TrapShooting::moveCanon(const float& timeDelta)
 	Vektoria::CHVector rotationAxis = Vektoria::CHVector(0.0f, 0.0f, 0.0f, 0.0f);
 
 	if (keyboard.KeyPressed(DIK_W))
-		rotationAxis.x += 1.0f;
+		rotationAxis.x += m_canon.inverted ? -1.0 : 1.0f;
 
 	if (keyboard.KeyPressed(DIK_S))
-		rotationAxis.x -= 1.0f;
+		rotationAxis.x += m_canon.inverted ? 1.0f : -1.0f;
 
 	if (keyboard.KeyPressed(DIK_Q))
 		rotationAxis.z += 1.0f;
@@ -239,6 +267,22 @@ void TrapShooting::checkPigeons()
 				m_spawn = true;
 			}
 		}
+
+		if (m_mockingbird)
+		{
+			if (m_mockingbird->isAlive())
+			{
+				const auto distanceSq = (position - m_mockingbird->getParticle()->getPosition()).LengthSq();
+				auto radiusSum = m_ballRadius + m_mockingbird->getRadius();
+
+				if (distanceSq <= radiusSum * radiusSum)
+				{
+					m_score.increase(5.0);
+
+					m_mockingbird->kill();
+				}
+			}
+		}
 	}
 }
 
@@ -248,7 +292,7 @@ void TrapShooting::createPigeon()
 	m_pCave->AddPlacement(placement);
 
 	float radius = Todes::Random::Float(0.4f, 1.0f);
-	placement->TranslateDelta(convertVector(Todes::Random::Vec3D(Todes::Vector3D(m_caveDimensions.thickness + radius, 15.0f, -m_caveDimensions.depth + m_caveDimensions.thickness + radius), Todes::Vector3D(m_caveDimensions.width - m_caveDimensions.thickness - radius, 15.0f, -m_caveDimensions.thickness - radius))));
+	placement->TranslateDelta(convertVector(Todes::Random::Vec3D(Todes::Vector3D(m_caveDimensions.thickness + radius, 10.0f, -m_caveDimensions.depth + m_caveDimensions.thickness + radius), Todes::Vector3D(m_caveDimensions.width - m_caveDimensions.thickness - radius, 20.0f, -m_caveDimensions.thickness - radius))));
 
 	auto pigeon = new ClayPigeon(placement, radius, this, m_geoPigeon, m_materialPigeon);
 	m_particleWorld->addPlacementParticle(pigeon);

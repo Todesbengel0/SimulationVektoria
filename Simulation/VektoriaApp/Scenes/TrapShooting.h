@@ -6,6 +6,7 @@ class PlacementParticleWorld;
 class PlacementParticle;
 class ClayPigeon;
 class ClayPiece;
+class Mockingbird;
 
 class TrapShooting : public CaveScene
 {
@@ -18,6 +19,7 @@ public:
 		float height = 4.0f;
 		float movementSpeed = 10.0f;
 		float rotationSpeed = 0.4f;
+		bool inverted = false;
 	};
 
 public:
@@ -41,6 +43,8 @@ private:
 	Vektoria::CMaterial* m_materialPigeon;
 	float m_timeSinceBirth;
 	bool m_spawn;
+
+	Mockingbird* m_mockingbird;
 
 	std::vector<PlacementParticle*> m_balls;
 	const float m_ballRadius;

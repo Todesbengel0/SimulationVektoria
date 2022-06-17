@@ -22,7 +22,8 @@ namespace Todes
 		explicit ParticleAnchoredSpring(const Vector3D& anchor, const float& springConstant, const float& restLength);
 		~ParticleAnchoredSpring();
 
-	protected:
+		void setOtherEnd(const Vector3D& anchor);
+
 		const Vector3D& getOtherEnd() const override;
 
 	protected:

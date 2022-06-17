@@ -6,7 +6,6 @@
 
 namespace Todes
 {
-
 	ParticleTyphoon::ParticleTyphoon(
 		const float& particleHalfHeight,
 		const std::initializer_list<CalmSpace>& calmSpaces,

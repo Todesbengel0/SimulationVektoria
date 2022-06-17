@@ -13,6 +13,11 @@ namespace Todes
 	ParticleAnchoredSpring::~ParticleAnchoredSpring()
 		= default;
 
+	void ParticleAnchoredSpring::setOtherEnd(const Vector3D& anchor)
+	{
+		m_anchor = anchor;
+	}
+
 	const Vector3D& ParticleAnchoredSpring::getOtherEnd() const
 	{
 		return m_anchor;

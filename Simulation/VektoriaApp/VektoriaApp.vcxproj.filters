@@ -135,6 +135,9 @@
     <ClInclude Include="Score.h">
       <Filter>TodesPhysicInterfaces</Filter>
     </ClInclude>
+    <ClInclude Include="Mockingbird.h">
+      <Filter>TodesPhysicInterfaces</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -228,6 +231,9 @@
       <Filter>TodesPhysicInterfaces</Filter>
     </ClCompile>
     <ClCompile Include="Score.cpp">
+      <Filter>TodesPhysicInterfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Mockingbird.cpp">
       <Filter>TodesPhysicInterfaces</Filter>
     </ClCompile>
   </ItemGroup>
