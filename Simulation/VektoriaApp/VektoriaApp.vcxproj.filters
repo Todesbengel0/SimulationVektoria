@@ -16,9 +16,6 @@
     <Filter Include="Scenes">
       <UniqueIdentifier>{3277e55d-3983-4635-8174-397a372dcac6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="PhysicInterfaces">
-      <UniqueIdentifier>{bb5b1075-ce76-448f-a71f-ddbf5b8b2fbe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Examples">
       <UniqueIdentifier>{216b9462-fbe1-4230-a9ae-4f73a169778d}</UniqueIdentifier>
     </Filter>
@@ -41,27 +38,6 @@
     </ClInclude>
     <ClInclude Include="SimulationScene.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Examples\FallingCubeScene.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicInterfaces\Converter.h">
-      <Filter>PhysicInterfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicInterfaces\ParticlePlacement.h">
-      <Filter>PhysicInterfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicInterfaces\ParticlePlacementWorld.h">
-      <Filter>PhysicInterfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicInterfaces\PhysicsEngineWrapper.h">
-      <Filter>PhysicInterfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicInterfaces\RigidBodyPlacement.h">
-      <Filter>PhysicInterfaces</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicInterfaces\RigidBodyPlacementWorld.h">
-      <Filter>PhysicInterfaces</Filter>
     </ClInclude>
     <ClInclude Include="Scenes\CanonScene.h">
       <Filter>Scenes</Filter>
@@ -151,24 +127,6 @@
     </ClCompile>
     <ClCompile Include="SimulationScene.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Examples\FallingCubeScene.cpp">
-      <Filter>Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicInterfaces\ParticlePlacement.cpp">
-      <Filter>PhysicInterfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicInterfaces\ParticlePlacementWorld.cpp">
-      <Filter>PhysicInterfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicInterfaces\PhysicsEngineWrapper.cpp">
-      <Filter>PhysicInterfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicInterfaces\RigidBodyPlacement.cpp">
-      <Filter>PhysicInterfaces</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicInterfaces\RigidBodyPlacementWorld.cpp">
-      <Filter>PhysicInterfaces</Filter>
     </ClCompile>
     <ClCompile Include="Scenes\CanonScene.cpp">
       <Filter>Scenes</Filter>

@@ -109,7 +109,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>TodesEngine.lib;Rumble3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TodesEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLibraryDirectories>$(SolutionDir)..\TodesEngine\Build\$(PlatformShortName)\$(Configuration);</AdditionalLibraryDirectories>
     </Link>
@@ -128,7 +128,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>TodesEngine.lib;Rumble3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TodesEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLibraryDirectories>$(SolutionDir)..\TodesEngine\Build\$(PlatformShortName)\$(Configuration);</AdditionalLibraryDirectories>
     </Link>
@@ -150,7 +150,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>TodesEngine.lib;Rumble3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TodesEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLibraryDirectories>$(SolutionDir)..\TodesEngine\Build\$(PlatformShortName)\$(Configuration);</AdditionalLibraryDirectories>
     </Link>
@@ -172,7 +172,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>TodesEngine.lib;Rumble3D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>TodesEngine.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalLibraryDirectories>$(SolutionDir)..\TodesEngine\Build\$(PlatformShortName)\$(Configuration);</AdditionalLibraryDirectories>
     </Link>
@@ -184,7 +184,6 @@
     <ClInclude Include="CTailPlacements.h" />
     <ClInclude Include="DefaultScene.h" />
     <ClInclude Include="Examples\EmptyScene.h" />
-    <ClInclude Include="Examples\FallingCubeScene.h" />
     <ClInclude Include="Firework.h" />
     <ClInclude Include="ForceDefines.h" />
     <ClInclude Include="Game.h" />
@@ -193,12 +192,6 @@
     <ClInclude Include="Pendulum.h" />
     <ClInclude Include="Scenes\Scenes.h" />
     <ClInclude Include="Scenes\PendulumScene.h" />
-    <ClInclude Include="PhysicInterfaces\Converter.h" />
-    <ClInclude Include="PhysicInterfaces\ParticlePlacement.h" />
-    <ClInclude Include="PhysicInterfaces\ParticlePlacementWorld.h" />
-    <ClInclude Include="PhysicInterfaces\PhysicsEngineWrapper.h" />
-    <ClInclude Include="PhysicInterfaces\RigidBodyPlacement.h" />
-    <ClInclude Include="PhysicInterfaces\RigidBodyPlacementWorld.h" />
     <ClInclude Include="PlacementParticle.h" />
     <ClInclude Include="PlacementParticleWorld.h" />
     <ClInclude Include="resource.h" />
@@ -223,7 +216,6 @@
     <ClCompile Include="CTailPlacements.cpp" />
     <ClCompile Include="DefaultScene.cpp" />
     <ClCompile Include="Examples\EmptyScene.cpp" />
-    <ClCompile Include="Examples\FallingCubeScene.cpp" />
     <ClCompile Include="Firework.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Mockingbird.cpp" />
@@ -235,11 +227,6 @@
     </ClCompile>
     <ClCompile Include="Pendulum.cpp" />
     <ClCompile Include="Scenes\PendulumScene.cpp" />
-    <ClCompile Include="PhysicInterfaces\ParticlePlacement.cpp" />
-    <ClCompile Include="PhysicInterfaces\ParticlePlacementWorld.cpp" />
-    <ClCompile Include="PhysicInterfaces\PhysicsEngineWrapper.cpp" />
-    <ClCompile Include="PhysicInterfaces\RigidBodyPlacement.cpp" />
-    <ClCompile Include="PhysicInterfaces\RigidBodyPlacementWorld.cpp" />
     <ClCompile Include="PlacementParticle.cpp" />
     <ClCompile Include="PlacementParticleWorld.cpp" />
     <ClCompile Include="Scenes\CanonScene.cpp" />
