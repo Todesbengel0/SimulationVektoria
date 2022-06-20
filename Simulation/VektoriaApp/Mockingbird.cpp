@@ -56,7 +56,7 @@ void Mockingbird::update()
 
 	m_particle->setPosition(Todes::Vector3D(X, Y, Z));
 
-	auto scale = Z / (m_bounds.zMin - m_bounds.zMax);
+	auto scale = 2.0f * (1.0f + Z / (m_bounds.zMin - m_bounds.zMax));
 	m_material->Scale(scale, scale, scale);
 }
 

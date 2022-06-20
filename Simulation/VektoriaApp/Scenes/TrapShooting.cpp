@@ -303,7 +303,7 @@ void TrapShooting::checkPigeons()
 
 				if (distanceSq <= radiusSum * radiusSum)
 				{
-					const auto velocityMultiplier = m_mockingbird->getParticle()->getVelocity().Length();
+					const auto velocityMultiplier = 0.1f + m_mockingbird->getParticle()->getVelocity().Length();
 
 					m_score.increase(velocityMultiplier);
 
@@ -333,7 +333,7 @@ void TrapShooting::createPigeon()
 	m_particleWorld->addPlacementParticle(pigeon);
 	m_pigeons.pigeons[i] = pigeon;
 
-	auto velocity = Todes::Random::Float(1.5f, 5.0f);
+	auto velocity = Todes::Random::Float(1.5f, 5.5f);
 	auto force = Todes::Random::Vec3D(1.0f);
 	force.y(0.0f);
 	force.Normalize();

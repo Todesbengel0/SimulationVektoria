@@ -61,7 +61,7 @@ void ClayPigeon::update()
 
 	m_particle->setPosition(Todes::Vector3D(X, Y, Z));
 
-	auto scale = Z / (2.0f * bounds.thickness - bounds.depth);
+	auto scale = 0.5f + Z / (2.0f * bounds.thickness - bounds.depth);
 	m_material->Scale(scale, scale, scale);
 }
 
