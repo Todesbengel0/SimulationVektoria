@@ -1,6 +1,6 @@
 #pragma once
 
-#include "PhysicInterfaces/PhysicsEngineWrapper.h"
+//#include "PhysicInterfaces/PhysicsEngineWrapper.h"
 
 class SimulationScene : public Vektoria::CScene
 {
@@ -44,7 +44,7 @@ protected:
 	Vektoria::CCamera m_camera;
 	Vektoria::CPlacement m_cameraPlacement;
 
-	PhysicsEngineWrapper m_physicsEngine;
+//	PhysicsEngineWrapper m_physicsEngine;
 
 private:
 	// WASD camera movement by game

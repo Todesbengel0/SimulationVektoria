@@ -3,7 +3,6 @@
 #include "Vektoria/Placement.h"
 #include "Vektoria/GeoSphere.h"
 #include "PhysicInterfaces/ParticlePlacementWorld.h"
-#include "R3D/ParticleEngine/ParticleWorld.h"
 
 FirstScene::FirstScene()
 {

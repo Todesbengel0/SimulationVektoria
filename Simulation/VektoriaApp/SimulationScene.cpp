@@ -31,7 +31,7 @@ SimulationScene::~SimulationScene()
 
 void SimulationScene::update(float timeDelta)
 {
-	m_physicsEngine.tick(timeDelta);
+	//m_physicsEngine.tick(timeDelta);
 }
 
 void SimulationScene::reset()
