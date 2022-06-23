@@ -246,9 +246,9 @@ namespace Todes
 		if (totalMass <= 0.0f) return particlesTranslation;
 
 		// Calculate (1 / (m_a + m_b)) * d * n
-		const auto movePerMass = (1.0f / totalMass) * penetrationVector;
-		particlesTranslation.first = firstMass * movePerMass;
-		particlesTranslation.second = -secondMass * movePerMass;
+		const auto movePerMass = penetrationVector / totalMass;
+		particlesTranslation.first = secondMass * movePerMass;
+		particlesTranslation.second = -firstMass * movePerMass;
 
 		// Resolve the interpenetration
 		m_particles[0]->setPosition(m_particles[0]->getPosition() + particlesTranslation.first);

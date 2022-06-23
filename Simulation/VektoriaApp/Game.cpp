@@ -126,11 +126,11 @@ void CGame::initScenes()
 // 	addScene(new CanonScene);
 //	addScene(new FireworkScene);
 // 	addScene(new SpringScene);
-//	addScene(new TyphoonScene);
+	addScene(new TyphoonScene);
 //	addScene(new PendulumScene);
 //	addScene(new SpaceshipScene);
 //	addScene(new SolarSystem);
-	addScene(new TrapShooting);
+//	addScene(new TrapShooting);
 }
 
 void CGame::addScene(SimulationScene* scene)
